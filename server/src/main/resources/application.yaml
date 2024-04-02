@@ -1,0 +1,35 @@
+ktor:
+  development: true
+  deployment:
+    port: "$PORT:8081"
+    shutDownUrl:
+      url: "/appShutDown"
+  application:
+    modules:
+      - dev.reprator.accountbook.ApplicationKt.module
+
+
+storage:
+  driverClassName: "org.postgresql.Driver"
+  databaseName: "$DATABASE_NAME:khatabook"
+  portNumber: "$DATABASE_PORT:5432"
+  serverName: "$DATABASE_SERVER_NAME:localhost"
+  userName: "$DATABASE_USERNAME:postgres"
+  password: "$DATABASE_PASSWORD:vikram90#"
+
+
+secrets:
+  phone:
+      apiKey: $PHONE_EMAIL_API_KEY
+      userId: $PHONE_EMAIL_USER_ID
+
+
+jwt:
+  secret: $JWT_SECRET
+  issuer: "khataBookIssuer"
+  audience: "khatabookAudience"
+  realm: "khatabookRealm"
+
+khatabook:
+  splash:
+    dir: "splashFileDirectory"

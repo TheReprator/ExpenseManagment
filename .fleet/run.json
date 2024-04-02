@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "run server",
+            "type": "gradle",
+            "tasks": [
+                "runFatJar"
+            ],
+            "environment": {
+                "PHONE_EMAIL_API_KEY": "dQzSARrkyBgkLpNKLnswaqnktfC2EvrB7IwiPCLbIUUKJtIj",
+                "PHONE_EMAIL_USER_ID": "Reprator",
+                "JWT_SECRET":"RepratorJWTSecret"
+            },
+        },
+        {
+            "name": "run all test",
+            "type": "gradle",
+            "tasks": [
+                "test"
+            ]
+        }
+    ],
+}
