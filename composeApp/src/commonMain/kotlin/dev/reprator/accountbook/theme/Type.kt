@@ -5,8 +5,10 @@ package dev.reprator.accountbook.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 
-val TiviTypography: Typography
+val AccountBookTypography: Typography
   @Composable get() {
     // Eugh, this is gross but there is no defaultFontFamily property in M3
     val default = Typography()
@@ -18,7 +20,8 @@ val TiviTypography: Typography
       headlineLarge = default.headlineLarge.copy(fontFamily = fontFamily),
       headlineMedium = default.headlineMedium.copy(fontFamily = fontFamily),
       headlineSmall = default.headlineSmall.copy(fontFamily = fontFamily),
-      titleLarge = default.titleLarge.copy(fontFamily = fontFamily),
+      titleLarge = default.titleLarge.copy(fontFamily = fontFamily,   fontWeight = FontWeight.SemiBold,
+                                           fontSize = 16.sp),
       titleMedium = default.titleMedium.copy(fontFamily = fontFamily),
       titleSmall = default.titleSmall.copy(fontFamily = fontFamily),
       bodyLarge = default.bodyLarge.copy(fontFamily = fontFamily),

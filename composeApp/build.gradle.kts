@@ -64,6 +64,7 @@ kotlin {
             implementation(libs.compose.material3.windowsizeclass)
 
             implementation(compose.ui)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(projects.shared)

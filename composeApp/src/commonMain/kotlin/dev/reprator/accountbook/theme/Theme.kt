@@ -8,15 +8,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun TiviTheme(
-  useDarkColors: Boolean = isSystemInDarkTheme(),
+fun AccountBookTheme(
+  useDarkColors: Boolean,
   useDynamicColors: Boolean = false,
   content: @Composable () -> Unit,
 ) {
   MaterialTheme(
     colorScheme = colorScheme(useDarkColors, useDynamicColors),
-    typography = TiviTypography,
-    shapes = TiviShapes,
+    typography = AccountBookTypography,
+    shapes = AccountBookShapes,
     content = content,
   )
 }
