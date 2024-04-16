@@ -16,10 +16,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
     }
 }
 
-include(":composeApp",":shared")
+include(":composeApp")
 
 
 include(":server",":server:modals",":server:lib:commonFeatureImpl",":server:lib:base",

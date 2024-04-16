@@ -1,52 +1,47 @@
 [versions]
-agp = "8.2.0"
+agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 androidx-activityCompose = "1.8.2"
 androidx-appcompat = "1.6.1"
 androidx-material = "1.11.0"
-compose = "1.6.4"
-compose-plugin = "1.6.0"
-kotlin = "1.9.22"
+androidx-lifecycle = "2.8.0-dev1567"
+androidx-navigation = "2.8.0-dev1567"
+compose = "1.6.5"
+compose-plugin = "1.6.2"
+compose-compiler = "1.5.11-kt-2.0.0-RC1"
+composeWindowSize = "0.5.0"
+kotlin = "2.0.0-RC1"
 coroutines = "1.8.0"
-ktor = "2.3.9"
+ktor = "3.0.0-wasm2"
+ktor-plugin = "2.3.9"
+
 logback = "1.5.3"
-
-okhttp = "4.12.0"
 kermit = "2.0.3"
+multiplatformsettings = "1.1.1"
 
-ksp = "1.9.23-1.0.19"
+ksp = "2.0.0-RC1-1.0.20"
 exposedVersion = "0.49.0"
-koin = "3.5.3"
-koin-test = "3.5.3"
+koin = "3.6.0-alpha3"
+koinCompose = "1.2.0-alpha3"
+koin-test = "3.6.0-alpha3"
 junit5 = "5.10.2"
 
 coil = "3.0.0-alpha06"
-circuit = "0.20.0"
-
 
 [libraries]
-
-androidx-core = "androidx.core:core-ktx:1.12.0"
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
-androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-material3-windowsizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "composeWindowSize" }
 
 coil-core = { module = "io.coil-kt.coil3:coil-core", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
-
-circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuit" }
-circuitx-gestureNavigation = { module = "com.slack.circuit:circuitx-gesture-navigation", version.ref = "circuit" }
-circuit-overlay = { module = "com.slack.circuit:circuit-overlay", version.ref = "circuit" }
-circuit-retained = { module = "com.slack.circuit:circuit-retained", version.ref = "circuit" }
-circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = "circuit" }
-
-compose-material3-windowsizeclass = "dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.5.0"
 
 crashkios-crashlytics = "co.touchlab.crashkios:crashlytics:0.8.6"
 
@@ -78,12 +73,15 @@ ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt-jvm", version.re
 
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
+ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+
+multiplatformsettings-core = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformsettings" }
 
 kermit-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
@@ -97,6 +95,8 @@ exposed-postgres = "org.postgresql:postgresql:42.7.3"
 
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 koin-logger = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 test-mockk = "io.mockk:mockk:1.13.10"
 test-coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
@@ -122,6 +122,7 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor-plugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

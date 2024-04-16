@@ -1,6 +1,3 @@
-// Copyright 2020, Google LLC, Christopher Banes and the Tivi project contributors
-// SPDX-License-Identifier: Apache-2.0
-
 package dev.reprator.accountbook.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -9,7 +6,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AccountBookTheme(
-  useDarkColors: Boolean,
+  useDarkColors: Boolean = isSystemInDarkTheme(),
   useDynamicColors: Boolean = false,
   content: @Composable () -> Unit,
 ) {

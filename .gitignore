@@ -5,6 +5,8 @@ xcuserdata
 !src/**/build/
 local.properties
 .idea
+.kotlin
+.gradle
 .DS_Store
 captures
 .externalNativeBuild
