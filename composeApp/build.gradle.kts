@@ -1,8 +1,11 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.gradle.configurationcache.extensions.capitalized
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,38 +13,15 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 kotlin {
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "composeApp"
-                browser {
-                    commonWebpackConfig {
-                        outputFileName = "composeApp.js"
-                        devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                            static = (static ?: mutableListOf()).apply {
-                                // Serve sources to debug inside browser
-                                add(project.projectDir.path)
-                            }
-                        }
-                    }
-                }
-        binaries.executable()
-    }
-
-
-    js{
-        browser()
-        binaries.executable()
-    }
-
-
     androidTarget()
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -52,7 +32,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         languageVersion.set(KOTLIN_2_0)
@@ -73,19 +53,34 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.materialIconsExtended)
             implementation(compose.material3)
-            implementation(libs.compose.material3.windowsizeclass)
             implementation(compose.ui)
-            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
+            implementation(libs.compose.material3.windowsizeclass)
 
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
-            implementation(libs.androidx.navigation.compose)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.core)
+            implementation(libs.coil.network)
+
+            implementation(libs.kotlin.coroutines.core)
+
+            implementation(libs.kmp.datastore.preferences)
+            implementation(libs.kmp.datastore.proto)
+
+            implementation(libs.kotlininject.runtime)
+            implementation(libs.kermit)
+
+            implementation(libs.circuit.runtime)
+            implementation(libs.circuit.foundation)
+            implementation(libs.circuit.overlay)
+            implementation(libs.circuit.retained)
+            implementation(libs.circuitx.gestureNavigation)
+
+            implementation(libs.oidc.appsupport)
+            implementation(libs.oidc.ktor)
         }
 
         androidMain.dependencies {
@@ -93,16 +88,14 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.ktor.client.android)
+            implementation(libs.kotlin.coroutines.android)
         }
-        
+
         desktopMain.dependencies {
             implementation(libs.kotlin.coroutines.swing)
             implementation(compose.desktop.currentOs)
-            implementation(libs.ktor.client.java)
-        }
 
-        jsMain.dependencies {
-            implementation(compose.html.core)
+            implementation(libs.ktor.client.java)
         }
 
         appleMain.dependencies {
@@ -127,16 +120,19 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -168,9 +164,35 @@ compose {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "17"
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+    }
 }
 
 kotlin.sourceSets.all {
     languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
 }
+
+private fun Project.addKspDependencyForAllTargets(
+    configurationNameSuffix: String,
+    dependencyNotation: Any,
+) {
+    val kmpExtension = extensions.getByType<KotlinMultiplatformExtension>()
+    dependencies {
+        kmpExtension.targets
+            .asSequence()
+            .filter { target ->
+                // Don't add KSP for common target, only final platforms
+                target.platformType != KotlinPlatformType.common
+            }
+            .forEach { target ->
+                add(
+                    "ksp${target.targetName.capitalized()}$configurationNameSuffix",
+                    dependencyNotation,
+                )
+            }
+    }
+}
+
+addKspDependencyForAllTargets("", libs.kotlininject.compiler)
