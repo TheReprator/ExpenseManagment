@@ -34,7 +34,7 @@ import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.dsl.withOptions
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import propertyConfig
+import dev.reprator.base_ktor.util.propertyConfig
 
 private const val MILLISECONDS = 1000L
 const val KEY_SERVICE_SHUTDOWN = "shutDownUrl"

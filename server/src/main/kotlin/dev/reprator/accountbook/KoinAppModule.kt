@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.Database
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import propertyConfig
+import dev.reprator.base_ktor.util.propertyConfig
 
 fun koinAppLateInitializationModule() = module {
 

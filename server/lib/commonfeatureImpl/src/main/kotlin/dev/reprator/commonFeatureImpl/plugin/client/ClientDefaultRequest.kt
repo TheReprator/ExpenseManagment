@@ -29,13 +29,13 @@ fun pluginClientDefaultRequest(koin: Koin, httpClientConfig: HttpClientConfig<*>
         }
 
         url {
-            val apiHost = when (providerType) {
+            val apiHost:API_BASE_URL = when (providerType) {
                 APIS.EXTERNAL_OTP_VERIFICATION ->
-                    API_BASE_URL.EXTERNAL_OTP_VERIFICATION.value
+                    API_BASE_URL.EXTERNAL_OTP_VERIFICATION
 
-                else -> API_BASE_URL.INTERNAL_APP.value
+                else -> API_BASE_URL.INTERNAL_APP
             }
-            host = apiHost
+            host = apiHost.value
             port = if (isExternal)
                 0
             else

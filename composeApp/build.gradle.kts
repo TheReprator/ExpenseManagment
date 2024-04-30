@@ -33,11 +33,6 @@ kotlin {
         }
     }
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    compilerOptions {
-        languageVersion.set(KOTLIN_2_0)
-    }
-
     sourceSets {
 
         all {
@@ -72,6 +67,7 @@ kotlin {
 
             implementation(libs.kotlininject.runtime)
             implementation(libs.kermit)
+            implementation(libs.kotlinx.atomicfu)
 
             implementation(libs.circuit.runtime)
             implementation(libs.circuit.foundation)
@@ -81,11 +77,17 @@ kotlin {
 
             implementation(libs.oidc.appsupport)
             implementation(libs.oidc.ktor)
+
+            implementation(libs.kotlinx.serialization)
+            implementation(libs.ktor.client.serialization.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
         }
 
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.browser)
 
             implementation(libs.ktor.client.android)
             implementation(libs.kotlin.coroutines.android)
@@ -100,6 +102,14 @@ kotlin {
 
         appleMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+    }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compilerOptions.configure {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
         }
     }
 }
@@ -119,6 +129,10 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        addManifestPlaceholders(
+            mapOf("oidcRedirectScheme" to "org.publicvalue.multiplatform.oidc.sample")
+        )
     }
 
     packaging {
@@ -137,6 +151,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
@@ -159,8 +174,16 @@ compose.experimental {
 }
 
 compose {
-    kotlinCompilerPlugin.set(libs.versions.compose.compiler)
-    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=${libs.versions.kotlin}")
+    // The Compose Compiler for 1.9.22 works for 1.9.23
+    kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("1.9.22"))
+
+    kotlinCompilerPluginArgs.addAll(
+      // Ignore the 'incompatible' Compose Compiler for 1.9.23
+      "suppressKotlinVersionCompatibilityCheck=1.9.23",
+      // Enable 'strong skipping'
+      // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
+      "experimentalStrongSkipping=true",
+    )
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -193,6 +216,11 @@ private fun Project.addKspDependencyForAllTargets(
                 )
             }
     }
+}
+
+ksp {
+    arg("me.tatarka.inject.generateCompanionExtensions", "true")
+    arg("me.tatarka.inject.dumpGraph", "true")
 }
 
 addKspDependencyForAllTargets("", libs.kotlininject.compiler)
