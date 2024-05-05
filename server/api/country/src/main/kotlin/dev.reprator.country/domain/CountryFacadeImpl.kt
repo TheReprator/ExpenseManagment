@@ -8,9 +8,7 @@ import dev.reprator.modals.country.CountryModal
 class CountryFacadeImpl(private val repository: CountryRepository): CountryFacade {
 
     override suspend fun getAllCountry(): Iterable<CountryModal> {
-        return repository.getAllCountry().ifEmpty {
-            throw CountryEmptyException()
-        }
+        return repository.getAllCountry()
     }
 
     override suspend fun getCountry(id: CountryId): CountryModal {

@@ -21,91 +21,98 @@ import dev.reprator.accountbook.theme.AccountBookTheme
 import dev.reprator.accountbook.utility.LocalWindowSizeClass
 import dev.reprator.accountbook.utility.overlay.LocalNavigator
 import kotlinx.collections.immutable.ImmutableList
-import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 import dev.reprator.accountbook.utility.rememberCoroutineScope
 
-typealias AccountBookContent = @Composable (
-  backstack: SaveableBackStack,
-  navigator: Navigator,
-  onOpenUrl: (String) -> Unit,
-  modifier: Modifier,
-) -> Unit
+interface AccountBookContent {
+    @Composable
+    fun Content(
+        backstack: SaveableBackStack,
+        navigator: Navigator,
+        onOpenUrl: (String) -> Unit,
+        modifier: Modifier,
+    )
+}
+
 
 @Inject
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalCoilApi::class)
-@Composable
-fun AccountBookContent(
-    @Assisted backstack: SaveableBackStack,
-    @Assisted navigator: Navigator,
-    @Assisted onOpenUrl: (String) -> Unit,
-    circuit: Circuit,
-    imageLoader: ImageLoader,
-    logger: Logger,
-    @Assisted modifier: Modifier = Modifier,
-) {
-  val coroutineScope = rememberCoroutineScope()
+class DefaultAccountBookContent(
+    private val circuit: Circuit,
+    private val imageLoader: ImageLoader,
+    private val logger: Logger,
+) : AccountBookContent {
 
-  val accountBookNavigator: Navigator = remember(navigator) {
-    AccountBookNavigator(navigator, backstack, onOpenUrl, logger)
-  }
-
-  setSingletonImageLoaderFactory { imageLoader }
-
-    CompositionLocalProvider(
-      LocalNavigator provides accountBookNavigator,
-      LocalWindowSizeClass provides calculateWindowSizeClass(),
-      LocalRetainedStateRegistry provides continuityRetainedStateRegistry(),
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalCoilApi::class)
+    @Composable
+    override fun Content(
+        backstack: SaveableBackStack,
+        navigator: Navigator,
+        onOpenUrl: (String) -> Unit,
+        modifier: Modifier,
     ) {
-      CircuitCompositionLocals(circuit) {
-        var isDark by remember {
-            mutableStateOf(true)
-          }
-        
-          AccountBookTheme(
-            useDarkColors = isDark,
-            useDynamicColors = false
-        ) {
-          Home(
-            backStack = backstack,
-            navigator = accountBookNavigator,
-            modifier = modifier,
-          )
+        val coroutineScope = rememberCoroutineScope()
+
+        val accountBookNavigator: Navigator = remember(navigator) {
+            AccountBookNavigator(navigator, backstack, onOpenUrl, logger)
         }
-      }
+
+        setSingletonImageLoaderFactory { imageLoader }
+
+        CompositionLocalProvider(
+            LocalNavigator provides accountBookNavigator,
+            LocalWindowSizeClass provides calculateWindowSizeClass(),
+            LocalRetainedStateRegistry provides continuityRetainedStateRegistry(),
+        ) {
+            CircuitCompositionLocals(circuit) {
+                var isDark by remember {
+                    mutableStateOf(true)
+                }
+
+                AccountBookTheme(
+                    useDarkColors = isDark,
+                    useDynamicColors = false
+                ) {
+                    Home(
+                        backStack = backstack,
+                        navigator = accountBookNavigator,
+                        modifier = modifier,
+                    )
+                }
+            }
+        }
     }
 }
 
 private class AccountBookNavigator(
-  private val navigator: Navigator,
-  private val backStack: SaveableBackStack,
-  private val onOpenUrl: (String) -> Unit,
-  private val logger: Logger,
+    private val navigator: Navigator,
+    private val backStack: SaveableBackStack,
+    private val onOpenUrl: (String) -> Unit,
+    private val logger: Logger,
 ) : Navigator {
-  override fun goTo(screen: Screen) {
-    logger.d { "goTo. Screen: $screen. Current stack: ${backStack.toList()}" }
+    override fun goTo(screen: Screen) {
+        logger.d { "goTo. Screen: $screen. Current stack: ${backStack.toList()}" }
 
-    when (screen) {
-      is UrlScreen -> onOpenUrl(screen.url)
-      else -> navigator.goTo(screen)
+        when (screen) {
+            is UrlScreen -> onOpenUrl(screen.url)
+            else -> navigator.goTo(screen)
+        }
     }
-  }
 
-  override fun pop(result: PopResult?): Screen? {
-    logger.d { "pop. Current stack: ${backStack.toList()}" }
-    return navigator.pop(result)
-  }
+    override fun pop(result: PopResult?): Screen? {
+        logger.d { "pop. Current stack: ${backStack.toList()}" }
+        return navigator.pop(result)
+    }
 
-  override fun resetRoot(
-    newRoot: Screen,
-    saveState: Boolean,
-    restoreState: Boolean,
-  ): ImmutableList<Screen> {
-    logger.d { "resetRoot: newRoot:$newRoot. Current stack: ${backStack.toList()}" }
-    return navigator.resetRoot(newRoot, saveState, restoreState)
-  }
+    override fun resetRoot(
+        newRoot: Screen,
+        saveState: Boolean,
+        restoreState: Boolean,
+    ): ImmutableList<Screen> {
+        logger.d { "resetRoot: newRoot:$newRoot. Current stack: ${backStack.toList()}" }
+        return navigator.resetRoot(newRoot, saveState, restoreState)
+    }
 
-  override fun peek(): Screen? = navigator.peek()
+    override fun peek(): Screen? = navigator.peek()
 
-  override fun peekBackStack(): ImmutableList<Screen> = navigator.peekBackStack()
+    override fun peekBackStack(): ImmutableList<Screen> = navigator.peekBackStack()
 }

@@ -12,14 +12,17 @@ suspend inline fun <reified T> HttpClient.safeRequest(
         val response = request { block() }
         Result.success(response.body())
     } catch (exception: ClientRequestException) {
-        println("vikramTest:: ApiError:: ClientRequestException:: "+ exception.response.body())
-        Result.failure(AppErrorException(message="my ClientRequestException"))
+        println("vikramTest:: ApiError:: ClientRequestException:: " + exception.response.body())
+        Result.failure(exception)
+    } catch (exception: AppErrorException) {
+        println("vikramTest:: ApiError:: AppErrorException:: " + exception.message)
+        Result.failure(exception)
     } catch (e: Exception) {
-        println("vikramTest:: ApiError:: "+ e.message)
-        Result.failure(AppErrorException(message="Something went wrong"))
+        println("vikramTest:: ApiError:: " + e.message)
+        Result.failure(AppErrorException(message = "Something went wrong"))
     }
 
 
 class AppErrorException(
-    val statusCode: Int =-1, override val message: String 
+    val statusCode: Int = -1, override val message: String
 ) : Exception() 

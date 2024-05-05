@@ -3,7 +3,7 @@ import SwiftUI
 import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
-   private let component: HomeUiControllerComponent
+    private let component: HomeUiControllerComponent
 
     init(component: HomeUiControllerComponent) {
         self.component = component
@@ -13,7 +13,8 @@ struct ComposeView: UIViewControllerRepresentable {
         return component.uiViewControllerFactory()
     }
 
-    func updateUIViewController(_: UIViewController, context _: Context) {}
+    func updateUIViewController(_: UIViewController, context _: Context) {
+    }
 }
 
 struct ContentView: View {
@@ -25,7 +26,8 @@ struct ContentView: View {
 
     var body: some View {
         ComposeView(component: self.component)
-            .ignoresSafeArea(.all, edges: .all)
+            .ignoresSafeArea(.keyboard)
+        // .ignoresSafeArea(.all, edges: .all)
     }
 }
 

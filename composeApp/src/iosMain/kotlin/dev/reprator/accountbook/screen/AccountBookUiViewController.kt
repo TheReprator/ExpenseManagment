@@ -16,19 +16,19 @@ typealias AccountBookUiViewController = () -> UIViewController
 @Inject
 @Suppress("ktlint:standard:function-naming")
 fun AccountBookUiViewController(
-  accountBookContent: AccountBookContent,
+    accountBookContent: AccountBookContent,
 ): UIViewController = ComposeUIViewController {
-  val backstack = rememberSaveableBackStack(listOf(SplashScreen))
-  val navigator = rememberCircuitNavigator(backstack, onRootPop = { /* no-op */ })
-  val uiViewController = LocalUIViewController.current
+    val backstack = rememberSaveableBackStack(listOf(SplashScreen))
+    val navigator = rememberCircuitNavigator(backstack, onRootPop = { /* no-op */ })
+    val uiViewController = LocalUIViewController.current
 
-  accountBookContent(
-    backstack,
-    navigator,
-    { url ->
-      val safari = SFSafariViewController(NSURL(string = url))
-      uiViewController.presentViewController(safari, animated = true, completion = null)
-    },
-    Modifier,
-  )
+    accountBookContent.Content(
+        backstack,
+        navigator,
+        { url ->
+            val safari = SFSafariViewController(NSURL(string = url))
+            uiViewController.presentViewController(safari, animated = true, completion = null)
+        },
+        Modifier,
+    )
 }

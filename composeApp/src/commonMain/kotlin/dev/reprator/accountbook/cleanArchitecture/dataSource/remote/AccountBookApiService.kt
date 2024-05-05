@@ -11,18 +11,17 @@ import me.tatarka.inject.annotations.Inject
 class ApiService(private val httpClient: HttpClient) {
 
     companion object {
-        private const val END_POINT = "https://api.quotable.io/"
+        const val END_POINT = "0.0.0.0:8081"
         private const val ENDPOINT_SPLASH = "splash"
     }
 
     @Inject
-    suspend fun splashData(): Result<ResultDTOResponse<EntitySplash>> {
-        return httpClient.safeRequest<ResultDTOResponse<EntitySplash>> {
+    suspend fun splashData(): Result<EntitySplash> {
+        return httpClient.safeRequest<EntitySplash> {
             url {
                 method = HttpMethod.Get
-                path("$END_POINT$ENDPOINT_SPLASH")
+                path(ENDPOINT_SPLASH)
             }
-            contentType(ContentType.Application.Json)
         }
     }
 }

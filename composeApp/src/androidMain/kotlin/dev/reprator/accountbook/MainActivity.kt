@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
             val backstack = rememberSaveableBackStack(listOf(SplashScreen))
             val navigator = rememberCircuitNavigator(backstack)
 
-            component.accountBookContent(
+            component.tiviContent.accountBookContent(
                 backstack,
                 navigator,
                 { url ->

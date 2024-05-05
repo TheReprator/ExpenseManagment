@@ -36,38 +36,37 @@ import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.runtime.Navigator
-import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import dev.reprator.accountbook.utility.LocalWindowSizeClass
 
 @Composable
 internal fun Home(
-  backStack: SaveableBackStack,
-  navigator: Navigator,
-  modifier: Modifier = Modifier,
+    backStack: SaveableBackStack,
+    navigator: Navigator,
+    modifier: Modifier = Modifier,
 ) {
-  val windowSizeClass = LocalWindowSizeClass.current
+    val windowSizeClass = LocalWindowSizeClass.current
 
-  val rootScreen by remember(backStack) {
-    derivedStateOf { backStack.last().screen }
-  }
-
-  Scaffold {
-    Row(modifier = Modifier.fillMaxSize()) {
-      ContentWithOverlays(
-        modifier = Modifier
-          .weight(1f)
-          .fillMaxHeight(),
-      ) {
-        NavigableCircuitContent(
-          navigator = navigator,
-          backStack = backStack,
-          decoration = remember(navigator) {
-            GestureNavigationDecoration(onBackInvoked = navigator::pop)
-          },
-          modifier = Modifier.fillMaxSize(),
-        )
-      }
+    val rootScreen by remember(backStack) {
+        derivedStateOf { backStack.last().screen }
     }
-  }
+
+    Scaffold {
+        Row(modifier = Modifier.fillMaxSize()) {
+            ContentWithOverlays(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+            ) {
+                NavigableCircuitContent(
+                    navigator = navigator,
+                    backStack = backStack,
+                    decoration = remember(navigator) {
+                        GestureNavigationDecoration(onBackInvoked = navigator::pop)
+                    },
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
+        }
+    }
 }

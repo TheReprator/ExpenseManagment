@@ -13,7 +13,7 @@ class SplashRemoteDataSourceImpl(private val apiService: ApiService, private val
         val apiResult = apiService.splashData()
 
         if (apiResult.isSuccess) {
-            val data = apiResult.getOrNull()!!.data
+            val data = apiResult.getOrNull()!!
             return mapperSplash.map(data)
         }
 

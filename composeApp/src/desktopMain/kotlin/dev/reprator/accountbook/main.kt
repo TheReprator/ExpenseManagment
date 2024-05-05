@@ -13,30 +13,30 @@ import dev.reprator.accountbook.di.create
 import dev.reprator.accountbook.screen.navigation.SplashScreen
 
 fun main() = application {
-  val applicationComponent = remember {
-    DesktopApplicationComponent.create()
-  }
-
-  LaunchedEffect(applicationComponent) {
-    applicationComponent.initializers.initialize()
-  }
-
-  Window(
-    title = "AccountBook",
-    onCloseRequest = ::exitApplication,
-  ) {
-    val component = remember(applicationComponent) {
-      WindowComponent.create(applicationComponent)
+    val applicationComponent = remember {
+        DesktopApplicationComponent.create()
     }
 
-    val backstack = rememberSaveableBackStack(listOf(SplashScreen))
-    val navigator = rememberCircuitNavigator(backstack) { /* no-op */ }
+    LaunchedEffect(applicationComponent) {
+        applicationComponent.initializers.initialize()
+    }
 
-    component.accountBookContent(
-      backstack,
-      navigator,
-      { /* no-op for now */ },
-      Modifier,
-    )
-  }
+    Window(
+        title = "AccountBook",
+        onCloseRequest = ::exitApplication,
+    ) {
+        val component = remember(applicationComponent) {
+            WindowComponent.create(applicationComponent)
+        }
+
+        val backstack = rememberSaveableBackStack(listOf(SplashScreen))
+        val navigator = rememberCircuitNavigator(backstack) { /* no-op */ }
+
+        component.accountBookContent.Content(
+            backstack,
+            navigator,
+            { /* no-op for now */ },
+            Modifier,
+        )
+    }
 }

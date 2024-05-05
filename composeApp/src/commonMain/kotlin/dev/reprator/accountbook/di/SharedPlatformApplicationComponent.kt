@@ -23,6 +23,7 @@ interface SharedApplicationComponent : SharedPlatformApplicationComponent, Splas
     @Provides
     fun provideJson(): Json = Json {
         isLenient = true
+        encodeDefaults = true
         ignoreUnknownKeys = true
         useAlternativeNames = false
         explicitNulls = false

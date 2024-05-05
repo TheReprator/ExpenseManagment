@@ -4,7 +4,7 @@ import dev.reprator.base.beans.ERROR_DESCRIPTION_NOT_FOUND
 import dev.reprator.base.beans.ERROR_DESCRIPTION_UNKNOWN
 import dev.reprator.base.usecase.FailDTOResponse
 import dev.reprator.base_ktor.exception.StatusCodeException
-import io.ktor.server.response.*
+import dev.reprator.base_ktor.util.respondWithError
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -13,18 +13,12 @@ fun Application.configureStatusPage() {
 
     install(StatusPages) {
         exception<Throwable> { call, cause ->
-            if (cause is StatusCodeException)
-            {
-                call.respond(HttpStatusCode(cause.statusCode.value , ""),
-                    FailDTOResponse(cause.statusCode.value, cause.message.orEmpty())
-                )
-            }
-            else {
-                call.respond(
-                    HttpStatusCode(HttpStatusCode.InternalServerError.value, ""),
-                    FailDTOResponse(HttpStatusCode.InternalServerError.value, "500: ${cause.message}")
-                )
-            }
+            val errorResponse = if (cause is StatusCodeException)
+                FailDTOResponse(cause.statusCode.value, cause.message.orEmpty())
+            else
+                FailDTOResponse(HttpStatusCode.InternalServerError.value, "500: ${cause.message}")
+
+            call.respondWithError(errorResponse)
         }
 
         status(HttpStatusCode.NotFound, HttpStatusCode.Forbidden) { call, status ->
@@ -32,8 +26,7 @@ fun Application.configureStatusPage() {
                 HttpStatusCode.NotFound -> ERROR_DESCRIPTION_NOT_FOUND
                 else -> ERROR_DESCRIPTION_UNKNOWN
             }
-            call.respond(HttpStatusCode(status.value , ""),
-                FailDTOResponse(status.value, message))
+            call.respondWithError(FailDTOResponse(status.value, message))
         }
     }
 }
