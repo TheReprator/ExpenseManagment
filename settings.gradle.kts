@@ -28,7 +28,20 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
+include(
+    ":appModules:base",
+    ":appModules:navigation",
+    ":appModules:base-ui",
+    ":appModules:appFeatures:api",
+    ":appModules:appFeatures:impl",
+    ":appModules:ui:root",
+    ":appModules:ui:splash",
+    ":appModules:sharedFlavour:common",
+    ":appModules:sharedFlavour:prod",
+    ":appModules:sharedFlavour:qa",
+    ":android-app:app",
+    ":desktop-app"
+)
 
 
 include(

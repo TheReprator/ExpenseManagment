@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "run server",
+            "name": "Server",
             "type": "gradle",
             "tasks": [
                 "runFatJar"
@@ -9,15 +9,39 @@
             "environment": {
                 "PHONE_EMAIL_API_KEY": "dQzSARrkyBgkLpNKLnswaqnktfC2EvrB7IwiPCLbIUUKJtIj",
                 "PHONE_EMAIL_USER_ID": "Reprator",
-                "JWT_SECRET":"RepratorJWTSecret"
+                "JWT_SECRET": "RepratorJWTSecret"
             },
         },
         {
-            "name": "run all test",
+            "name": "Test",
             "type": "gradle",
             "tasks": [
                 "test"
             ]
+        },
+        {
+            "name": "Androd app",
+            "type": "android-app",
+            "workingDir": "$PROJECT_DIR$",
+            "allowParallelRun": true,
+            "module": "AccountBook-KMP.android-app.app.main"
+        },
+        {
+            "name": "Desktop",
+            "type": "gradle",
+            "workingDir": "$PROJECT_DIR$",
+            "tasks": [
+                "jvmRun"
+            ],
+            "args": [
+                "-DmainClass=dev.reprator.accountbook.MainKt",
+                "--quiet",
+                "-p",
+                "$PROJECT_DIR$/desktop-app"
+            ],
+            "initScripts": {
+                "flmapper": "ext.mapPath = { path -> null }"
+            }
         }
     ],
 }
