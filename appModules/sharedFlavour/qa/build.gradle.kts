@@ -23,9 +23,9 @@ kotlin {
     androidTarget()
     jvm("desktop")
 
-   /* //iosX64()
+    //iosX64()
     iosArm64()
-    iosSimulatorArm64()*/
+    iosSimulatorArm64()
 
     targets.withType<KotlinNativeTarget>().configureEach {
         binaries.configureEach {
@@ -88,6 +88,16 @@ kotlin {
         commonMain.dependencies {
             api(projects.appModules.sharedFlavour.common)
         }
+
+        targets.withType<KotlinNativeTarget>().configureEach {
+            binaries.framework {
+                isStatic = true
+                baseName = "AccounBookKt"
+
+                export(projects.appModules.ui.root)
+                export(projects.appModules.appFeatures.api)
+            }
+        }
     }
 }
 
@@ -116,7 +126,7 @@ tasks.matching { it is AndroidLintAnalysisTask || it is LintModelWriterTask }.co
 }
 
 android {
-    namespace = "dev.reprator.common.qa"
+    namespace = "dev.reprator.accountbook.qa"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 }
 

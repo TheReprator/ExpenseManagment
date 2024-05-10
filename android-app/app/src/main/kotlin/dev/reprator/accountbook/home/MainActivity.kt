@@ -21,9 +21,9 @@ import com.slack.circuit.foundation.rememberCircuitNavigator
 import dev.reprator.accountbook.AccountbookActivity
 import dev.reprator.accountbook.AccountbookApplication
 import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
-import dev.reprator.common.qa.inject.AndroidActivityComponent
-import dev.reprator.common.qa.inject.AndroidApplicationComponent
-import dev.reprator.common.qa.inject.create
+import dev.reprator.accountbook.inject.AndroidActivityComponent
+import dev.reprator.accountbook.inject.AndroidApplicationComponent
+import dev.reprator.accountbook.inject.create
 import dev.reprator.screens.SplashScreen
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

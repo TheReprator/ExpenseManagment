@@ -10,12 +10,6 @@ kotlin {
 
     jvm()
 
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
-        }
-    }
-
     sourceSets {
 
         jvmMain.dependencies {
@@ -37,21 +31,5 @@ compose.desktop {
             packageName = "dev.reprator.accountbook"
             packageVersion = "1.0.0"
         }
-    }
-}
-
-composeCompiler {
-    // Enable 'strong skipping'
-    // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
-    enableStrongSkippingMode.set(true)
-
-    // Needed for Layout Inspector to be able to see all of the nodes in the component tree:
-    //https://issuetracker.google.com/issues/338842143
-    includeSourceInformation.set(true)
-
-    if (project.providers.gradleProperty("accountbook.enableComposeCompilerReports").isPresent) {
-        val composeReports = layout.buildDirectory.map { it.dir("reports").dir("compose") }
-        reportsDestination.set(composeReports)
-        metricsDestination.set(composeReports)
     }
 }

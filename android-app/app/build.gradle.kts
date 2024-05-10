@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -63,7 +64,6 @@ android {
             signingConfig = signingConfigs.findByName("release") ?: signingConfigs["debug"]
             isShrinkResources = true
             isMinifyEnabled = true
-            proguardFiles("proguard-rules.pro")
         }
     }
 
@@ -73,7 +73,7 @@ android {
             dimension = "mode"
             // This is a build with Chucker enabled
             proguardFiles("proguard-rules-chucker.pro")
-            versionNameSuffix = "-qa"
+            versionNameSuffix = ".qa"
         }
 
         create("standard") {

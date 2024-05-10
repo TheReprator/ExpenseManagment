@@ -1,18 +1,12 @@
-import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
-import com.android.build.gradle.internal.lint.LintModelWriterTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
-import org.gradle.configurationcache.extensions.capitalized
 
 plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -98,59 +92,8 @@ kotlin {
     }
 }
 
-composeCompiler {
-    // Enable 'strong skipping'
-    // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
-    enableStrongSkippingMode.set(true)
-
-    // Needed for Layout Inspector to be able to see all of the nodes in the component tree:
-    //https://issuetracker.google.com/issues/338842143
-    includeSourceInformation.set(true)
-
-    if (project.providers.gradleProperty("accountbook.enableComposeCompilerReports").isPresent) {
-        val composeReports = layout.buildDirectory.map { it.dir("reports").dir("compose") }
-        reportsDestination.set(composeReports)
-        metricsDestination.set(composeReports)
-    }
-}
-
-// Workaround for:
-// Task 'generateDebugUnitTestLintModel' uses this output of task
-// 'generateResourceAccessorsForAndroidUnitTest' without declaring an explicit or
-// implicit dependency.
-tasks.matching { it is AndroidLintAnalysisTask || it is LintModelWriterTask }.configureEach {
-    mustRunAfter(tasks.matching { it.name.startsWith("generateResourceAccessorsFor") })
-}
-
 android {
-    namespace = "dev.reprator.common"
+    namespace = "dev.reprator.accountbook.common"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 }
-
-ksp {
-    arg("me.tatarka.inject.generateCompanionExtensions", "true")
-}
-
-private fun Project.addKspDependencyForAllTargets(
-    configurationNameSuffix: String,
-    dependencyNotation: Any,
-) {
-    val kmpExtension = extensions.getByType<KotlinMultiplatformExtension>()
-    dependencies {
-        kmpExtension.targets
-            .asSequence()
-            .filter { target ->
-// Don't add KSP for common target, only final platforms
-                target.platformType != KotlinPlatformType.common
-            }
-            .forEach { target ->
-                add(
-                    "ksp${target.targetName.capitalized()}$configurationNameSuffix",
-                    dependencyNotation,
-                )
-            }
-    }
-}
-
-addKspDependencyForAllTargets("", libs.kotlininject.compiler)
 

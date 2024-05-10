@@ -7,9 +7,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.rememberCircuitNavigator
-import dev.reprator.common.qa.inject.DesktopApplicationComponent
-import dev.reprator.common.qa.inject.WindowComponent
-import dev.reprator.common.qa.inject.create
+import dev.reprator.accountbook.inject.DesktopApplicationComponent
+import dev.reprator.accountbook.inject.WindowComponent
+import dev.reprator.accountbook.inject.create
 import dev.reprator.screens.SplashScreen
 
 fun main() = application {

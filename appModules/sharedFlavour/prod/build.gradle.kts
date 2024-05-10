@@ -96,9 +96,8 @@ kotlin {
                 isStatic = true
                 baseName = "AccounBookKt"
 
-//                export(projects.ui.root)
-//                export(projects.core.analytics)
-//                export(projects.data.traktauth)
+                export(projects.appModules.ui.root)
+                export(projects.appModules.appFeatures.api)
             }
         }
     }
@@ -129,7 +128,7 @@ tasks.matching { it is AndroidLintAnalysisTask || it is LintModelWriterTask }.co
 }
 
 android {
-    namespace = "dev.reprator.common.prod"
+    namespace = "dev.reprator.accountbook.prod"
 
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 }

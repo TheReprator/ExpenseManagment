@@ -5,8 +5,8 @@ import android.os.Build
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
-import dev.reprator.common.qa.inject.AndroidApplicationComponent
-import dev.reprator.common.qa.inject.create
+import dev.reprator.accountbook.inject.AndroidApplicationComponent
+import dev.reprator.accountbook.inject.create
 
 class AccountbookApplication : Application() {
     val component: AndroidApplicationComponent by lazy {
