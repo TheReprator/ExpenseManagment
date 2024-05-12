@@ -1,13 +1,15 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
 import com.android.build.gradle.internal.lint.LintModelWriterTask
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.gms.googleServices)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -34,12 +36,10 @@ android {
         }
 
         create("release") {
-            if (rootProject.file("release/app-release.jks").exists()) {
-                storeFile = rootProject.file("release/app-release.jks")
-                storePassword = properties["ACCOUNTBOOK_RELEASE_KEYSTORE_PWD"]?.toString() ?: ""
-                keyAlias = "accountbook"
-                keyPassword = properties["ACCOUNTBOOK_RELEASE_KEY_PWD"]?.toString() ?: ""
-            }
+            storeFile = rootProject.file("release/app-debug.jks")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
         }
     }
 
@@ -57,13 +57,20 @@ android {
         debug {
             signingConfig = signingConfigs["debug"]
             versionNameSuffix = "-dev"
-            applicationIdSuffix = ".debug"
+            proguardFiles("proguard-rules.pro")
+
+            configure<CrashlyticsExtension> {
+                mappingFileUploadEnabled = true
+            }
         }
 
         release {
             signingConfig = signingConfigs.findByName("release") ?: signingConfigs["debug"]
             isShrinkResources = true
             isMinifyEnabled = true
+            proguardFiles("proguard-rules.pro")
+
+            the<CrashlyticsExtension>().mappingFileUploadEnabled = false
         }
     }
 
@@ -71,9 +78,7 @@ android {
     productFlavors {
         create("qa") {
             dimension = "mode"
-            // This is a build with Chucker enabled
-            proguardFiles("proguard-rules-chucker.pro")
-            versionNameSuffix = ".qa"
+            applicationIdSuffix = ".qa"
         }
 
         create("standard") {
@@ -167,11 +172,6 @@ composeCompiler {
 // implicit dependency.
 tasks.matching { it is AndroidLintAnalysisTask || it is LintModelWriterTask }.configureEach {
     mustRunAfter(tasks.matching { it.name.startsWith("generateResourceAccessorsFor") })
-}
-
-if (file("google-services.json").exists()) {
-    apply(plugin = libs.plugins.gms.googleServices.get().pluginId)
-    apply(plugin = libs.plugins.firebase.crashlytics.get().pluginId)
 }
 
 fun DependencyHandler.qaImplementation(dependencyNotation: Any) =
