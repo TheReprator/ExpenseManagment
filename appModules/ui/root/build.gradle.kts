@@ -37,7 +37,6 @@ kotlin {
                 implementation(projects.appModules.baseUi)
                 implementation(projects.appModules.navigation)
 
-                implementation(libs.circuit.foundation)
                 implementation(libs.circuit.retained)
                 implementation(libs.circuitx.gestureNavigation)
                 implementation(libs.circuit.overlay)

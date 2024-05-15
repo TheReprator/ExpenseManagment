@@ -72,6 +72,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlin.coroutines.core)
             api(libs.kotlinx.datetime)
+            api(libs.kotlinx.serialization)
         }
 
     }

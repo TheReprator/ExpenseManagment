@@ -2,14 +2,16 @@ package dev.reprator.baseUi.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.produceState
 import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
 
 @Composable
 fun AccountbookPreferences.shouldUseDarkColors(): Boolean {
-    val themePreference = remember { observeTheme() }
-        .collectAsState(initial = AccountbookPreferences.Theme.SYSTEM)
+
+    val themePreference =
+        produceState<AccountbookPreferences.Theme>(initialValue = AccountbookPreferences.Theme.SYSTEM) {
+            observeTheme()
+        }
 
     return when (themePreference.value) {
         AccountbookPreferences.Theme.LIGHT -> false
@@ -20,7 +22,7 @@ fun AccountbookPreferences.shouldUseDarkColors(): Boolean {
 
 @Composable
 fun AccountbookPreferences.shouldUseDynamicColors(): Boolean {
-    return remember { observeUseDynamicColors() }
-        .collectAsState(initial = true)
-        .value
+    return produceState(initialValue = true) {
+        observeUseDynamicColors()
+    }.value
 }

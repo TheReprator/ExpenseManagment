@@ -13,7 +13,7 @@ actual interface SharedPlatformApplicationComponent {
     fun provideApplicationId(
         flavor: Flavor,
     ): ApplicationInfo = ApplicationInfo(
-        packageName = "app.tivi",
+        packageName = "dev.reprator.accountbook",
         debugBuild = true,
         flavor = flavor,
         versionName = "1.0.0",

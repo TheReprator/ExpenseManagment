@@ -8,6 +8,7 @@ import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import dev.reprator.accountbook.splash.domain.usecase.SplashUseCase
 import dev.reprator.core.util.onException
+import dev.reprator.screens.SettingsScreen
 import dev.reprator.screens.SplashScreen
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
@@ -60,6 +61,8 @@ class AccountPresenter(
                 SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
                     print("Splash presenter error: navigate")
                 }
+
+                SplashUiEvent.NavigateLToSettings -> navigator.goTo(SettingsScreen)
             }
         }
     }

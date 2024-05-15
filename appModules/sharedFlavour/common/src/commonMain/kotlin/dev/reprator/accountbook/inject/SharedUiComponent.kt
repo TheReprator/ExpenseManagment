@@ -5,12 +5,13 @@ import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.ui.Ui
 import dev.reprator.accountbook.home.RootUiComponent
 import dev.reprator.accountbook.splash.SplashComponent
+import dev.reprator.accountbook.settings.SettingsComponent
 import dev.reprator.core.inject.ActivityScope
 import me.tatarka.inject.annotations.Provides
 
 interface SharedUiComponent :
     RootUiComponent,
-    SplashComponent {
+    SplashComponent, SettingsComponent {
 
     @Provides
     @ActivityScope

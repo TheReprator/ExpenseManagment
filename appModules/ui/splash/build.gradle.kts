@@ -43,8 +43,6 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.resources)
-
-                implementation(libs.kotlinx.serialization)
             }
         }
     }

@@ -46,7 +46,7 @@ internal fun SplashUi(
 
     SplashUi(
         viewState = state,
-        login = { eventSink(SplashUiEvent.NavigateToLogin) },
+        login = { eventSink(SplashUiEvent.NavigateLToSettings) },
         modifier = modifier,
     )
 }
@@ -61,6 +61,7 @@ internal fun SplashUi(
 
     Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
+            login()
             showContent = !showContent
 
         }, Modifier.background(MaterialTheme.colorScheme.primary)) {

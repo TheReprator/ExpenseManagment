@@ -7,5 +7,5 @@ import me.tatarka.inject.annotations.Provides
 actual interface AnalyticsPlatformComponent {
     @ApplicationScope
     @Provides
-    fun provideTiviFirebaseAnalytics(bind: AccountBookFirebaseAnalytics): Analytics = bind
+    fun provideAccountBookFirebaseAnalytics(bind: AccountBookFirebaseAnalytics): Analytics = bind
 }

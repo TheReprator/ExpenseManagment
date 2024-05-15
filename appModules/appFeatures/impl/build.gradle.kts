@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
 plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -23,7 +24,6 @@ kotlin {
     //iosX64()
     iosArm64()
     iosSimulatorArm64()
-
 
     targets.withType<KotlinNativeTarget>().configureEach {
         binaries.configureEach {
@@ -75,34 +75,54 @@ kotlin {
 
     sourceSets {
 
-        val desktopMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.appModules.base)
+                implementation(projects.appModules.appFeatures.api)
 
-        commonMain.dependencies {
-            implementation(projects.appModules.base)
-            implementation(projects.appModules.appFeatures.api)
+                implementation(libs.kotlin.coroutines.core)
 
-            api(libs.multiplatformsettings.core)
-            api(libs.multiplatformsettings.coroutines)
+                api(libs.kstore)
 
-            implementation(libs.kermit)
-            implementation(libs.kotlininject.runtime)
+                implementation(libs.kermit)
+                implementation(libs.kotlininject.runtime)
+            }
         }
 
-        androidMain.dependencies {
-            implementation(libs.google.firebase.analytics)
-            implementation(libs.kotlininject.runtime)
-
-            implementation(libs.crashkios.crashlytics)
-            implementation(libs.google.firebase.crashlytics)
-            implementation(libs.timber)
-
-            implementation(libs.google.firebase.perf)
-
-            implementation(libs.androidx.core)
+        val mobileDesktopMain by creating {
+            dependencies {
+                dependsOn(commonMain)
+                implementation(libs.kstore.file)
+            }
         }
 
-        appleMain.dependencies {
-            implementation(libs.crashkios.crashlytics)
+        val desktopMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+                implementation(libs.google.firebase.analytics)
+                implementation(libs.kotlininject.runtime)
+
+                implementation(libs.crashkios.crashlytics)
+                implementation(libs.google.firebase.crashlytics)
+                implementation(libs.timber)
+
+                implementation(libs.google.firebase.perf)
+
+                implementation(libs.androidx.core)
+            }
+        }
+
+        val appleMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+                implementation(libs.crashkios.crashlytics)
+            }
         }
     }
 }

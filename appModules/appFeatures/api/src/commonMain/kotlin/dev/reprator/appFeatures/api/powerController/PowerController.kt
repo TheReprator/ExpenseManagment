@@ -1,7 +1,5 @@
 package dev.reprator.appFeatures.api.powerController
 
-import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
-
 interface PowerController {
     suspend fun shouldSaveData(): SaveData
 }

@@ -13,4 +13,6 @@ sealed interface SplashUiEvent : CircuitUiEvent {
     object Reload : SplashUiEvent
     object NavigateToDashBoard : SplashUiEvent
     object NavigateToLogin : SplashUiEvent
+
+    data object NavigateLToSettings : SplashUiEvent
 }
