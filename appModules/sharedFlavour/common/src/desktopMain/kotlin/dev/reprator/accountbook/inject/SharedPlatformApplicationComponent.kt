@@ -19,7 +19,11 @@ actual interface SharedPlatformApplicationComponent {
         versionName = "1.0.0",
         versionCode = 1,
         cachePath = { getCacheDir().absolutePath },
-    )
+    ).also {
+        val dir = File(it.cachePath())
+        if(!dir.exists())
+            dir.mkdirs()
+    }
 
     @ApplicationScope
     @Provides

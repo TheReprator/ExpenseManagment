@@ -41,35 +41,36 @@ class SettingsPresenter(
     @Composable
     override fun present(): SettingsUiState {
 
-        val themePreference = produceState(initialValue = AccountbookPreferences.Theme.SYSTEM) {
-            settings.observeTheme()
+        val theme by produceState(initialValue = AccountbookPreferences.Theme.SYSTEM) {
+            settings.observeTheme().collect {
+                value = it
+            }
         }
 
-        val theme by remember { themePreference }
-
-        val useDynamicColorPreference = produceState(initialValue = false) {
-            settings.observeUseDynamicColors()
+        val useDynamicColors by produceState(initialValue = false) {
+            settings.observeUseDynamicColors().collect {
+                value = it
+            }
         }
 
-        val useDynamicColors by remember { useDynamicColorPreference }
-
-        val useLessDataPreference = produceState(initialValue = false) {
-            settings.observeUseLessData()
+        val useLessData by produceState(initialValue = false) {
+            settings.observeUseLessData().collect {
+                value = it
+            }
         }
 
-        val useLessData by remember { useLessDataPreference }
-
-        val crashDataReportingEnabledPreference = produceState(initialValue = true) {
-            settings.observeReportAppCrashes()
+        val crashDataReportingEnabled by produceState(initialValue = true) {
+            settings.observeReportAppCrashes().collect {
+                value = it
+            }
         }
 
-        val crashDataReportingEnabled by remember { crashDataReportingEnabledPreference }
 
-        val analyticsPreference = produceState(initialValue = true) {
-            settings.observeReportAppCrashes()
+        val analyticsDataReportingEnabled by produceState(initialValue = true) {
+            settings.observeReportAnalytics().collect {
+                value = it
+            }
         }
-
-        val analyticsDataReportingEnabled by remember { analyticsPreference }
 
         val coroutineScope = rememberCoroutineScope()
 

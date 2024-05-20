@@ -15,7 +15,7 @@ actual interface PreferencesPlatformComponent {
 
         return lazy {
             storeOf(
-                file = "${applicationInfo.cachePath}/settings.json".toPath(),
+                file = "${applicationInfo.cachePath()}/settings.json".toPath(),
                 default = AccountBookSetting()
             )
         }

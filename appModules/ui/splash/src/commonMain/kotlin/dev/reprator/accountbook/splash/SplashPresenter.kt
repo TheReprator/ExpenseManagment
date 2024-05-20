@@ -46,7 +46,7 @@ class AccountPresenter(
             splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
 
             result.onException { e ->
-                print("Splash presenter error: ${e.message}")
+                println("Splash presenter error: ${e.message}")
             }
         }
 
@@ -59,7 +59,7 @@ class AccountPresenter(
                 }
 
                 SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
-                    print("Splash presenter error: navigate")
+                    println("Splash presenter error: navigate")
                 }
 
                 SplashUiEvent.NavigateLToSettings -> navigator.goTo(SettingsScreen)
