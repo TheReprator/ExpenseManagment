@@ -4,14 +4,15 @@ agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
+
 androidxactivity = "1.9.0"
 androidx-tooling = "1.6.7"
 androidx-uiTest = "1.6.7"
 
-compose-plugin = "1.6.10-rc01"
+compose-plugin = "1.6.10"
 ksp = "2.0.0-RC2-1.0.20"
 
-kotlin = "2.0.0-RC2"
+kotlin = "2.0.0"
 coroutines = "1.8.1"
 ktor = "2.3.11"
 
@@ -144,7 +145,6 @@ android-test = { id = "com.android.test", version.ref = "agp" }
 buildConfig = "com.github.gmazzo.buildconfig:5.3.5"
 gms-googleServices = "com.google.gms.google-services:4.4.1"
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.0"
-firebase-perf = "com.google.firebase.firebase-perf:21.0.0"
 
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
