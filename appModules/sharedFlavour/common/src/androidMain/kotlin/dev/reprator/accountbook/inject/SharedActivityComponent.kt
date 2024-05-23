@@ -1,6 +1,3 @@
-// Copyright 2022, Google LLC, Christopher Banes and the Tivi project contributors
-// SPDX-License-Identifier: Apache-2.0
-
 package dev.reprator.accountbook.inject
 
 import android.app.Activity

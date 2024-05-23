@@ -9,8 +9,9 @@ androidxactivity = "1.9.0"
 androidx-tooling = "1.6.7"
 androidx-uiTest = "1.6.7"
 
+lifecycle = "2.8.0"
 compose-plugin = "1.6.10"
-ksp = "2.0.0-RC2-1.0.20"
+ksp = "2.0.0-1.0.21"
 
 kotlin = "2.0.0"
 coroutines = "1.8.1"
@@ -42,7 +43,7 @@ compose-material3-windowsizeclass = "dev.chrisbanes.material3:material3-window-s
 google-firebase-analytics = "com.google.firebase:firebase-analytics:22.0.0"
 google-firebase-crashlytics = "com.google.firebase:firebase-crashlytics:19.0.0"
 
-google-firebase-perf = "com.google.firebase:firebase-perf:20.5.2"
+google-firebase-perf = "com.google.firebase:firebase-perf:21.0.0"
 
 crashkios-crashlytics = "co.touchlab.crashkios:crashlytics:0.8.6"
 
@@ -64,6 +65,7 @@ kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+jetbrains-lifecycle = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
@@ -140,11 +142,13 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 buildConfig = "com.github.gmazzo.buildconfig:5.3.5"
 gms-googleServices = "com.google.gms.google-services:4.4.1"
-firebase-crashlytics = "com.google.firebase.crashlytics:3.0.0"
+firebase-crashlytics = "com.google.firebase.crashlytics:3.0.1"
 
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -1,0 +1,16 @@
+PODS:
+  - common (1.0)
+
+DEPENDENCIES:
+  - common (from `/Users/vikramsingh/Downloads/AccountBook/KMP/appModules/sharedFlavour/common`)
+
+EXTERNAL SOURCES:
+  common:
+    :path: "/Users/vikramsingh/Downloads/AccountBook/KMP/appModules/sharedFlavour/common"
+
+SPEC CHECKSUMS:
+  common: ba36742fecda2ee2bc2aac64356a617f4c99c086
+
+PODFILE CHECKSUM: 3781736e8e4e302b2f50b0305981cf451f3e6343
+
+COCOAPODS: 1.14.3

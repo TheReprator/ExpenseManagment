@@ -5,6 +5,7 @@ import dev.reprator.appFeatures.impl.logger.LoggerComponent
 import dev.reprator.appFeatures.impl.performance.PerformanceComponent
 import dev.reprator.appFeatures.impl.powerController.PowerControllerComponent
 import dev.reprator.appFeatures.impl.preferences.PreferencesComponent
+import dev.reprator.appFeatures.impl.utility.UtilityPlatformComponent
 import dev.reprator.baseUi.imageLoader.ImageLoadingComponent
 import dev.reprator.core.inject.ApplicationCoroutineScope
 import dev.reprator.core.inject.ApplicationScope
@@ -25,7 +26,7 @@ interface SharedApplicationComponent :
     LoggerComponent,
     PerformanceComponent,
     PowerControllerComponent,
-    PreferencesComponent {
+    PreferencesComponent, UtilityPlatformComponent {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @ApplicationScope
