@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/vikramsingh/Downloads/ExpenseManagment/.build/arm64-apple-macosx/debug/ExpenseManagment.build/master.swiftdeps"
+  },
+  "/Users/vikramsingh/Downloads/ExpenseManagment/Sources/main.swift": {
+    "dependencies": "/Users/vikramsingh/Downloads/ExpenseManagment/.build/arm64-apple-macosx/debug/ExpenseManagment.build/main.d",
+    "object": "/Users/vikramsingh/Downloads/ExpenseManagment/.build/arm64-apple-macosx/debug/ExpenseManagment.build/main.swift.o",
+    "swiftmodule": "/Users/vikramsingh/Downloads/ExpenseManagment/.build/arm64-apple-macosx/debug/ExpenseManagment.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/vikramsingh/Downloads/ExpenseManagment/.build/arm64-apple-macosx/debug/ExpenseManagment.build/main.swiftdeps"
+  }
+}
