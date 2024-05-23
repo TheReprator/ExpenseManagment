@@ -11,10 +11,7 @@ class RootViewModel(
     @Assisted private val coroutineScope: CoroutineScope,
     private val logger: Logger,
 ) {
-
-    init {
-    }
-
+    
     fun clear() {
         coroutineScope.cancel()
     }

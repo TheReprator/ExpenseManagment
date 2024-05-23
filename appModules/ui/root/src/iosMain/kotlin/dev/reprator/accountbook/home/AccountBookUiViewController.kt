@@ -11,11 +11,11 @@ import platform.SafariServices.SFSafariViewController
 import platform.UIKit.UIViewController
 import dev.reprator.screens.SplashScreen
 
-typealias AccountBookUiViewController = () -> UIViewController
+typealias accountBookUiViewController = () -> UIViewController
 
 @Inject
 @Suppress("ktlint:standard:function-naming")
-fun AccountBookUiViewController(
+fun accountBookUiViewController(
     accountBookContent: AccountBookContent,
 ): UIViewController = ComposeUIViewController {
     val backstack = rememberSaveableBackStack(listOf(SplashScreen))
