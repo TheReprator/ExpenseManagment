@@ -140,6 +140,8 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 buildConfig = "com.github.gmazzo.buildconfig:5.3.5"
