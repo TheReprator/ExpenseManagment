@@ -10,7 +10,7 @@ androidx-tooling = "1.6.7"
 androidx-uiTest = "1.6.7"
 
 compose-plugin = "1.6.10"
-ksp = "2.0.0-RC2-1.0.20"
+ksp = "2.0.0-1.0.21"
 
 kotlin = "2.0.0"
 coroutines = "1.8.1"
