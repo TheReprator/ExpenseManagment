@@ -7,6 +7,7 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import dev.reprator.accountbook.splash.domain.usecase.SplashUseCase
+import dev.reprator.appFeatures.api.utility.InternetChecker
 import dev.reprator.core.util.onException
 import dev.reprator.screens.SettingsScreen
 import dev.reprator.screens.SplashScreen
@@ -30,7 +31,8 @@ class SplashUiPresenterFactory(
 @Inject
 class AccountPresenter(
     @Assisted private val navigator: Navigator,
-    private val splashUseCase: SplashUseCase
+    private val splashUseCase: SplashUseCase,
+    private val internetChecker: InternetChecker
 ) : Presenter<SplashUiState> {
 
     @Composable
@@ -43,6 +45,8 @@ class AccountPresenter(
 
         LaunchedEffect(Unit) {
             val result = splashUseCase.invoke(Unit)
+
+            if (internetChecker.isInternetAvailable)
             splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
 
             result.onException { e ->

@@ -55,6 +55,8 @@ class DefaultAccountBookContent(
         onOpenUrl: (String) -> Unit,
         modifier: Modifier,
     ) {
+        println("VikramSingh::Callback")
+
         val coroutineScope = rememberCoroutineScope()
         remember { rootViewModel(coroutineScope) }
 

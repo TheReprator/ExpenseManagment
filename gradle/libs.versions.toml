@@ -10,6 +10,7 @@ androidx-tooling = "1.6.7"
 androidx-uiTest = "1.6.7"
 androidx-lifecycle = "2.8.0"
 
+lifecycle = "2.8.0"
 compose-plugin = "1.6.10"
 ksp = "2.0.0-1.0.21"
 
@@ -68,6 +69,7 @@ kotlinx-serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+jetbrains-lifecycle = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
@@ -150,7 +152,7 @@ android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 buildConfig = "com.github.gmazzo.buildconfig:5.3.5"
 gms-googleServices = "com.google.gms.google-services:4.4.1"
-firebase-crashlytics = "com.google.firebase.crashlytics:3.0.0"
+firebase-crashlytics = "com.google.firebase.crashlytics:3.0.1"
 
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

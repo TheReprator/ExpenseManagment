@@ -11,7 +11,7 @@ import me.tatarka.inject.annotations.Inject
 class AccountBookFirebaseAnalytics(
     private val context: Application,
 ) : Analytics {
-    // False positive. Permissions are added via manifest
+
     @delegate:SuppressLint("MissingPermission")
     private val firebaseAnalytics: FirebaseAnalytics by lazy {
         FirebaseAnalytics.getInstance(context)

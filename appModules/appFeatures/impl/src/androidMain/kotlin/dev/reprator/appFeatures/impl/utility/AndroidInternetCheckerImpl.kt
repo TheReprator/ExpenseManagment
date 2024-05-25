@@ -13,7 +13,7 @@ import me.tatarka.inject.annotations.Inject
 
 @Inject
 class AndroidInternetCheckerImpl(private val context: Application,
-                                override var isInternetAvailable: Boolean = false) : InternetChecker {
+                                 override var isInternetAvailable: Boolean = false) : InternetChecker {
 
     private val connectivityManager: ConnectivityManager by lazy {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -28,7 +28,7 @@ class AndroidInternetCheckerImpl(private val context: Application,
 
     private val availableNetworks = mutableSetOf<Network>()
 
-    val isInternetAvailableFlow = callbackFlow {
+     val isInternetAvailableFlow = callbackFlow {
 
         trySend(connectivityManager.getCurrentNetworkState())
 
