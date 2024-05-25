@@ -4,7 +4,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.uikit.ComposeUIViewControllerDelegate
 import androidx.compose.ui.window.ComposeUIViewController
-import androidx.lifecycle.LifecycleRegistry
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import me.tatarka.inject.annotations.Inject
