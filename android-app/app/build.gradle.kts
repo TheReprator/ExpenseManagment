@@ -140,6 +140,7 @@ dependencies {
     implementation(libs.androidx.browser)
 
     implementation(libs.kotlin.coroutines.android)
+    implementation(libs.androidx.lifecycle.process)
 
     implementation(libs.google.firebase.crashlytics)
 }
