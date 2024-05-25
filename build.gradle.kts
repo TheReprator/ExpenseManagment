@@ -6,11 +6,8 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.jetbrains.compose) apply false
-    alias(libs.plugins.jetbrains.cocoapods) apply false
     alias(libs.plugins.jetbrains.compose.compiler) apply false
     alias(libs.plugins.jetbrains.kotlin.multiplatform) apply false
-
-
     alias(libs.plugins.gms.googleServices) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
 }

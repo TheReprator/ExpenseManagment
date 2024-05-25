@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A121A3EA0BCC99DDE5DC97C9 /* Pods_Accountbook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B42C721CB985E5AFF84258D7 /* Pods_Accountbook.framework */; };
+		B916D57A2C006A7800E64C30 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B916D5792C006A7700E64C30 /* NetworkMonitor.swift */; };
 		B96673992BED10CC0077438F /* Firebase in Resources */ = {isa = PBXBuildFile; fileRef = B96673982BED10CC0077438F /* Firebase */; };
 		B96F27772BEC9628008E1985 /* AccountbookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96F27762BEC9628008E1985 /* AccountbookApp.swift */; };
 		B96F27792BEC9628008E1985 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96F27782BEC9628008E1985 /* ContentView.swift */; };
@@ -18,16 +18,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		420F418D274F4E51FAC4E130 /* Pods-Accountbook.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accountbook.qa.xcconfig"; path = "Target Support Files/Pods-Accountbook/Pods-Accountbook.qa.xcconfig"; sourceTree = "<group>"; };
-		B42C721CB985E5AFF84258D7 /* Pods_Accountbook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accountbook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B7DDAEDC65A5487F449F6D1A /* Pods-Accountbook.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accountbook.prod.xcconfig"; path = "Target Support Files/Pods-Accountbook/Pods-Accountbook.prod.xcconfig"; sourceTree = "<group>"; };
+		B916D5792C006A7700E64C30 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		B96673982BED10CC0077438F /* Firebase */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Firebase; sourceTree = "<group>"; };
 		B96F27732BEC9628008E1985 /* Accountbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accountbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B96F27762BEC9628008E1985 /* AccountbookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountbookApp.swift; sourceTree = "<group>"; };
 		B96F27782BEC9628008E1985 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B96F277A2BEC9629008E1985 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B96F277D2BEC9629008E1985 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CD2994390AB1C10BF7810DB7 /* Pods-Accountbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accountbook.debug.xcconfig"; path = "Target Support Files/Pods-Accountbook/Pods-Accountbook.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,31 +34,18 @@
 			files = (
 				B9B5C0BA2BECD559006E8533 /* FirebaseAnalyticsSwift in Frameworks */,
 				B9B5C0BD2BECD9DA006E8533 /* FirebaseCrashlytics in Frameworks */,
-				A121A3EA0BCC99DDE5DC97C9 /* Pods_Accountbook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		73A931C8ED36F4C0862DCC99 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				CD2994390AB1C10BF7810DB7 /* Pods-Accountbook.debug.xcconfig */,
-				B7DDAEDC65A5487F449F6D1A /* Pods-Accountbook.prod.xcconfig */,
-				420F418D274F4E51FAC4E130 /* Pods-Accountbook.qa.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		B96F276A2BEC9628008E1985 = {
 			isa = PBXGroup;
 			children = (
 				B96F27752BEC9628008E1985 /* Accountbook */,
 				B96F27742BEC9628008E1985 /* Products */,
 				B9B5C0BB2BECD9DA006E8533 /* Frameworks */,
-				73A931C8ED36F4C0862DCC99 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +65,7 @@
 				B96673982BED10CC0077438F /* Firebase */,
 				B96F277A2BEC9629008E1985 /* Assets.xcassets */,
 				B96F277C2BEC9629008E1985 /* Preview Content */,
+				B916D5792C006A7700E64C30 /* NetworkMonitor.swift */,
 			);
 			path = Accountbook;
 			sourceTree = "<group>";
@@ -96,7 +81,6 @@
 		B9B5C0BB2BECD9DA006E8533 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B42C721CB985E5AFF84258D7 /* Pods_Accountbook.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,7 +92,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B96F27812BEC9629008E1985 /* Build configuration list for PBXNativeTarget "Accountbook" */;
 			buildPhases = (
-				CDFE871B0D94F86229493E82 /* [CP] Check Pods Manifest.lock */,
 				B966739C2BED2BD10077438F /* Build :shared KMP library */,
 				B96F276F2BEC9628008E1985 /* Sources */,
 				B96F27702BEC9628008E1985 /* Frameworks */,
@@ -239,28 +222,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd \"$SRCROOT/../..\"\n\nMODULE=\"qa\"\nif [ \"$CONFIGURATION\" = \"Prod\" ]; then\n  MODULE=\"prod\"\nfi\n\necho \"Building :appModules:sharedFlavour:$MODULE for $CONFIGURATION\"\n./gradlew :appModules:sharedFlavour:$MODULE:embedAndSignAppleFrameworkForXcode --stacktrace\n";
 		};
-		CDFE871B0D94F86229493E82 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Accountbook-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -269,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B96F27792BEC9628008E1985 /* ContentView.swift in Sources */,
+				B916D57A2C006A7800E64C30 /* NetworkMonitor.swift in Sources */,
 				B96F27772BEC9628008E1985 /* AccountbookApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,7 +303,6 @@
 		};
 		B96F27822BEC9629008E1985 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD2994390AB1C10BF7810DB7 /* Pods-Accountbook.debug.xcconfig */;
 			buildSettings = {
 				APP_NAME = Debug;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -440,7 +401,6 @@
 		};
 		B96F27852BEC9AD5008E1985 /* Prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7DDAEDC65A5487F449F6D1A /* Pods-Accountbook.prod.xcconfig */;
 			buildSettings = {
 				APP_NAME = AccountBook;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -539,7 +499,6 @@
 		};
 		B96F27872BEC9AE8008E1985 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 420F418D274F4E51FAC4E130 /* Pods-Accountbook.qa.xcconfig */;
 			buildSettings = {
 				APP_NAME = "AccountBook QA";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

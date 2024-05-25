@@ -1,5 +1,6 @@
 package dev.reprator.accountbook
 
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,6 +28,14 @@ fun main() = application {
     ) {
         val component = remember(applicationComponent) {
             WindowComponent.create(applicationComponent)
+        }
+
+        DisposableEffect(Unit) {
+            val listener = WindowStateListener(applicationComponent.applicationLifeCycle)
+            window.addWindowListener(listener)
+            onDispose {
+                window.removeWindowListener(listener)
+            }
         }
 
         val backstack = rememberSaveableBackStack(listOf(SplashScreen))

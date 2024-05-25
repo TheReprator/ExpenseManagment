@@ -5,8 +5,7 @@ import dev.reprator.core.inject.ApplicationScope
 import me.tatarka.inject.annotations.Provides
 
 actual interface UtilityPlatformComponent {
-
-    @Provides
-    @ApplicationScope
-    fun provideInternetChecker(bind: DesktopInternetCheckerImpl): InternetChecker = bind
+    @get:Provides
+    @get:ApplicationScope
+    val setInternetChecker: InternetChecker
 }
