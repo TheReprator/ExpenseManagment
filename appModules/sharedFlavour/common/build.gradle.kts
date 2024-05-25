@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
 
 plugins {
-    alias(libs.plugins.jetbrains.cocoapods)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
@@ -21,18 +20,6 @@ kotlin {
     //iosX64()
     iosArm64()
     iosSimulatorArm64()
-
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../../../iosApp/Accountbook/Podfile")
-        framework {
-            isStatic = true
-            baseName = "AccounBookKt"
-        }
-    }
 
     targets.withType<KotlinNativeTarget>().configureEach {
         binaries.configureEach {
@@ -103,8 +90,6 @@ kotlin {
                 api(projects.appModules.ui.settings)
                 api(projects.appModules.ui.developer.settings)
                 api(projects.appModules.ui.developer.log)
-
-                implementation(libs.jetbrains.lifecycle)
             }
         }
     }
