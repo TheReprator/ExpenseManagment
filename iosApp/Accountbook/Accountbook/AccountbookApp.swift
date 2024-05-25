@@ -56,6 +56,7 @@ private func createApplicationComponent(
 ) -> IosApplicationComponent {
     return IosApplicationComponent.companion.create(
         analytics: FirebaseAnalytics(),
+        setInternetChecker: NetworkMonitor(),
         setCrashReportingEnabledAction: IosSetCrashReportingEnabledAction()
     )
 }

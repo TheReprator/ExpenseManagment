@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
 
 plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
-    alias(libs.plugins.jetbrains.cocoapods)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
 }
@@ -25,12 +24,6 @@ kotlin {
     //iosX64()
     iosArm64()
     iosSimulatorArm64()
-
-    cocoapods {
-        ios.deploymentTarget = "14.1"
-        pod("Reachability", "~> 3.2")
-        noPodspec()
-    }
 
     targets.withType<KotlinNativeTarget>().configureEach {
         binaries.configureEach {
