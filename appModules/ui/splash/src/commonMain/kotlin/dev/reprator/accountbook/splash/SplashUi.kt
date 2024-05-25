@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import dev.reprator.accountbook.splash.expect.Greeting
 import dev.reprator.screens.SplashScreen
 import org.jetbrains.compose.resources.painterResource
@@ -59,6 +60,7 @@ internal fun SplashUi(
 ) {
     var showContent by remember { mutableStateOf(false) }
 
+    LifecycleTest()
     Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
             login()
@@ -74,6 +76,19 @@ internal fun SplashUi(
                 Image(painterResource(Res.drawable.compose_multiplatform), null)
                 Text("Compose: $greeting", style = MaterialTheme.typography.titleLarge)
             }
+        }
+    }
+}
+
+
+@Composable
+private fun LifecycleTest() {
+    val lifecycleTracker = LocalLifecycleOwner.current
+    DisposableEffect(Unit) {
+        val listener = TestOb()
+        lifecycleTracker.lifecycle.addObserver(listener)
+        onDispose {
+            lifecycleTracker.lifecycle.removeObserver(listener)
         }
     }
 }

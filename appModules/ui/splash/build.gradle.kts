@@ -43,6 +43,9 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
                 implementation(compose.components.resources)
+
+                implementation(libs.androidx.lifecycle.runtime.compose)
+                implementation(libs.androidx.lifecycle.viewmodel.compose)
             }
         }
     }

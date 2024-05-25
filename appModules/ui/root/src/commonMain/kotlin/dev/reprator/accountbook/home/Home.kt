@@ -4,11 +4,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.overlay.ContentWithOverlays
@@ -28,6 +26,8 @@ internal fun Home(
         derivedStateOf { backStack.last().screen }
     }
 
+    LifecycleTest()
+
     Scaffold {
         Row(modifier = Modifier.fillMaxSize()) {
             ContentWithOverlays(
@@ -44,6 +44,18 @@ internal fun Home(
                     modifier = Modifier.fillMaxSize(),
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun LifecycleTest() {
+    val lifecycleTracker = LocalLifecycleOwner.current
+    DisposableEffect(Unit) {
+        val listener = TestOb()
+        lifecycleTracker.lifecycle.addObserver(listener)
+        onDispose {
+            lifecycleTracker.lifecycle.removeObserver(listener)
         }
     }
 }

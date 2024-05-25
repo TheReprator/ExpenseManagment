@@ -37,6 +37,9 @@ kotlin {
                 implementation(libs.circuit.retained)
 
                 implementation(compose.materialIconsExtended)
+
+                implementation(libs.androidx.lifecycle.runtime.compose)
+                implementation(libs.androidx.lifecycle.viewmodel.compose)
             }
         }
     }
