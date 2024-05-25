@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
+import androidx.lifecycle.ProcessLifecycleOwner
 import dev.reprator.accountbook.inject.AndroidApplicationComponent
 import dev.reprator.accountbook.inject.create
 
@@ -15,8 +16,12 @@ class AccountbookApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         setupStrictMode()
+
         component.initializers.initialize()
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicaitonLifeCycleObserver(component.applicationLifeCycle))
     }
 }
 

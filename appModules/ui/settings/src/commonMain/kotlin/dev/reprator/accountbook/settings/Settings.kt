@@ -16,10 +16,8 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.runtime.CircuitContext
@@ -53,7 +51,6 @@ internal fun Settings(
     // treats it as stable. See: https://issuetracker.google.com/issues/256100927
     val eventSink = state.eventSink
 
-    LifecycleTest()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -240,17 +237,5 @@ inline fun LazyListScope.itemSpacer(height: Dp) {
                 .height(height)
                 .fillParentMaxWidth(),
         )
-    }
-}
-
-@Composable
-private fun LifecycleTest() {
-    val lifecycleTracker = LocalLifecycleOwner.current
-    DisposableEffect(Unit) {
-        val listener = TestOb()
-        lifecycleTracker.lifecycle.addObserver(listener)
-        onDispose {
-            lifecycleTracker.lifecycle.removeObserver(listener)
-        }
     }
 }

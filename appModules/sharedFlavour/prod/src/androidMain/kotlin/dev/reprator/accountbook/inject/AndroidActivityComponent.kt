@@ -12,6 +12,7 @@ abstract class AndroidActivityComponent(
     @get:Provides override val activity: Activity,
     @Component val applicationComponent: AndroidApplicationComponent,
 ) : SharedActivityComponent, ProdUiComponent {
+
     abstract val accountBookContent: AccountBookContent
 
     companion object
