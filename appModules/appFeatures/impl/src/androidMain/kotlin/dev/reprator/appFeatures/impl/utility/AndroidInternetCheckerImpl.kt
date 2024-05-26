@@ -8,12 +8,15 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.callbackFlow
 import me.tatarka.inject.annotations.Inject
 
 @Inject
-class AndroidInternetCheckerImpl(private val context: Application,
-                                 override var isInternetAvailable: Boolean = false) : InternetChecker {
+class AndroidInternetCheckerImpl(private val context: Application) : InternetChecker {
+
+    override val isInternetAvailable: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     private val connectivityManager: ConnectivityManager by lazy {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -28,9 +31,9 @@ class AndroidInternetCheckerImpl(private val context: Application,
 
     private val availableNetworks = mutableSetOf<Network>()
 
-     val isInternetAvailableFlow = callbackFlow {
-
-        trySend(connectivityManager.getCurrentNetworkState())
+//     override val isInternetAvailable = callbackFlow {
+//
+//        trySend(connectivityManager.getCurrentNetworkState())
 
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
@@ -40,7 +43,7 @@ class AndroidInternetCheckerImpl(private val context: Application,
 
                 val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
 
-                trySend(networkCapabilities?.asNetworkState() ?: false)
+                isInternetAvailable.value = networkCapabilities?.asNetworkState() ?: false
             }
 
             override fun onCapabilitiesChanged(
@@ -49,7 +52,7 @@ class AndroidInternetCheckerImpl(private val context: Application,
             ) {
                 super.onCapabilitiesChanged(network, networkCapabilities)
 
-                trySend(networkCapabilities.asNetworkState())
+                isInternetAvailable.value = networkCapabilities.asNetworkState()
             }
 
             override fun onLost(network: Network) {
@@ -57,28 +60,19 @@ class AndroidInternetCheckerImpl(private val context: Application,
                 availableNetworks.remove(network)
 
                 if (availableNetworks.isEmpty()) {
-                    trySend(false)
+                    isInternetAvailable.value = false
                 }
             }
         }
 
-        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
-        awaitClose {
-            connectivityManager.unregisterNetworkCallback(networkCallback)
-        }
-    }
-
-    override fun startObserving() {
-//        isInternetAvailableFlow.collect {
-//            isInternetAvailable = it
+//        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
+//        awaitClose {
+//            connectivityManager.unregisterNetworkCallback(networkCallback)
 //        }
-    }
 
-    override fun stopObserving() {
 
-    }
 
-    private fun ConnectivityManager.getCurrentNetworkState(): Boolean {
+    fun ConnectivityManager.getCurrentNetworkState(): Boolean {
         val networkCapabilities = getNetworkCapabilities(activeNetwork)
 
         return networkCapabilities?.asNetworkState() ?: false

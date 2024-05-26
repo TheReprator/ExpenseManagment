@@ -1,8 +1,7 @@
 package dev.reprator.appFeatures.api.utility
 
-interface InternetChecker {
-    val isInternetAvailable: Boolean
-    
-    fun startObserving()
-    fun stopObserving()
+import kotlinx.coroutines.flow.StateFlow
+
+interface InternetChecker : ApplicationLifeCycle {
+    val isInternetAvailable: StateFlow<Boolean>
 }
