@@ -4,10 +4,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
+import kotlin.native.HiddenFromObjC
+
+@HiddenFromObjC
 interface RecordingLogger : Logger {
     val buffer: Flow<List<LogMessage>>
 }
 
+
+@HiddenFromObjC
 enum class Severity {
     Verbose,
     Debug,
@@ -17,6 +22,7 @@ enum class Severity {
     Assert,
 }
 
+@HiddenFromObjC
 data class LogMessage(
     val severity: Severity,
     val message: String,

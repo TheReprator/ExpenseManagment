@@ -9,40 +9,29 @@ import Foundation
 import Network
 import AccounBookKt
 
-extension NWInterface.InterfaceType: CaseIterable {
-    public static var allCases: [NWInterface.InterfaceType] = [
-        .other,
-        .wifi,
-        .cellular,
-        .loopback,
-        .wiredEthernet
-    ]
-}
-
-final class NetworkMonitor: InternetChecker {
-
-    private let queue = DispatchQueue(label: "NetworkConnectivityMonitor")
-    private let monitor: NWPathMonitor
-
-    var isInternetAvailable = false
-    private(set) var isExpensive = false
+final class NetworkMonitor: NetworkListener {
     
-    private(set) var currentConnectionType: NWInterface.InterfaceType?
-
+    private let monitor: NWPathMonitor
+    
     init() {
         monitor = NWPathMonitor()
     }
-
-    func startObserving() {
-        monitor.pathUpdateHandler = { [weak self] path in
-            self?.isInternetAvailable = path.status != .unsatisfied
-            self?.isExpensive = path.isExpensive
-            self?.currentConnectionType = NWInterface.InterfaceType.allCases.filter { path.usesInterfaceType($0) }.first
+    
+    
+    func registerListener(onNetworkAvailable: @escaping () -> Void, onNetworkLost: @escaping () -> Void) {
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                onNetworkAvailable()
+            } else {
+                onNetworkLost()
+            }
         }
-        monitor.start(queue: queue)
+        monitor.start(queue: DispatchQueue.global(qos: .background))
     }
-
-    func stopObserving() {
+    
+    func unregisterListener() {
         monitor.cancel()
     }
+
 }
+

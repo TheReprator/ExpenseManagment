@@ -83,6 +83,11 @@ kotlin {
 
     sourceSets {
 
+        all {
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCRefinement")
+        }
+        
         val desktopMain by getting
 
         commonMain.dependencies {

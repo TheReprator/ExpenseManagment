@@ -1,7 +1,11 @@
 package dev.reprator.appFeatures.api.utility
 
 import kotlinx.coroutines.flow.StateFlow
+import kotlin.experimental.ExperimentalObjCRefinement
+import kotlin.native.HiddenFromObjC
 
-interface InternetChecker : ApplicationLifeCycle {
-    val isInternetAvailable: StateFlow<Boolean>
+@OptIn(ExperimentalObjCRefinement::class)
+@HiddenFromObjC
+interface InternetChecker {
+    val networkStatus: StateFlow<Boolean>
 }

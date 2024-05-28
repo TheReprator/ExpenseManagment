@@ -1,7 +1,11 @@
 package dev.reprator.appFeatures.api.preferences
 
 import kotlinx.coroutines.flow.Flow
+import kotlin.experimental.ExperimentalObjCRefinement
+import kotlin.native.HiddenFromObjC
 
+@OptIn(ExperimentalObjCRefinement::class)
+@HiddenFromObjC
 interface AccountbookPreferences {
     suspend fun setTheme(theme: Theme)
     suspend fun observeTheme(): Flow<Theme>

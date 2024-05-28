@@ -17,7 +17,7 @@ class SplashDataSourceImpl(
     }
 
     override suspend fun splashRepository(): ModalSplashState {
-        if(internetChecker.isInternetAvailable.)
+        if(internetChecker.networkStatus.value)
             throw Exception(NO_INTERNET)
         return splashRemoteDataSource.splashRemoteDataSource()
     }

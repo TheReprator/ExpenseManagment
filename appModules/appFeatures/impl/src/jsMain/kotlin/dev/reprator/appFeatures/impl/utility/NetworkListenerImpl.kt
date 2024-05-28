@@ -9,7 +9,7 @@ import me.tatarka.inject.annotations.Inject
 import org.w3c.dom.events.Event
 
 @Inject
-class WebInternetCheckerImpl(override var isInternetAvailable: Boolean = false) : InternetChecker {
+class WebInternetCheckerImpl() : NetworkListener {
 
     override val isInternetAvailableFlow = callbackFlow {
         

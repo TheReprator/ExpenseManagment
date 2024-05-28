@@ -40,15 +40,14 @@ class AccountPresenter(
 
         var splashData by rememberRetained { mutableStateOf(ModalSplashState(emptyList(), emptyList())) }
         val isLoading by splashUseCase.inProgress.collectAsState(false)
-        val isInternetAvailable by internetChecker.isInternetAvailable.collectAsState(false)
 
         val scope = rememberCoroutineScope()
 
         LaunchedEffect(Unit) {
             val result = splashUseCase.invoke(Unit)
 
-            if (isInternetAvailable)
-            splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
+            if (internetChecker.isInternetAvailable.value)
+                splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
 
             result.onException { e ->
                 println("Splash presenter error: ${e.message}")
