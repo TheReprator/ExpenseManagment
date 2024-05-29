@@ -2,10 +2,7 @@ package dev.reprator.accountbook
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.coroutineScope
 import dev.reprator.appFeatures.api.utility.ApplicationLifeCycle
-import kotlinx.coroutines.launch
-
 
 class ApplicaitonLifeCycleObserver(private val lifeCycle: ApplicationLifeCycle) : DefaultLifecycleObserver {
     

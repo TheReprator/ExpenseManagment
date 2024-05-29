@@ -46,7 +46,7 @@ class AccountPresenter(
         LaunchedEffect(Unit) {
             val result = splashUseCase.invoke(Unit)
 
-            if (internetChecker.isInternetAvailable.value)
+            if (internetChecker.networkStatus.value)
                 splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
 
             result.onException { e ->

@@ -17,7 +17,6 @@ final class NetworkMonitor: NetworkListener {
         monitor = NWPathMonitor()
     }
     
-    
     func registerListener(onNetworkAvailable: @escaping () -> Void, onNetworkLost: @escaping () -> Void) {
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {

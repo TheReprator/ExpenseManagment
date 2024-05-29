@@ -9,9 +9,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import me.tatarka.inject.annotations.Inject
+import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.jvm.JvmInline
+import kotlin.native.HiddenFromObjC
 
+@OptIn(ExperimentalObjCRefinement::class)
 @Inject
+@HiddenFromObjC
 class AccountbookPreferencesImpl(
     private val settings: Lazy<KStore<AccountBookSetting>>,
     private val dispatchers: AppCoroutineDispatchers,
