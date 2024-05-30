@@ -3,11 +3,24 @@ package dev.reprator.accountbook.inject
 import dev.reprator.core.app.ApplicationInfo
 import dev.reprator.core.app.Flavor
 import dev.reprator.core.inject.ApplicationScope
+import dev.reprator.core.util.AppCoroutineDispatchers
+import kotlinx.coroutines.Dispatchers
 import java.io.File
 import java.util.prefs.Preferences
 import me.tatarka.inject.annotations.Provides
 
 actual interface SharedPlatformApplicationComponent {
+
+    @ApplicationScope
+    @Provides
+    fun provideCoroutineDispatchers(): AppCoroutineDispatchers = AppCoroutineDispatchers(
+        io = Dispatchers.IO,
+        databaseWrite = Dispatchers.IO.limitedParallelism(1),
+        databaseRead = Dispatchers.IO.limitedParallelism(4),
+        computation = Dispatchers.Default,
+        main = Dispatchers.Main,
+    )
+
     @ApplicationScope
     @Provides
     fun provideApplicationId(

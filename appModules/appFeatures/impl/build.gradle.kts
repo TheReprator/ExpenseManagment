@@ -20,9 +20,9 @@ kotlin {
     androidTarget()
     jvm("desktop")
 
-//    js(IR) {
-//        browser()
-//    }
+    js(IR) {
+        browser()
+    }
 
     //iosX64()
     iosArm64()
@@ -126,6 +126,12 @@ kotlin {
                 dependsOn(mobileDesktopMain)
                 implementation(libs.crashkios.crashlytics)
             }
+        }
+
+        jsMain.dependencies {
+            implementation(kotlin("stdlib-js"))
+            implementation(npm("firebase", "10.6.0"))
+            implementation(libs.kstore.storage)
         }
     }
 }

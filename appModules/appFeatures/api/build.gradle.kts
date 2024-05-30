@@ -77,7 +77,6 @@ kotlin {
             api(libs.kotlinx.datetime)
             api(libs.kotlinx.serialization)
         }
-
     }
 }
 

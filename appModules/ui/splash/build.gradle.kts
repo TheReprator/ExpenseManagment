@@ -14,6 +14,10 @@ kotlin {
 
     jvm("desktop")
 
+    js(IR) {
+        browser()
+    }
+
     //iosX64()
     iosArm64()
     iosSimulatorArm64()

@@ -43,7 +43,8 @@ include(
     ":appModules:sharedFlavour:prod",
     ":appModules:sharedFlavour:qa",
     ":android-app:app",
-    ":desktop-app"
+    ":desktop-app",
+    ":webApp:Js"
 )
 
 

@@ -11,9 +11,6 @@ import dev.reprator.core.inject.ApplicationCoroutineScope
 import dev.reprator.core.inject.ApplicationScope
 import dev.reprator.core.util.AppCoroutineDispatchers
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
 import me.tatarka.inject.annotations.Provides
 
@@ -27,17 +24,6 @@ interface SharedApplicationComponent :
     PerformanceComponent,
     PowerControllerComponent,
     PreferencesComponent, UtilityComponent {
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @ApplicationScope
-    @Provides
-    fun provideCoroutineDispatchers(): AppCoroutineDispatchers = AppCoroutineDispatchers(
-        io = Dispatchers.IO,
-        databaseWrite = Dispatchers.IO.limitedParallelism(1),
-        databaseRead = Dispatchers.IO.limitedParallelism(4),
-        computation = Dispatchers.Default,
-        main = Dispatchers.Main,
-    )
 
     @ApplicationScope
     @Provides

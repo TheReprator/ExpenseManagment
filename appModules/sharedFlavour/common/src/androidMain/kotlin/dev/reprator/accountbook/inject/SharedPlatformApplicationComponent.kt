@@ -5,6 +5,8 @@ import android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE
 import dev.reprator.core.app.ApplicationInfo
 import dev.reprator.core.app.Flavor
 import dev.reprator.core.inject.ApplicationScope
+import dev.reprator.core.util.AppCoroutineDispatchers
+import kotlinx.coroutines.Dispatchers
 import me.tatarka.inject.annotations.Provides
 
 actual interface SharedPlatformApplicationComponent {
@@ -28,4 +30,14 @@ actual interface SharedPlatformApplicationComponent {
             cachePath = { application.cacheDir.absolutePath },
         )
     }
+
+    @ApplicationScope
+    @Provides
+    fun provideCoroutineDispatchers(): AppCoroutineDispatchers = AppCoroutineDispatchers(
+        io = Dispatchers.IO,
+        databaseWrite = Dispatchers.IO.limitedParallelism(1),
+        databaseRead = Dispatchers.IO.limitedParallelism(4),
+        computation = Dispatchers.Default,
+        main = Dispatchers.Main,
+    )
 }

@@ -1,7 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
@@ -15,6 +11,11 @@ kotlin {
 
     androidTarget()
     jvm("desktop")
+
+    js(IR) {
+        browser()
+        nodejs()
+    }
 
     //iosX64()
     iosArm64()
@@ -52,6 +53,10 @@ kotlin {
 
         androidMain.dependencies {
             api(libs.androidx.activity.compose)
+        }
+
+        jsMain.dependencies {
+            implementation("com.squareup.okio:okio-nodefilesystem:3.9.0")
         }
     }
 }
