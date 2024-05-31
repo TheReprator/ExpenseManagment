@@ -7,7 +7,7 @@ import coil3.memory.MemoryCache
 import coil3.util.Logger.Level
 import dev.reprator.appFeatures.api.logger.Logger
 import dev.reprator.core.app.ApplicationInfo
-import okio.Path.Companion.toPath
+//import okio.Path.Companion.toPath
 
 internal fun newImageLoader(
     context: PlatformContext,
@@ -26,11 +26,11 @@ internal fun newImageLoader(
                 .maxSizePercent(context, percent = 0.25)
                 .build()
         }
-        .diskCache {
-            DiskCache.Builder()
-                .directory(applicationInfo.cachePath().toPath().resolve("coil_cache"))
-                .build()
-        }
+//        .diskCache {
+//            DiskCache.Builder()
+//                .directory(applicationInfo.cachePath().toPath().resolve("coil_cache"))
+//                .build()
+//        }
         .apply {
             if (debug) {
                 logger(logger.asCoilLogger())

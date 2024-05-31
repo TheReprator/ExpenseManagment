@@ -12,20 +12,9 @@ kotlin {
         browser {
             runTask(Action {
                 mainOutputFileName = "main.bundle.js"
-                sourceMaps = false
-                devServerProperty = KotlinWebpackConfig.DevServer(
-                    open = false,
-                    port = 3000,
-                    static = mutableListOf("${layout.buildDirectory.asFile.get()}/processedResources/js/main")
-                )
             })
             webpackTask(Action {
                 mainOutputFileName = "main.bundle.js"
-            })
-            testTask(Action {
-                useKarma {
-                    useChromeHeadless()
-                }
             })
         }
         generateTypeScriptDefinitions()

@@ -14,7 +14,6 @@ kotlin {
 
     js(IR) {
         browser()
-        nodejs()
     }
 
     //iosX64()
@@ -29,34 +28,52 @@ kotlin {
 
     sourceSets {
 
-        val desktopMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.appModules.base)
+                implementation(projects.appModules.appFeatures.api)
+                api(projects.appModules.navigation)
 
-        commonMain.dependencies {
-            implementation(projects.appModules.base)
-            implementation(projects.appModules.appFeatures.api)
-            api(projects.appModules.navigation)
+                api(compose.material3)
+                api(compose.animation)
+                implementation(compose.components.resources)
+                api(libs.compose.material3.windowsizeclass)
 
-            api(compose.material3)
-            api(compose.animation)
-            implementation(compose.components.resources)
-            api(libs.compose.material3.windowsizeclass)
+                api(libs.circuit.foundation)
+                api(libs.circuit.overlay)
 
-            api(libs.circuit.foundation)
-            api(libs.circuit.overlay)
+                api(libs.coil.core)
+                api(libs.coil.network)
+                api(libs.coil.compose)
 
-            api(libs.coil.core)
-            api(libs.coil.network)
-            api(libs.coil.compose)
-
-            implementation(libs.uuid)
+                implementation(libs.uuid)
+            }
         }
 
-        androidMain.dependencies {
-            api(libs.androidx.activity.compose)
+        val mobileDesktopMain by creating {
+            dependencies {
+                dependsOn(commonMain)
+                implementation(libs.kstore.file)
+            }
         }
 
-        jsMain.dependencies {
-            implementation("com.squareup.okio:okio-nodefilesystem:3.9.0")
+        val desktopMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+                api(libs.androidx.activity.compose)
+            }
+        }
+
+        val appleMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+            }
         }
     }
 }
