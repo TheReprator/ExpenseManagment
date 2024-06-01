@@ -48,8 +48,8 @@ include(
 )
 
 
-include(
-    ":server", ":server:modals", ":server:lib:commonFeatureImpl", ":server:lib:base",
-    ":server:lib:base-ktor", ":server:lib:testModule", ":server:api:language", ":server:api:splash",
-    ":server:api:country", ":server:api:userIdentity"
-)
+//include(
+//    ":server", ":server:modals", ":server:lib:commonFeatureImpl", ":server:lib:base",
+//    ":server:lib:base-ktor", ":server:lib:testModule", ":server:api:language", ":server:api:splash",
+//    ":server:api:country", ":server:api:userIdentity"
+//)

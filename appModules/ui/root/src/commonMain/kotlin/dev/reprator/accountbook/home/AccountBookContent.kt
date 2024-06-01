@@ -4,9 +4,6 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import coil3.ImageLoader
-import coil3.annotation.ExperimentalCoilApi
-import coil3.compose.setSingletonImageLoaderFactory
 import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -43,11 +40,10 @@ class DefaultAccountBookContent(
     private val circuit: Circuit,
     private val rootViewModel: (CoroutineScope) -> RootViewModel,
     private val preferences: AccountbookPreferences,
-    private val imageLoader: ImageLoader,
     private val logger: Logger,
 ) : AccountBookContent {
 
-    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalCoilApi::class)
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     @Composable
     override fun Content(
         backstack: SaveableBackStack,
@@ -64,7 +60,7 @@ class DefaultAccountBookContent(
             AccountBookNavigator(navigator, backstack, onOpenUrl, logger)
         }
 
-        setSingletonImageLoaderFactory { imageLoader }
+       // setSingletonImageLoaderFactory { imageLoader }
 
         CompositionLocalProvider(
             LocalNavigator provides accountBookNavigator,

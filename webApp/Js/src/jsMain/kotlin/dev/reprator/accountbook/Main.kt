@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import dev.reprator.accountbook.inject.JsApplicationComponent
-import dev.reprator.accountbook.inject.WindowComponent
+import dev.reprator.accountbook.inject.JsWindowComponent
 import dev.reprator.accountbook.inject.create
 import dev.reprator.screens.SplashScreen
 
@@ -26,7 +26,7 @@ fun main() = onWasmReady {
         }
 
         val component = remember(applicationComponent) {
-            WindowComponent.create(applicationComponent)
+            JsWindowComponent.create(applicationComponent)
         }
 
         val backstack = rememberSaveableBackStack(listOf(SplashScreen))

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-
 plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
@@ -9,15 +7,12 @@ plugins {
 kotlin {
 
     js(IR) {
+        useCommonJs()
         browser {
-            runTask(Action {
-                mainOutputFileName = "main.bundle.js"
-            })
-            webpackTask(Action {
-                mainOutputFileName = "main.bundle.js"
-            })
+            commonWebpackConfig {
+                outputFileName = "main.bundle.js"
+            }
         }
-        generateTypeScriptDefinitions()
         binaries.executable()
     }
 

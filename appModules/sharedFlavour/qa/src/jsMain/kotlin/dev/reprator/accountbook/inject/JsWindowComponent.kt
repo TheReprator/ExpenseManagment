@@ -6,7 +6,7 @@ import me.tatarka.inject.annotations.Component
 
 @ActivityScope
 @Component
-abstract class WindowComponent(
+abstract class JsWindowComponent(
     @Component val applicationComponent: JsApplicationComponent,
 ) : QaUiComponent {
     abstract val accountBookContent: AccountBookContent

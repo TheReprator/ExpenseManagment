@@ -37,14 +37,15 @@ kotlin {
                 api(compose.material3)
                 api(compose.animation)
                 implementation(compose.components.resources)
+
                 api(libs.compose.material3.windowsizeclass)
 
                 api(libs.circuit.foundation)
                 api(libs.circuit.overlay)
 
-                api(libs.coil.core)
-                api(libs.coil.network)
-                api(libs.coil.compose)
+//                api(libs.coil.core)
+//                api(libs.coil.network)
+//                api(libs.coil.compose)
 
                 implementation(libs.uuid)
             }
@@ -53,7 +54,6 @@ kotlin {
         val mobileDesktopMain by creating {
             dependencies {
                 dependsOn(commonMain)
-                implementation(libs.kstore.file)
             }
         }
 
@@ -63,16 +63,16 @@ kotlin {
             }
         }
 
+        val appleMain by getting {
+            dependencies {
+                dependsOn(mobileDesktopMain)
+            }
+        }
+        
         val androidMain by getting {
             dependencies {
                 dependsOn(mobileDesktopMain)
                 api(libs.androidx.activity.compose)
-            }
-        }
-
-        val appleMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
             }
         }
     }
