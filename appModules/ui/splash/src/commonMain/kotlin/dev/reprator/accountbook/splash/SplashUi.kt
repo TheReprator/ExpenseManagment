@@ -1,8 +1,5 @@
 package dev.reprator.accountbook.splash
 
-import accountbook_kmp.appmodules.ui.splash.generated.resources.Res
-import accountbook_kmp.appmodules.ui.splash.generated.resources.compose_multiplatform
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.slack.circuit.runtime.CircuitContext
@@ -14,14 +11,10 @@ import androidx.compose.foundation.background
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import dev.reprator.accountbook.splash.expect.Greeting
 import dev.reprator.screens.SplashScreen
-import org.jetbrains.compose.resources.painterResource
 
 @Inject
 class SplashUiFactory : Ui.Factory {
@@ -57,23 +50,11 @@ internal fun SplashUi(
     login: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var showContent by remember { mutableStateOf(false) }
-
     Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
-           // login()
-            showContent = !showContent
-
+            login()
         }, Modifier.background(MaterialTheme.colorScheme.primary)) {
             Text("Click me!", style = MaterialTheme.typography.titleLarge)
-        }
-
-        AnimatedVisibility(showContent) {
-            val greeting = remember { Greeting().greet() }
-            Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(painterResource(Res.drawable.compose_multiplatform), null)
-                Text("Compose: $greeting", style = MaterialTheme.typography.titleLarge)
-            }
         }
     }
 }
