@@ -36,16 +36,17 @@ kotlin {
 
                 api(compose.material3)
                 api(compose.animation)
-                implementation(compose.components.resources)
+                api(compose.components.resources)
+                api(compose.components.uiToolingPreview)
 
                 api(libs.compose.material3.windowsizeclass)
 
                 api(libs.circuit.foundation)
                 api(libs.circuit.overlay)
 
-//                api(libs.coil.core)
-//                api(libs.coil.network)
-//                api(libs.coil.compose)
+                api(libs.coil.core)
+                api(libs.coil.network)
+                api(libs.coil.compose)
 
                 implementation(libs.uuid)
             }

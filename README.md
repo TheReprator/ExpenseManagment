@@ -5,6 +5,11 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop, Server, 
 
 AccountManagment is a **work-in-progress** and clone of Cashbook
 
+## The Features that will be in this app:
+
+- [x] Initial setup for Android, IOS, Desktop
+- [ ] Login and Sign up with Oidc
+- [ ] many more
 
 ## Development setup
 

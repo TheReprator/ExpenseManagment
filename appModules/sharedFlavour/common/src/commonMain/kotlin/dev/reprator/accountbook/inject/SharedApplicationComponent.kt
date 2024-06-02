@@ -6,6 +6,7 @@ import dev.reprator.appFeatures.impl.performance.PerformanceComponent
 import dev.reprator.appFeatures.impl.powerController.PowerControllerComponent
 import dev.reprator.appFeatures.impl.preferences.PreferencesComponent
 import dev.reprator.appFeatures.impl.utility.UtilityComponent
+import dev.reprator.baseUi.imageLoading.ImageLoadingComponent
 import dev.reprator.core.inject.ApplicationCoroutineScope
 import dev.reprator.core.inject.ApplicationScope
 import dev.reprator.core.util.AppCoroutineDispatchers
@@ -17,6 +18,7 @@ expect interface SharedPlatformApplicationComponent
 
 interface SharedApplicationComponent :
     SharedPlatformApplicationComponent,
+    ImageLoadingComponent,
     AnalyticsComponent,
     LoggerComponent,
     PerformanceComponent,
