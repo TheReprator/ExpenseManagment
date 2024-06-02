@@ -1,8 +1,6 @@
 This is a Kotlin Multiplatform project targeting Android, iOS, Desktop, Server, later planning for web(as some errors are there in javascript code)
 
 
-![AccountManagment]
-
 # AccountManagment 📺 (work-in-progress 👷🔧️👷‍♀️⛏)
 
 AccountManagment is a **work-in-progress** and clone of Cashbook
@@ -11,12 +9,15 @@ AccountManagment is a **work-in-progress** and clone of Cashbook
 ## Development setup
 
 Fleet(My preference)
+
 Android Studio
+
 Intellij
 
 ## Credits:
 
 Chris Banes(Tivi: https://github.com/chrisbanes/tivi)
+
 Isuru Rajapakse(NYTimes-KMP: https://github.com/xxfast/NYTimes-KMP)
 
 ## Contributions
