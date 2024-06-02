@@ -50,7 +50,9 @@ fun main() = application {
         component.accountBookContent.Content(
             backstack = backstack,
             navigator = navigator,
-            onOpenUrl = { /* no-op for now */ },
+            onOpenUrl = { /* no-op for now */
+                            false
+                        },
             modifier = Modifier,
         )
     }

@@ -35,7 +35,9 @@ fun main() = onWasmReady {
         component.accountBookContent.Content(
             backstack = backstack,
             navigator = navigator,
-            onOpenUrl = { /* no-op for now */ },
+            onOpenUrl = { /* no-op for now */
+                            true
+                        },
             modifier = Modifier,
         )
 

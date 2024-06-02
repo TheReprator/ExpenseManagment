@@ -56,6 +56,7 @@ class MainActivity : AccountbookActivity() {
                 onOpenUrl = { url ->
                     val intent = CustomTabsIntent.Builder().build()
                     intent.launchUrl(this@MainActivity, Uri.parse(url))
+                    true
                 },
                 modifier = Modifier.semantics {
                     // Enables testTag -> UiAutomator resource id
