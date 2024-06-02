@@ -17,10 +17,9 @@ suspend inline fun <reified T> PipelineContext<Unit, ApplicationCall>.respondWit
     call.respond(statusCode, ResultDTOResponse(statusCode.value, result))
 }
 
-suspend fun respondWithError(
-    call: ApplicationCall, statusCode: HttpStatusCode, errorMessage: Map<Int, String>? = null
-) {
-    call.respond(statusCode, FailDTOResponse(statusCode.value, errorMessage.toString()))
+suspend fun ApplicationCall.respondWithError(
+    failDTOResponse: FailDTOResponse) {
+    respond(HttpStatusCode(failDTOResponse.statusCode, failDTOResponse.error), failDTOResponse)
 }
 
 suspend inline fun <reified T> PipelineContext<Unit, ApplicationCall>.receiveMultipart(

@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -45,7 +46,7 @@ dependencies {
 
     // testing
     testImplementation(projects.server.lib.testModule)
-   // testImplementation(libs.test.ktor.server)
+    // testImplementation(libs.test.ktor.server)
 }
 
 ktor {
@@ -56,9 +57,10 @@ ktor {
 
 tasks {
 
-    withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "${JavaVersion.VERSION_17}"
+    withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         }
     }
 

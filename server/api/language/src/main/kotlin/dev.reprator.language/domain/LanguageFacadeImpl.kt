@@ -9,9 +9,7 @@ import dev.reprator.language.modal.LanguageName
 class LanguageFacadeImpl(private val repository: LanguageRepository): LanguageFacade {
 
     override suspend fun getAllLanguage(): Iterable<LanguageModal> {
-        return repository.allLanguage().ifEmpty {
-            throw LanguageEmptyException()
-        }
+        return repository.allLanguage()
     }
 
     override suspend fun getLanguage(id: LanguageId): LanguageModal {
