@@ -13,23 +13,26 @@ expect interface ImageLoadingPlatformComponent
 
 interface ImageLoadingComponent : ImageLoadingPlatformComponent {
 
-  val imageLoader: ImageLoader
+    val imageLoader: ImageLoader
 
-  @Provides
-  fun provideImageLoader(
-      context: PlatformContext,
-      interceptors: Set<Interceptor>,
-      info: ApplicationInfo,
-      logger: Logger,
-  ): ImageLoader = newImageLoader(
-    context = context,
-    interceptors = interceptors,
-    logger = logger,
-    debug = info.debugBuild,
-    applicationInfo = info,
-  )
+    @Provides
+    fun provideImageInterceptor() = emptySet<Interceptor>()
 
-  @Provides
-  @IntoSet
-  fun bindImageLoaderCleanupInitializer(initializer: ImageLoaderCleanupInitializer): AppInitializer = initializer
+    @Provides
+    fun provideImageLoader(
+        context: PlatformContext,
+        interceptors: Set<Interceptor>,
+        info: ApplicationInfo,
+        logger: Logger,
+    ): ImageLoader = newImageLoader(
+        context = context,
+        interceptors = interceptors,
+        logger = logger,
+        debug = info.debugBuild,
+        applicationInfo = info,
+    )
+
+    @Provides
+    @IntoSet
+    fun bindImageLoaderCleanupInitializer(initializer: ImageLoaderCleanupInitializer): AppInitializer = initializer
 }

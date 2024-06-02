@@ -6,7 +6,7 @@ import okio.FileSystem
 
 actual interface ImageLoadingPlatformComponent {
     @Provides
-  fun providePlatformContext(): PlatformContext = PlatformContext.INSTANCE
+    fun providePlatformContext(): PlatformContext = PlatformContext.INSTANCE
 
     @Provides
     fun provideFileSystem(): FileSystem = FileSystem.SYSTEM

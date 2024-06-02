@@ -61,7 +61,7 @@ internal fun SplashUi(
 
     Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Button(onClick = {
-            login()
+           // login()
             showContent = !showContent
 
         }, Modifier.background(MaterialTheme.colorScheme.primary)) {
