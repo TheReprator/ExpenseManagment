@@ -9,7 +9,7 @@ androidxactivity = "1.9.0"
 androidx-tooling = "1.6.7"
 androidx-uiTest = "1.6.7"
 
-lifecycle = "2.8.0"
+lifecycle = "2.8.1"
 compose-plugin = "1.6.10"
 ksp = "2.0.0-1.0.21"
 
@@ -119,13 +119,13 @@ oidc-appsupport = { module = "io.github.kalinjul.kotlin.multiplatform:oidc-appsu
 oidc-ktor = { module = "io.github.kalinjul.kotlin.multiplatform:oidc-ktor", version.ref = "oidc" }
 
 kotlinx-atomicfu = "org.jetbrains.kotlinx:atomicfu:0.24.0"
-kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.5.0"
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0"
 kermit = "co.touchlab:kermit:2.0.3"
 
 uuid = "com.benasher44:uuid:0.8.4"
 
 test-mockk = "io.mockk:mockk:1.13.10"
-test-coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
+test-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 test-junit5-suite = "org.junit.platform:junit-platform-suite:1.10.2"
 test-junit5 = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5" }
@@ -150,7 +150,7 @@ jetbrains-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.re
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 buildConfig = "com.github.gmazzo.buildconfig:5.3.5"
-gms-googleServices = "com.google.gms.google-services:4.4.1"
+gms-googleServices = "com.google.gms.google-services:4.4.2"
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.1"
 
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }

@@ -1,7 +1,7 @@
 This is a Kotlin Multiplatform project targeting Android, iOS, Desktop, Server, later planning for web(as some errors are there in javascript code)
 
 
-# AccountManagment 📺 (work-in-progress 👷🔧️👷‍♀️⛏)
+# AccountManagment (work-in-progress 👷🔧️👷‍♀️⛏)
 
 AccountManagment is a **work-in-progress** and clone of Cashbook
 

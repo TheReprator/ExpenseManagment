@@ -32,4 +32,4 @@ jwt:
 
 khatabook:
   splash:
-    dir: "splashFileDirectory"
+    dir: "server/splashFileDirectory"
