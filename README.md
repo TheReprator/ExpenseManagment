@@ -8,6 +8,7 @@ AccountManagment is a **work-in-progress** and clone of Cashbook
 ## The Features that will be in this app:
 
 - [x] Initial setup for Android, IOS, Desktop
+- [x] Internet check, App lifecycle in foreground, background event
 - [ ] Login and Sign up with Oidc
 - [ ] many more
 
