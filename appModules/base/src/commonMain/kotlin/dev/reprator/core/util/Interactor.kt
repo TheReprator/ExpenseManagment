@@ -1,4 +1,4 @@
-package dev.reprator.accountbook.core.util
+package dev.reprator.core.util
 
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes

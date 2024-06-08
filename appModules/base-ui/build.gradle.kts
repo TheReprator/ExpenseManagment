@@ -37,7 +37,6 @@ kotlin {
                 api(compose.material3)
                 api(compose.animation)
                 implementation(compose.components.resources)
-                api(compose.components.uiToolingPreview)
 
                 api(libs.compose.material3.windowsizeclass)
 

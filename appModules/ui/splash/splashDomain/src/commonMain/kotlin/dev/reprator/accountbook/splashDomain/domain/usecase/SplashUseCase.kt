@@ -1,8 +1,8 @@
-package dev.reprator.accountbook.splash.domain.usecase
+package dev.reprator.accountbook.splashDomain.domain.usecase
 
-import dev.reprator.accountbook.core.util.Interactor
-import dev.reprator.accountbook.splash.domain.repository.SplashRepository
-import dev.reprator.accountbook.splash.ModalSplashState
+import dev.reprator.core.util.Interactor
+import dev.reprator.accountbook.splashDomain.domain.repository.SplashRepository
+import dev.reprator.accountbook.splashDomain.ModalSplashState
 import dev.reprator.core.util.AppCoroutineDispatchers
 import kotlinx.coroutines.withContext
 import me.tatarka.inject.annotations.Inject

@@ -1,6 +1,6 @@
-package dev.reprator.accountbook.splash.dataSource.remote
+package dev.reprator.accountbook.splashDomain.dataSource.remote
 
-import dev.reprator.accountbook.splash.dataSource.remote.modal.EntitySplash
+import dev.reprator.accountbook.splashDomain.dataSource.remote.modal.EntitySplash
 import me.tatarka.inject.annotations.Inject
 
 @Inject

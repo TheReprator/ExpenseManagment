@@ -6,6 +6,9 @@ import com.slack.circuit.runtime.screen.Screen
 object SplashScreen : AccountBookScreen(name = "SplashScreen()")
 
 @Parcelize
+object LanguageScreen : AccountBookScreen(name = "LanguageScreen()")
+
+@Parcelize
 object SettingsScreen : AccountBookScreen(name = "Settings()")
 
 @Parcelize

@@ -6,10 +6,10 @@ import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import dev.reprator.accountbook.splash.domain.usecase.SplashUseCase
+import dev.reprator.accountbook.splashDomain.ModalSplashState
+import dev.reprator.accountbook.splashDomain.domain.usecase.SplashUseCase
 import dev.reprator.appFeatures.api.utility.InternetChecker
 import dev.reprator.core.util.onException
-import dev.reprator.screens.SettingsScreen
 import dev.reprator.screens.SplashScreen
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
@@ -32,13 +32,14 @@ class SplashUiPresenterFactory(
 class AccountPresenter(
     @Assisted private val navigator: Navigator,
     private val splashUseCase: SplashUseCase,
-    private val internetChecker: InternetChecker
+    private val internetChecker: InternetChecker,
+    private val mapperUi: SplashMapperUi
 ) : Presenter<SplashUiState> {
 
     @Composable
     override fun present(): SplashUiState {
 
-        var splashData by rememberRetained { mutableStateOf(ModalSplashState(emptyList(), emptyList())) }
+        var splashData by rememberRetained { mutableStateOf(SplashModalState(emptyList(), emptyList())) }
         val isLoading by splashUseCase.inProgress.collectAsState(false)
 
         val scope = rememberCoroutineScope()
@@ -46,8 +47,10 @@ class AccountPresenter(
         LaunchedEffect(Unit) {
             val result = splashUseCase.invoke(Unit)
 
-            if (internetChecker.networkStatus.value)
-                splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
+            if (internetChecker.networkStatus.value) {
+                val splashDomainData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
+                splashData = mapperUi.map(splashDomainData)
+            }
 
             result.onException { e ->
                 println("Splash presenter error: ${e.message}")
@@ -65,8 +68,6 @@ class AccountPresenter(
                 SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
                     println("Splash presenter error: navigate")
                 }
-
-                SplashUiEvent.NavigateLToSettings -> navigator.goTo(SettingsScreen)
             }
         }
     }

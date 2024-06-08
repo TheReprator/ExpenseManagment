@@ -36,8 +36,11 @@ kotlin {
             dependencies {
                 implementation(projects.appModules.base)
                 implementation(projects.appModules.appFeatures.api)
+                implementation(projects.appModules.ui.splash.splashDomain)
                 implementation(projects.appModules.baseUi)
                 implementation(projects.appModules.navigation)
+
+                implementation(libs.kotlininject.runtime)
 
                 implementation(libs.circuit.foundation)
                 implementation(libs.circuit.retained)
@@ -46,7 +49,9 @@ kotlin {
 
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
+
                 implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
             }
         }
     }

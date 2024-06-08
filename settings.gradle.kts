@@ -36,6 +36,7 @@ include(
     ":appModules:appFeatures:impl",
     ":appModules:ui:root",
     ":appModules:ui:splash",
+    ":appModules:ui:splash:splashDomain",
     ":appModules:ui:settings",
     ":appModules:ui:developer:log",
     ":appModules:ui:developer:settings",

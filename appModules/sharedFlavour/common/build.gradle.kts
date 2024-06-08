@@ -91,6 +91,7 @@ kotlin {
                 api(projects.appModules.appFeatures.impl)
                 api(projects.appModules.ui.root)
                 api(projects.appModules.ui.splash)
+                api(projects.appModules.ui.splash.splashDomain)
                 api(projects.appModules.ui.settings)
                 api(projects.appModules.ui.developer.settings)
                 api(projects.appModules.ui.developer.log)

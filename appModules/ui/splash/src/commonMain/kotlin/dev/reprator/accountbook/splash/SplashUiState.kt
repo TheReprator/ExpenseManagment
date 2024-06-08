@@ -4,15 +4,13 @@ import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 
 data class SplashUiState(
-    val data: ModalSplashState,
+    val data: SplashModalState,
     val eventSink: (SplashUiEvent) -> Unit,
 ) : CircuitUiState
 
 
 sealed interface SplashUiEvent : CircuitUiEvent {
-    object Reload : SplashUiEvent
-    object NavigateToDashBoard : SplashUiEvent
-    object NavigateToLogin : SplashUiEvent
-
-    data object NavigateLToSettings : SplashUiEvent
+    data object Reload : SplashUiEvent
+    data object NavigateToDashBoard : SplashUiEvent
+    data object NavigateToLogin : SplashUiEvent
 }

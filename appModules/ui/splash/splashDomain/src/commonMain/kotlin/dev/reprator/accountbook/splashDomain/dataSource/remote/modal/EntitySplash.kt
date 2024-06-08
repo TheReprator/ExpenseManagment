@@ -1,4 +1,4 @@
-package dev.reprator.accountbook.splash.dataSource.remote.modal
+package dev.reprator.accountbook.splashDomain.dataSource.remote.modal
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
