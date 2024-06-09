@@ -6,8 +6,8 @@ import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import dev.reprator.accountbook.splashDomain.ModalSplashState
-import dev.reprator.accountbook.splashDomain.domain.usecase.SplashUseCase
+import dev.reprator.accountbook.domain.usecase.SplashUseCase
+import dev.reprator.accountbook.modals.uiModal.ModalSplashState
 import dev.reprator.appFeatures.api.utility.InternetChecker
 import dev.reprator.core.util.onException
 import dev.reprator.screens.SplashScreen

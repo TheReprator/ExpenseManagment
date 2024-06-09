@@ -1,11 +1,11 @@
 package dev.reprator.accountbook.splash
 
 import dev.reprator.accountbook.core.util.Mapper
-import dev.reprator.accountbook.splashDomain.ModalSplashState
+import dev.reprator.accountbook.modals.uiModal.ModalSplashState
 import me.tatarka.inject.annotations.Inject
 
 @Inject
-class SplashMapperUi constructor(): Mapper<ModalSplashState, SplashModalState> {
+class SplashMapperUi : Mapper<ModalSplashState, SplashModalState> {
 
     override fun map(from: ModalSplashState): SplashModalState {
         val imageList = from.imageList
