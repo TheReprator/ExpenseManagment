@@ -5,7 +5,7 @@ import dev.reprator.core.inject.ApplicationScope
 import me.tatarka.inject.annotations.Provides
 
 actual interface UtilityPlatformComponent {
-    @get:Provides
-    @get:ApplicationScope
-    val setNetworkListener: NetworkListener
+    @Provides
+    @ApplicationScope
+    fun provideInternetChecker(bind: IosNetworkListenerImpl): NetworkListener = bind
 }

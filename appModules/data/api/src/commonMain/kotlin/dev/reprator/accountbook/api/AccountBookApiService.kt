@@ -1,13 +1,18 @@
 package dev.reprator.accountbook.api
 
+import dev.reprator.accountbook.api.client.AppResult
+import dev.reprator.accountbook.api.client.safeRequest
+import io.ktor.client.HttpClient
+import io.ktor.http.HttpMethod
+import io.ktor.http.path
 import me.tatarka.inject.annotations.Inject
 
 interface ApiService {
-    suspend fun <T> splashData(): Result<T>
+    suspend fun <T> splashData(): AppResult<T>
 }
 
 @Inject
-class AccountBookApiService(): ApiService {
+class AccountBookApiService(private val httpClient: HttpClient): ApiService {
 
     companion object {
         const val END_POINT = "0.0.0.0:8081"
@@ -15,14 +20,15 @@ class AccountBookApiService(): ApiService {
     }
 
     @Inject
-    override suspend fun <T> splashData(): Result<T> {
-        throw Exception("error")
-//        return httpClient.safeRequest<EntitySplash> {
-//            url {
-//                method = HttpMethod.Get
-//                path(ENDPOINT_SPLASH)
-//            }
-//        }
+    override suspend fun <T> splashData(): AppResult<T> {
+        //throw Exception("error")
+
+        val result =  httpClient.safeRequest<T> {
+            url {
+                method = HttpMethod.Get
+                path(ENDPOINT_SPLASH)
+            }
+        }
     }
 }
 
