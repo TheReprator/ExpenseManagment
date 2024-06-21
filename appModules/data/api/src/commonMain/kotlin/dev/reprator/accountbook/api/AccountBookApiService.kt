@@ -21,14 +21,14 @@ class AccountBookApiService(private val httpClient: HttpClient): ApiService {
 
     @Inject
     override suspend fun <T> splashData(): AppResult<T> {
-        //throw Exception("error")
+        throw Exception("error")
 
-        val result =  httpClient.safeRequest<T> {
-            url {
-                method = HttpMethod.Get
-                path(ENDPOINT_SPLASH)
-            }
-        }
+//        val result =  httpClient.safeRequest<T> {
+//            url {
+//                method = HttpMethod.Get
+//                path(ENDPOINT_SPLASH)
+//            }
+//        }
     }
 }
 

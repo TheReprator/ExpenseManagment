@@ -1,4 +1,4 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop, Server, later planning for web(as some errors are there in javascript code)
+This is a Kotlin Multiplatform project targeting Android, iOS, Desktop, Web, Server
 
 
 # AccountManagment (work-in-progress 👷🔧️👷‍♀️⛏)
@@ -7,7 +7,7 @@ AccountManagment is a **work-in-progress** and clone of Cashbook
 
 ## The Features that will be in this app:
 
-- [x] Initial setup for Android, IOS, Desktop
+- [x] Initial setup for Android, IOS, Desktop, Web
 - [x] Internet check, App lifecycle in foreground, background event
 - [ ] Login and Sign up with Oidc
 - [ ] many more
@@ -37,7 +37,7 @@ if your change is substantial, please raise an issue first to discuss it.
 ## License
 
 ```
-Copyright 2023 Reprator
+Copyright 2024 Reprator
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

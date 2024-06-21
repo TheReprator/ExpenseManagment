@@ -12,14 +12,15 @@ class SplashRemoteDataSourceImpl(private val apiService: ApiService, private val
     SplashRemoteDataSource {
 
     override suspend fun splashRemoteDataSource(): ModalSplashState {
-        val apiResult = apiService.splashData<EntitySplash>()
-
-        if (apiResult.isSuccess) {
-            val data = apiResult.getOrNull()!!
-            return mapperSplash.map(data)
-        }
-
-        throw apiResult.exceptionOrNull()!!
+        throw Exception("error")
+//        val apiResult = apiService.splashData<EntitySplash>()
+//
+//        if (apiResult.isSuccess) {
+//            val data = apiResult.getOrNull()!!
+//            return mapperSplash.map(data)
+//        }
+//
+//        throw apiResult.exceptionOrNull()!!
 
     }
 

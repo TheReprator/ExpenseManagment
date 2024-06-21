@@ -75,6 +75,9 @@ kotlin {
                 api(libs.androidx.activity.compose)
             }
         }
+
+        jsMain.dependencies {
+        }
     }
 }
 
