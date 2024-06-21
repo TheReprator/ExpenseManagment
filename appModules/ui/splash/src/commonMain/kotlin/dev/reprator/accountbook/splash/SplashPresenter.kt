@@ -66,7 +66,9 @@ class AccountPresenter(
                     println("Splash presenter error: navigate")
                 }
 
-                SplashUiEvent.NavigateLToSettings -> navigator.goTo(SettingsScreen)
+                SplashUiEvent.NavigateLToSettings -> {
+                    navigator.goTo(SettingsScreen)
+                }
             }
         }
     }

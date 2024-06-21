@@ -1,16 +1,20 @@
 package dev.reprator.appFeatures.impl.analytics
 
-import dev.reprator.appFeatures.api.analytics.Analytics
+import dev.reprator.appFeatures.api.analytics.AppAnalytics
 import dev.reprator.appFeatures.impl.firebaseFeatures.analytics.FirebaseModalAnalytics
-import dev.reprator.appFeatures.impl.firebaseFeatures.analytics.FirebaseModalAnalyticsCallOptions
+import dev.reprator.appFeatures.impl.firebaseFeatures.analytics.external.getAnalytics
 import dev.reprator.appFeatures.impl.firebaseFeatures.app.external.FirebaseApp
 import me.tatarka.inject.annotations.Inject
 
 @Inject
 class AccountBookFirebaseAnalytics(
-    private val app: FirebaseApp,
-    private val analytics: FirebaseModalAnalytics
-) : Analytics {
+    private val firebaseApp: Lazy<FirebaseApp>
+) : AppAnalytics {
+
+    private val analytics: FirebaseModalAnalytics by lazy {
+        val analytics = getAnalytics(firebaseApp.value)
+        FirebaseModalAnalytics(analytics)
+    }
 
     override fun trackScreenView(
         name: String,

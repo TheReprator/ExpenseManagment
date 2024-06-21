@@ -5,7 +5,7 @@ import dev.reprator.appFeatures.impl.firebaseFeatures.performance.external.Perfo
 import dev.reprator.appFeatures.impl.firebaseFeatures.performance.external.trace
 
 
-class FirebaseModalPerformance internal constructor(val js: FirebasePerformance) {
+class FirebaseModalPerformance internal constructor(private val js: FirebasePerformance) {
 
     fun newTrace(traceName: String): FirebaseModalTrace = rethrow {
         FirebaseModalTrace(trace(js, traceName))
@@ -61,7 +61,7 @@ internal inline fun <R> rethrow(function: () -> R): R {
 internal fun errorToException(error: dynamic) = (error?.code ?: error?.message ?: "")
     .toString()
     .lowercase()
-    .let { code ->
+    .let { _ ->
         when {
             else -> {
                 println("Unknown error code in ${JSON.stringify(error)}")
