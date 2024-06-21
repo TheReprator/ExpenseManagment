@@ -5,7 +5,7 @@ import kotlin.native.ObjCName
 
 @OptIn(ExperimentalObjCName::class)
 @ObjCName(swiftName = "AccountBookAnalytics")
-interface Analytics {
+interface AppAnalytics {
     fun trackScreenView(
         name: String,
         arguments: Map<String, *>? = null,

@@ -7,10 +7,11 @@ plugins {
 kotlin {
 
     js(IR) {
-        useCommonJs()
+        moduleName = "expenseManagement"
+
         browser {
             commonWebpackConfig {
-                outputFileName = "main.bundle.js"
+                outputFileName = "expenseManagement.js"
             }
         }
         binaries.executable()

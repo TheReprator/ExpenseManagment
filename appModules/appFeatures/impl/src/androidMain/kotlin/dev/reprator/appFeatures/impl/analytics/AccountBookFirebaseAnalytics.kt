@@ -1,6 +1,6 @@
 package dev.reprator.appFeatures.impl.analytics
 
-import dev.reprator.appFeatures.api.analytics.Analytics
+import dev.reprator.appFeatures.api.analytics.AppAnalytics
 import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Bundle
@@ -10,7 +10,7 @@ import me.tatarka.inject.annotations.Inject
 @Inject
 class AccountBookFirebaseAnalytics(
     private val context: Application,
-) : Analytics {
+) : AppAnalytics {
 
     @delegate:SuppressLint("MissingPermission")
     private val firebaseAnalytics: FirebaseAnalytics by lazy {

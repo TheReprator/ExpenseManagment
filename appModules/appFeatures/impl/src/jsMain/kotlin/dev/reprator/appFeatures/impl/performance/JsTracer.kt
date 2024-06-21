@@ -1,12 +1,21 @@
 package dev.reprator.appFeatures.impl.performance
 
 import dev.reprator.appFeatures.api.performance.Tracer
+import dev.reprator.appFeatures.impl.firebaseFeatures.app.external.FirebaseApp
 import dev.reprator.appFeatures.impl.firebaseFeatures.performance.FirebaseModalTrace
+import dev.reprator.appFeatures.impl.firebaseFeatures.performance.FirebaseModalPerformance
+import dev.reprator.appFeatures.impl.firebaseFeatures.performance.external.getPerformance
 import me.tatarka.inject.annotations.Inject
 
 @Inject
-class JsTracer(private val trace: FirebaseModalTrace) : Tracer {
+class JsTracer(private val firebaseApp: Lazy<FirebaseApp>) : Tracer {
     
+    private val trace: FirebaseModalTrace by lazy {
+        val performance = getPerformance(firebaseApp.value)
+        val modalPerformance =  FirebaseModalPerformance(performance).newTrace("Accountbook web")
+        modalPerformance
+    }
+
     private var enabled = true
 
     override fun trace(name: String, block: () -> Unit) {

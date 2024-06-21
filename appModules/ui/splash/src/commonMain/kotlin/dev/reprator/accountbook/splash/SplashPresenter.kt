@@ -68,6 +68,10 @@ class AccountPresenter(
                 SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
                     println("Splash presenter error: navigate")
                 }
+
+                SplashUiEvent.NavigateLToSettings -> {
+                    navigator.goTo(SettingsScreen)
+                }
             }
         }
     }

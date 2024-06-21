@@ -7,6 +7,7 @@ import dev.reprator.appFeatures.impl.firebaseFeatures.jsonWithoutNullValues
 import kotlin.js.Json
 
 class FirebaseModalAnalytics internal constructor(private val wrapped: Analytics) {
+
     sealed class Event(val name: String) {
         internal abstract fun toParams(): Json
 
