@@ -5,8 +5,6 @@ import coil3.PlatformContext
 import coil3.intercept.Interceptor
 import dev.reprator.appFeatures.api.logger.Logger
 import dev.reprator.core.app.ApplicationInfo
-import dev.reprator.core.appinitializers.AppInitializer
-import me.tatarka.inject.annotations.IntoSet
 import me.tatarka.inject.annotations.Provides
 
 expect interface ImageLoadingPlatformComponent
@@ -31,8 +29,4 @@ interface ImageLoadingComponent : ImageLoadingPlatformComponent {
         debug = info.debugBuild,
         applicationInfo = info,
     )
-
-    @Provides
-    @IntoSet
-    fun bindImageLoaderCleanupInitializer(initializer: ImageLoaderCleanupInitializer): AppInitializer = initializer
-}
+  }

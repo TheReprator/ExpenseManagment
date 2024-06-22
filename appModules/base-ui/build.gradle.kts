@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
@@ -6,8 +8,6 @@ plugins {
 }
 
 kotlin {
-
-    applyDefaultHierarchyTemplate()
 
     androidTarget()
     jvm("desktop")
@@ -19,6 +19,17 @@ kotlin {
     //iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    applyDefaultHierarchyTemplate{
+        common {
+            group("mobileDesktop") {
+                withAndroidTarget()
+                withJvm()
+                withApple()
+            }
+        }
+    }
 
     java {
         toolchain {
@@ -50,34 +61,7 @@ kotlin {
                 implementation(libs.uuid)
             }
         }
-
-        val mobileDesktopMain by creating {
-            dependencies {
-                dependsOn(commonMain)
-            }
-        }
-
-        val desktopMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
-            }
-        }
-
-        val appleMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
-            }
-        }
-        
-        val androidMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
-                api(libs.androidx.activity.compose)
-            }
-        }
-
-        jsMain.dependencies {
-        }
+        val desktopMain by getting
     }
 }
 

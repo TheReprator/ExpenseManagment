@@ -4,7 +4,7 @@ import dev.reprator.appFeatures.api.utility.ApplicationLifeCycle
 import me.tatarka.inject.annotations.Inject
 
 @Inject
-class ApplicationLifeCycleImpl constructor(private val initializers: Lazy<Set<ApplicationLifeCycle>>) :
+class ApplicationLifeCycleImpl (private val initializers: Lazy<Set<ApplicationLifeCycle>>) :
     ApplicationLifeCycle {
 
     override fun isAppInForeGround() {
