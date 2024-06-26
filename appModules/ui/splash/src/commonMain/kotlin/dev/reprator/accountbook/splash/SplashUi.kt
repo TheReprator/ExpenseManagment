@@ -28,6 +28,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.overlay.LocalOverlayHost
@@ -192,12 +193,13 @@ private fun SplashBottomView(pagerState: PagerState, modifier: Modifier = Modifi
             SplashUiPagerIndicator(pagerState)
 
             Text("Let's test it")
-
+            val url = LocalUriHandler.current
             val coroutineScope = rememberCoroutineScope()
             Button(onClick = {
                 coroutineScope.launch {
                     // Call scroll to on pagerState
-                    pagerState.animateScrollToPage(5)
+                   // pagerState.animateScrollToPage(5)
+                    url.openUri("https://www.youtube.com/watch?v=7Z_--E4bc44")
                 }
             }) {
                 Text("Skip")

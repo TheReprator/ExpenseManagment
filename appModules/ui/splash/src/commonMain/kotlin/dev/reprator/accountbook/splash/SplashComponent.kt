@@ -2,10 +2,10 @@ package dev.reprator.accountbook.splash
 
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.ui.Ui
-import dev.reprator.accountbook.data.dataSource.SplashRemoteDataSource
-import dev.reprator.accountbook.data.repositoryImpl.SplashDataSourceImpl
-import dev.reprator.accountbook.dataSource.remote.SplashRemoteDataSourceImpl
-import dev.reprator.accountbook.domain.repository.SplashRepository
+import dev.reprator.accountbook.splash.data.dataSource.SplashRemoteDataSource
+import dev.reprator.accountbook.splash.data.repositoryImpl.SplashDataSourceImpl
+import dev.reprator.accountbook.splash.data.repositoryImpl.remote.SplashRemoteDataSourceImpl
+import dev.reprator.accountbook.splash.domain.repository.SplashRepository
 import dev.reprator.core.inject.ActivityScope
 import me.tatarka.inject.annotations.IntoSet
 import me.tatarka.inject.annotations.Provides

@@ -6,8 +6,8 @@ import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import dev.reprator.accountbook.domain.usecase.SplashUseCase
-import dev.reprator.accountbook.modals.uiModal.ModalSplashState
+import dev.reprator.accountbook.splash.domain.usecase.SplashUseCase
+import dev.reprator.accountbook.splash.modals.ModalStateSplash
 import dev.reprator.appFeatures.api.utility.InternetChecker
 import dev.reprator.core.util.onException
 import dev.reprator.screens.SplashScreen
@@ -33,13 +33,12 @@ class AccountPresenter(
     @Assisted private val navigator: Navigator,
     private val splashUseCase: SplashUseCase,
     private val internetChecker: InternetChecker,
-    private val mapperUi: SplashMapperUi
 ) : Presenter<SplashUiState> {
 
     @Composable
     override fun present(): SplashUiState {
 
-        var splashData by rememberRetained { mutableStateOf(SplashModalState(emptyList(), emptyList())) }
+        var splashData by rememberRetained { mutableStateOf(ModalStateSplash(emptyList(), emptyList())) }
         val isLoading by splashUseCase.inProgress.collectAsState(false)
 
         val scope = rememberCoroutineScope()
@@ -48,8 +47,7 @@ class AccountPresenter(
             val result = splashUseCase.invoke(Unit)
 
             if (internetChecker.networkStatus.value) {
-                val splashDomainData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
-                splashData = mapperUi.map(splashDomainData)
+                splashData = result.getOrDefault(ModalStateSplash(emptyList(), emptyList()))
             }
 
             result.onException { e ->

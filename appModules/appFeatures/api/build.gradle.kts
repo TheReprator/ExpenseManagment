@@ -73,7 +73,8 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(libs.kotlin.coroutines.core)
+            api(libs.ktor.client.core)
+            api(libs.kotlin.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.kotlinx.serialization)
         }

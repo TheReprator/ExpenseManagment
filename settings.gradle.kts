@@ -32,8 +32,6 @@ include(
     ":appModules:base",
     ":appModules:navigation",
     ":appModules:base-ui",
-    ":appModules:data:api",
-    ":appModules:data:models",
     ":appModules:appFeatures:api",
     ":appModules:appFeatures:impl",
     ":appModules:ui:root",

@@ -1,7 +1,7 @@
 package dev.reprator.accountbook.inject
 
-import dev.reprator.accountbook.api.AccountBookApiComponent
 import dev.reprator.appFeatures.impl.analytics.AnalyticsComponent
+import dev.reprator.appFeatures.impl.api.AccountBookApiComponent
 import dev.reprator.appFeatures.impl.logger.LoggerComponent
 import dev.reprator.appFeatures.impl.performance.PerformanceComponent
 import dev.reprator.appFeatures.impl.powerController.PowerControllerComponent

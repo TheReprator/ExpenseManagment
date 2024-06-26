@@ -88,8 +88,6 @@ kotlin {
                 api(projects.appModules.base)
                 api(projects.appModules.appFeatures.api)
                 api(projects.appModules.baseUi)
-                api(projects.appModules.data.api)
-                api(projects.appModules.data.models)
                 api(projects.appModules.appFeatures.impl)
                 api(projects.appModules.ui.root)
                 api(projects.appModules.ui.splash)

@@ -12,7 +12,6 @@ import dev.reprator.accountbook.inject.DesktopApplicationComponent
 import dev.reprator.accountbook.inject.WindowComponent
 import dev.reprator.accountbook.inject.create
 import dev.reprator.screens.SplashScreen
-import kotlinx.coroutines.delay
 
 fun main() = application {
     val applicationComponent = remember {
@@ -34,14 +33,10 @@ fun main() = application {
         DisposableEffect(Unit) {
             val listener = WindowStateListener(applicationComponent.applicationLifeCycle)
             window.addWindowListener(listener)
+            applicationComponent.applicationLifeCycle.isAppInForeGround()
             onDispose {
                 window.removeWindowListener(listener)
             }
-        }
-
-        LaunchedEffect(Unit) {
-            delay(2000)
-            applicationComponent.applicationLifeCycle.isAppInForeGround()
         }
 
         val backstack = rememberSaveableBackStack(listOf(SplashScreen))

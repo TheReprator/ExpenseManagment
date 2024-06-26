@@ -83,8 +83,6 @@ kotlin {
                 implementation(projects.appModules.base)
                 implementation(projects.appModules.appFeatures.api)
 
-                implementation(libs.kotlin.coroutines.core)
-
                 api(libs.kstore)
 
                 implementation(libs.kermit)
@@ -102,6 +100,7 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 dependsOn(mobileDesktopMain)
+                implementation(libs.ktor.client.java)
             }
         }
 
@@ -118,6 +117,7 @@ kotlin {
                 implementation(libs.google.firebase.perf)
 
                 implementation(libs.androidx.core)
+                implementation(libs.ktor.client.android)
             }
         }
 
@@ -125,6 +125,7 @@ kotlin {
             dependencies {
                 dependsOn(mobileDesktopMain)
                 implementation(libs.crashkios.crashlytics)
+                implementation(libs.ktor.client.darwin)
             }
         }
 
@@ -132,6 +133,7 @@ kotlin {
             implementation(kotlin("stdlib-js"))
             implementation(npm("firebase", "10.6.0"))
             implementation(libs.kstore.storage)
+            implementation(libs.ktor.client.js)
         }
     }
 }

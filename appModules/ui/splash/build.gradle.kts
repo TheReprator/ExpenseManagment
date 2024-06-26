@@ -34,9 +34,6 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation(projects.appModules.data.api)
-                implementation(projects.appModules.data.models)
-
                 implementation(projects.appModules.base)
                 implementation(projects.appModules.appFeatures.api)
                 implementation(projects.appModules.baseUi)

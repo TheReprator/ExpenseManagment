@@ -33,13 +33,10 @@ fun main() = onWasmReady {
         DisposableEffect(Unit) {
             val listener = AppStateListener(applicationComponent.applicationLifeCycle)
             listener.startListener()
+            applicationComponent.applicationLifeCycle.isAppInForeGround()
             onDispose {
                 listener.removeCallback()
             }
-        }
-
-        LaunchedEffect(Unit) {
-            applicationComponent.applicationLifeCycle.isAppInForeGround()
         }
 
         val backstack = rememberSaveableBackStack(listOf(SplashScreen))
