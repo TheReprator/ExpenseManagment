@@ -4,6 +4,11 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
+import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
+import coil3.compose.setSingletonImageLoaderFactory
 import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -40,10 +45,11 @@ class DefaultAccountBookContent(
     private val circuit: Circuit,
     private val rootViewModel: (CoroutineScope) -> RootViewModel,
     private val preferences: AccountbookPreferences,
+    private val imageLoader: ImageLoader,
     private val logger: Logger,
 ) : AccountBookContent {
 
-    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalCoilApi::class)
     @Composable
     override fun Content(
         backstack: SaveableBackStack,
@@ -56,11 +62,13 @@ class DefaultAccountBookContent(
         val coroutineScope = rememberCoroutineScope()
         remember { rootViewModel(coroutineScope) }
 
+        val uriHandler = LocalUriHandler.current
+
         val accountBookNavigator: Navigator = remember(navigator) {
-            AccountBookNavigator(navigator, backstack, onOpenUrl, logger)
+            AccountBookNavigator(navigator, backstack, uriHandler, logger)
         }
 
-       // setSingletonImageLoaderFactory { imageLoader }
+        setSingletonImageLoaderFactory { imageLoader }
 
         CompositionLocalProvider(
             LocalNavigator provides accountBookNavigator,
@@ -86,21 +94,25 @@ class DefaultAccountBookContent(
 private class AccountBookNavigator(
     private val navigator: Navigator,
     private val backStack: SaveableBackStack,
-    private val onOpenUrl: (String) -> Boolean,
+    private val uriHandler: UriHandler,
     private val logger: Logger,
 ) : Navigator {
 
     override fun goTo(screen: Screen) : Boolean {
-        logger.d { "goTo. Screen: $screen. Current stack: ${backStack.toList()}" }
+        logger.e { "goTo. Screen: $screen. Current stack: ${backStack.toList()}" }
 
         return when (screen) {
-            is UrlScreen -> onOpenUrl(screen.url)
+            is UrlScreen -> {
+                //onOpenUrl(screen.url)
+                uriHandler.openUri(screen.url)
+                false
+            }
             else -> navigator.goTo(screen)
         }
     }
 
     override fun pop(result: PopResult?): Screen? {
-        logger.d { "pop. Current stack: ${backStack.toList()}" }
+        logger.e { "pop. Current stack: ${backStack.toList()}" }
         return navigator.pop(result)
     }
 

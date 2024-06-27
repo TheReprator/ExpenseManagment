@@ -22,18 +22,17 @@ import me.tatarka.inject.annotations.Inject
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.overlay.LocalOverlayHost
-import dev.reprator.accountbook.splash.SplashUiEvent
-import dev.reprator.accountbook.splash.SplashUiState
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.overlay.showInBottomSheet
 import dev.reprator.baseUi.ui.rememberCoroutineScope
@@ -72,6 +71,7 @@ internal fun SplashUi(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SplashUi(
     viewState: SplashUiState,
@@ -79,22 +79,24 @@ internal fun SplashUi(
     dashBoard: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-  //  ContentWithOverlays {
 
-        val scope = rememberCoroutineScope()
-        val overlayHost = LocalOverlayHost.current
-        val navigator = LocalNavigator.current
+    val scope = rememberCoroutineScope()
+    val overlayHost = LocalOverlayHost.current
+    val navigator = LocalNavigator.current
 
+    ContentWithOverlays {
         SplashUi({
             scope.launch {
                 overlayHost.showInBottomSheet(
-                    screen = LanguageScreen,
-                    dragHandle = null,
+                    screen = LanguageScreen(1),
+                    dragHandle = {
+                        BottomSheetDefaults.
+                    },
                     hostNavigator = navigator,
                 )
             }
         })
-   // }
+    }
 }
 
 @Composable
@@ -193,13 +195,12 @@ private fun SplashBottomView(pagerState: PagerState, modifier: Modifier = Modifi
             SplashUiPagerIndicator(pagerState)
 
             Text("Let's test it")
-            val url = LocalUriHandler.current
+
             val coroutineScope = rememberCoroutineScope()
             Button(onClick = {
                 coroutineScope.launch {
                     // Call scroll to on pagerState
-                   // pagerState.animateScrollToPage(5)
-                    url.openUri("https://www.youtube.com/watch?v=7Z_--E4bc44")
+                    pagerState.animateScrollToPage(5)
                 }
             }) {
                 Text("Skip")

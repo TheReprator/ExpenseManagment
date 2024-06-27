@@ -6,9 +6,6 @@ import com.slack.circuit.runtime.screen.Screen
 object SplashScreen : AccountBookScreen(name = "SplashScreen()")
 
 @Parcelize
-object LanguageScreen : AccountBookScreen(name = "LanguageScreen()")
-
-@Parcelize
 object SettingsScreen : AccountBookScreen(name = "Settings()")
 
 @Parcelize
@@ -16,6 +13,11 @@ object DevSettingsScreen : AccountBookScreen(name = "DevelopmentSettings()")
 
 @Parcelize
 object DevLogScreen : AccountBookScreen(name = "DevelopmentLog()")
+
+@Parcelize
+data class LanguageScreen(val id: Long) : AccountBookScreen(name = "LanguageScreen()") {
+  override val arguments get() = mapOf("id" to id)
+}
 
 @Parcelize
 data class UrlScreen(val url: String) : AccountBookScreen(name = "UrlScreen()") {
