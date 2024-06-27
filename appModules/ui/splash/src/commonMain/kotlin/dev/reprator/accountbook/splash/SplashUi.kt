@@ -22,8 +22,6 @@ import me.tatarka.inject.annotations.Inject
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
@@ -71,7 +69,6 @@ internal fun SplashUi(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SplashUi(
     viewState: SplashUiState,
@@ -89,9 +86,7 @@ internal fun SplashUi(
             scope.launch {
                 overlayHost.showInBottomSheet(
                     screen = LanguageScreen(1),
-                    dragHandle = {
-                        BottomSheetDefaults.
-                    },
+                    dragHandle = null,
                     hostNavigator = navigator,
                 )
             }
