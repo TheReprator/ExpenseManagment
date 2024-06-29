@@ -83,6 +83,11 @@ kotlin {
                 implementation(projects.appModules.base)
                 implementation(projects.appModules.appFeatures.api)
 
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.client.serialization.json)
+                implementation(libs.ktor.client.logging)
+
                 api(libs.kstore)
 
                 implementation(libs.kermit)

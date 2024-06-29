@@ -3,6 +3,7 @@ package dev.reprator.accountbook.splash.data.repositoryImpl.remote
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+
 @Serializable
 data class EntitySplash(
     @SerialName("imageList")

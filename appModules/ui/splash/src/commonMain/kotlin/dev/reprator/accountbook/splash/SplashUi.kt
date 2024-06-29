@@ -86,7 +86,6 @@ internal fun SplashUi(
             scope.launch {
                 overlayHost.showInBottomSheet(
                     screen = LanguageScreen(1),
-                    dragHandle = null,
                     hostNavigator = navigator,
                 )
             }

@@ -1,11 +1,7 @@
-package dev.reprator.accountbook.core.util
+package dev.reprator.core.util
 
-fun interface Mapper<F, T> {
-    fun map(from: F): T
+fun interface Mapper<in From, out To> {
+    fun map(from: From): To
 }
 
-fun interface IndexedMapper<F, T> {
-    fun map(index: Int, from: F): T
-}
-
-inline fun <F, T> Mapper<F, T>.map(collection: Collection<F>) = collection.map { map(it) }
+inline fun <F, T> Mapper<F, T>.mapAll(collection: Collection<F>) = collection.map { map(it) }

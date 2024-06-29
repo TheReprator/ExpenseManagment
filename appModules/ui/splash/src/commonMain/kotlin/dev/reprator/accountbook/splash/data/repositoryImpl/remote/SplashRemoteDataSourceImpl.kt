@@ -4,6 +4,7 @@ import dev.reprator.accountbook.splash.data.dataSource.SplashRemoteDataSource
 import dev.reprator.accountbook.splash.data.repositoryImpl.remote.mapper.MapperSplash
 import dev.reprator.accountbook.splash.modals.ModalStateSplash
 import dev.reprator.appFeatures.api.client.AppResult
+import dev.reprator.appFeatures.api.client.AppSuccessModal
 import dev.reprator.appFeatures.api.client.safeRequest
 import io.ktor.client.*
 import io.ktor.http.*
@@ -17,7 +18,7 @@ class SplashRemoteDataSourceImpl(private val httpClient: HttpClient, private val
 
     override suspend fun splashRemoteDataSource(): ModalStateSplash {
 
-        val apiResult = httpClient.safeRequest<EntitySplash> {
+        val apiResult = httpClient.safeRequest<AppSuccessModal<EntitySplash>> {
             url {
                 method = HttpMethod.Get
                 path(ENDPOINT_SPLASH)
@@ -25,7 +26,7 @@ class SplashRemoteDataSourceImpl(private val httpClient: HttpClient, private val
         }
         
         return when(apiResult) {
-            is AppResult.Success -> mapperSplash.map(apiResult.body)
+            is AppResult.Success -> mapperSplash.map(apiResult.body.data)
             is AppResult.Error.HttpError -> {
                 throw Exception(apiResult.errorMessage)
             }

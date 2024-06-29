@@ -1,6 +1,6 @@
 package dev.reprator.accountbook.splash.data.repositoryImpl.remote.mapper
 
-import dev.reprator.accountbook.core.util.Mapper
+import dev.reprator.core.util.Mapper
 import dev.reprator.accountbook.splash.data.repositoryImpl.remote.EntitySplash
 import dev.reprator.accountbook.splash.modals.ModalStateLanguage
 import dev.reprator.accountbook.splash.modals.ModalStateSplash

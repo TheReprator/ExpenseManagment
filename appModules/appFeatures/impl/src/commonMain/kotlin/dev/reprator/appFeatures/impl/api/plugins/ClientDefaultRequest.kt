@@ -12,5 +12,11 @@ fun HttpClientConfig<*>.pluginClientDefaultRequest() {
         headers {
             append(HttpHeaders.ContentType, "application/json")
         }
+
+        url {
+            host = "localhost"
+            port = 8081
+            protocol = URLProtocol.HTTP
+        }
     }
 }
