@@ -12,5 +12,7 @@ data class LanguageUiState(
 ) : CircuitUiState
 
 
-sealed interface LanguageUiEvent : CircuitUiEvent
+sealed interface LanguageUiEvent : CircuitUiEvent {
+    data class UpdateSelectedLanguage(val languageId: Long) : LanguageUiEvent
+}
 

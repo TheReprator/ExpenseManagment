@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.slack.circuit.retained.rememberRetained
 import com.slack.circuit.runtime.CircuitContext
@@ -42,18 +43,22 @@ class LanguagePresenter(
     private val logger: Logger,
 ) : Presenter<LanguageUiState> {
 
+
     @Composable
     override fun present(): LanguageUiState {
         val scope = rememberCoroutineScope()
+
+        var selectedLanguage by rememberSaveable { mutableStateOf(screen.id) }
+
 
         var languageData by rememberRetained { mutableStateOf(emptyList<ModalStateLanguage>()) }
         val isLoading by useCase.inProgress.collectAsState(false)
 
 
         LaunchedEffect(Unit) {
-            val result = useCase.invoke(Unit)
+            val result = useCase(Unit)
 
-            languageData = result.getOrDefault(emptyList<ModalStateLanguage>())
+            languageData = result.getOrDefault(emptyList())
 
 
             result.onException { e ->

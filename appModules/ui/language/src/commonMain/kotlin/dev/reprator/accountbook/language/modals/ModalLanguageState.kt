@@ -4,4 +4,4 @@ import androidx.compose.runtime.Immutable
 
 
 @Immutable
-data class ModalStateLanguage(val language: String, val id: Int)
+data class ModalStateLanguage(val language: String, val id: Int, val isSelected: Boolean = false)
