@@ -1,12 +1,7 @@
 package dev.reprator.accountbook.language
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import com.slack.circuit.retained.rememberRetained
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
@@ -15,9 +10,11 @@ import com.slack.circuit.runtime.screen.Screen
 import dev.reprator.accountbook.language.domain.usecase.LanguageUseCase
 import dev.reprator.accountbook.language.modals.ModalStateLanguage
 import dev.reprator.appFeatures.api.logger.Logger
+import dev.reprator.baseUi.ui.UiMessage
+import dev.reprator.baseUi.ui.UiMessageManager
 import dev.reprator.baseUi.ui.rememberCoroutineScope
-import dev.reprator.core.util.onException
 import dev.reprator.screens.LanguageScreen
+import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
 
@@ -43,38 +40,78 @@ class LanguagePresenter(
     private val logger: Logger,
 ) : Presenter<LanguageUiState> {
 
+    var i = 0
 
     @Composable
     override fun present(): LanguageUiState {
         val scope = rememberCoroutineScope()
-
-        var selectedLanguage by rememberSaveable { mutableStateOf(screen.id) }
-
+        val uiMessageManager = remember { UiMessageManager() }
 
         var languageData by rememberRetained { mutableStateOf(emptyList<ModalStateLanguage>()) }
-        val isLoading by useCase.inProgress.collectAsState(false)
 
+        val loading by useCase.inProgress.collectAsState(false)
+        val message by uiMessageManager.message.collectAsState(null)
 
-        LaunchedEffect(Unit) {
-            val result = useCase(Unit)
+//
+//        LaunchedEffect(Unit) {
+//
+//            val result = useCase.invoke(Unit)
+//            languageData= result.getOrDefault(emptyList())
+//
+//
+//            result.onFailure { e ->
+//                logger.i(e)
+//                uiMessageManager.emitMessage(UiMessage(e))
+//                println("language presenter error: ${e.message}")
+//            }
+//        }
 
-            languageData = result.getOrDefault(emptyList())
+        fun eventSink(event: LanguageUiEvent) {
+            when (event) {
+                is LanguageUiEvent.ClearMessage -> {
+                    scope.launch {
+                        uiMessageManager.clearMessage(event.id)
+                    }
+                }
 
+                is LanguageUiEvent.Reload -> {
+                    scope.launch {
+                        i=0
+                        val result = useCase.invoke(Unit).also {
+                            it.onFailure { e ->
+                                logger.i(e)
+                                uiMessageManager.emitMessage(UiMessage(e))
+                                println("language presenter error: ${e.message}")
+                            }
+                        }.getOrDefault(emptyList()).map {
+                            if (screen.id == it.id)
+                                it.copy(isSelected = true)
+                            else
+                                it
+                        }
 
-            result.onException { e ->
-                println("language presenter error: ${e.message}")
+                        languageData = result
+                    }
+                }
+
+                is LanguageUiEvent.UpdateSelectedLanguage -> {
+
+                }
             }
         }
 
-//        LaunchedEffect(Unit) {
-//            observeEpisodeDetails.value.invoke(ObserveEpisodeDetails.Params(screen.id))
-//            eventSink(EpisodeTrackUiEvent.Refresh(false))
-//        }
+        LaunchedEffect(Unit) {
+            logger.e { "VikramLanguage11:: loading = ${loading}, i = $i, message =$message, data = $languageData" }
+            eventSink(LanguageUiEvent.Reload)
+        }
 
+        i++
+        logger.e { "VikramLanguage:: loading = ${loading}, i = $i, message =$message, data = $languageData" }
         return LanguageUiState(
-            data = languageData,{
-
-            }
+            data = languageData,
+            isLoading = loading,
+            message = message,
+            eventSink = ::eventSink
         )
     }
 }

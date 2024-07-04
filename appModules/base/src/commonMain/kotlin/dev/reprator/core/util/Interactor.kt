@@ -3,6 +3,7 @@ package dev.reprator.core.util
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -30,6 +31,7 @@ abstract class Interactor<in P, R> {
         timeout: Duration = DefaultTimeout,
     ): Result<R> = try {
         addLoader()
+        delay(5000)
         runCatching {
             withTimeout(timeout) {
                 doWork(params)
@@ -42,7 +44,7 @@ abstract class Interactor<in P, R> {
     protected abstract suspend fun doWork(params: P): R
 
     companion object {
-        internal val DefaultTimeout = 5.minutes
+        internal val DefaultTimeout = 1.minutes
     }
 }
 

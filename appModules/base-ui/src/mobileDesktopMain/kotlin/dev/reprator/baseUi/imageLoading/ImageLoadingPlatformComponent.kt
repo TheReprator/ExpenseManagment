@@ -1,15 +1,15 @@
 package dev.reprator.baseUi.imageLoading
 
-import coil3.PlatformContext
 import me.tatarka.inject.annotations.Provides
 import okio.FileSystem
 import dev.reprator.core.appinitializers.AppInitializer
 import me.tatarka.inject.annotations.IntoSet
 
-actual interface ImageLoadingPlatformComponent {
-    
-    @Provides
-    fun providePlatformContext(): PlatformContext = PlatformContext.INSTANCE
+expect interface ImageLoadingPlatformContextComponent
+
+
+actual interface ImageLoadingPlatformComponent: ImageLoadingPlatformContextComponent {
+
 
     @Provides
     fun provideFileSystem(): FileSystem = FileSystem.SYSTEM

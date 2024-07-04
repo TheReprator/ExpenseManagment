@@ -14,7 +14,7 @@ data class EntityLanguageMain(
 @Serializable
 data class EntityLanguage(
     @SerialName("id")
-    val id: Int = -1,
+    val id: Long = -1,
     @SerialName("name")
     val name: String = ""
 )
