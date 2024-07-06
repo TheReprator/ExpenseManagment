@@ -1,7 +1,6 @@
 package dev.reprator.accountbook.language
 
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import com.slack.circuit.retained.rememberRetained
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
@@ -36,35 +35,20 @@ class LanguageUiPresenterFactory(
 class LanguagePresenter(
     @Assisted private val screen: LanguageScreen,
     @Assisted private val navigator: Navigator,
-    private val useCase: LanguageUseCase,
+    private val useCase: Lazy<LanguageUseCase>,
     private val logger: Logger,
 ) : Presenter<LanguageUiState> {
 
-    var i = 0
-
     @Composable
     override fun present(): LanguageUiState {
+
         val scope = rememberCoroutineScope()
         val uiMessageManager = remember { UiMessageManager() }
 
         var languageData by rememberRetained { mutableStateOf(emptyList<ModalStateLanguage>()) }
 
-        val loading by useCase.inProgress.collectAsState(false)
+        val loading by useCase.value.inProgress.collectAsState(false)
         val message by uiMessageManager.message.collectAsState(null)
-
-//
-//        LaunchedEffect(Unit) {
-//
-//            val result = useCase.invoke(Unit)
-//            languageData= result.getOrDefault(emptyList())
-//
-//
-//            result.onFailure { e ->
-//                logger.i(e)
-//                uiMessageManager.emitMessage(UiMessage(e))
-//                println("language presenter error: ${e.message}")
-//            }
-//        }
 
         fun eventSink(event: LanguageUiEvent) {
             when (event) {
@@ -76,12 +60,11 @@ class LanguagePresenter(
 
                 is LanguageUiEvent.Reload -> {
                     scope.launch {
-                        i=0
-                        val result = useCase.invoke(Unit).also {
+                        logger.e { "VikramLanguagePresenter:: loading: $loading, errorMessage: $message, languageData: $languageData, LanguagePresenter: ${this@LanguagePresenter}" }
+                        val result = useCase.value.invoke(Unit).also {
                             it.onFailure { e ->
                                 logger.i(e)
                                 uiMessageManager.emitMessage(UiMessage(e))
-                                println("language presenter error: ${e.message}")
                             }
                         }.getOrDefault(emptyList()).map {
                             if (screen.id == it.id)
@@ -91,6 +74,7 @@ class LanguagePresenter(
                         }
 
                         languageData = result
+                        logger.e { "VikramLanguagePresenter2:: loading: $loading, errorMessage: $message, languageData: $languageData, LanguagePresenter: ${this@LanguagePresenter}" }
                     }
                 }
 
@@ -101,12 +85,10 @@ class LanguagePresenter(
         }
 
         LaunchedEffect(Unit) {
-            logger.e { "VikramLanguage11:: loading = ${loading}, i = $i, message =$message, data = $languageData" }
-            eventSink(LanguageUiEvent.Reload)
+           eventSink(LanguageUiEvent.Reload)
+            logger.e { "VikramLanguagePresenter3:: loading: $loading, errorMessage: $message, languageData: $languageData, LanguagePresenter: ${this@LanguagePresenter}" }
         }
 
-        i++
-        logger.e { "VikramLanguage:: loading = ${loading}, i = $i, message =$message, data = $languageData" }
         return LanguageUiState(
             data = languageData,
             isLoading = loading,

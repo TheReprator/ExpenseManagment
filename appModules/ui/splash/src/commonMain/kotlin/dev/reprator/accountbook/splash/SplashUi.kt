@@ -2,8 +2,23 @@ package dev.reprator.accountbook.splash
 
 import accountbook_kmp.appmodules.ui.splash.generated.resources.Res
 import accountbook_kmp.appmodules.ui.splash.generated.resources.logo
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -17,23 +32,27 @@ import androidx.compose.ui.Modifier
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuit.runtime.ui.Ui
-import com.slack.circuit.runtime.ui.ui
 import me.tatarka.inject.annotations.Inject
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.overlay.LocalOverlayHost
+import com.slack.circuit.runtime.ui.ui
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.overlay.showInBottomSheet
-import dev.reprator.baseUi.ui.rememberCoroutineScope
+import dev.reprator.baseUi.ui.AppLoader
+import dev.reprator.baseUi.ui.EmptyContent
+import dev.reprator.baseUi.ui.ErrorContent
 import dev.reprator.screens.LanguageScreen
 import dev.reprator.screens.SplashScreen
 import kotlinx.coroutines.launch
@@ -42,35 +61,103 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Inject
 class SplashUiFactory : Ui.Factory {
-
     override fun create(screen: Screen, context: CircuitContext): Ui<*>? = when (screen) {
         is SplashScreen -> {
             ui<SplashUiState> { state, modifier ->
+                println("VikramSplashUI:: loading: ${state.isLoading}, errorMessage: ${state.message}, languageData: ${state.data}")
                 SplashUi(state, modifier)
             }
         }
-
         else -> null
     }
 }
 
 @Composable
 internal fun SplashUi(
-    state: SplashUiState,
+    viewState: SplashUiState,
     modifier: Modifier = Modifier,
 ) {
-    val eventSink = state.eventSink
+    println("VikramSplashUI11:: loading: ${viewState.isLoading}, errorMessage: ${viewState.message}, languageData: ${viewState.data}")
 
     SplashUi(
-        viewState = state,
-        login = { eventSink(SplashUiEvent.NavigateToLogin) },
-        dashBoard = { eventSink(SplashUiEvent.NavigateToDashBoard) },
+        viewState = viewState,
+        onReload = { viewState.eventSink(SplashUiEvent.Reload) },
+        onRemoveError = { id ->
+            viewState.eventSink(SplashUiEvent.ClearMessage(id))
+            viewState.eventSink(SplashUiEvent.Reload)
+        },
         modifier = modifier,
     )
 }
 
 @Composable
 internal fun SplashUi(
+    viewState: SplashUiState,
+    onReload: () -> Unit,
+    onRemoveError: (id: Long) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    androidx.compose.material3.Surface(
+        modifier = modifier
+            .testTag("accountbook_testTag_splash"),
+    ) {
+        if (viewState.isLoading) {
+            LanguageLoader()
+        } else if ((null != viewState.message) && (viewState.message.message.isNotBlank())) {
+            Error(viewState.message.message) {
+                onRemoveError(viewState.message.id)
+            }
+        }else if (viewState.data.languageList.isEmpty()  && viewState.data.imageList.isEmpty() && (!viewState.isLoading)) {
+            LanguageEmpty()
+        } else {
+            SplashUi(viewState = viewState, login = {}, dashBoard = {})
+        }
+    }
+}
+
+@Composable
+private fun LanguageLoader() {
+    AppLoader()
+}
+
+@Composable
+private fun LanguageEmpty() {
+    EmptyContent(
+        title = { Text(text = "Empty Splash") },
+        prompt = { Text(text = "No Splash Fetched") },
+        graphic = { Text(text = "\uD83D\uDCFC") },
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 64.dp),
+    )
+}
+
+@Composable
+private fun Error(errorDescription: String, onButtonClick: () -> Unit) {
+    ErrorContent(buttonName = "Retry", errorDescription = errorDescription, onButtonClick = onButtonClick)
+}
+
+
+
+
+
+//@Composable
+//internal fun SplashUi(
+//    state: SplashUiState,
+//    modifier: Modifier = Modifier,
+//) {
+//    val eventSink = state.eventSink
+//
+//    SplashUi(
+//        viewState = state,
+//        login = { eventSink(SplashUiEvent.NavigateToLogin) },
+//        dashBoard = { eventSink(SplashUiEvent.NavigateToDashBoard) },
+//        modifier = modifier,
+//    )
+//}
+
+@Composable
+private fun SplashUi(
     viewState: SplashUiState,
     login: () -> Unit,
     dashBoard: () -> Unit,

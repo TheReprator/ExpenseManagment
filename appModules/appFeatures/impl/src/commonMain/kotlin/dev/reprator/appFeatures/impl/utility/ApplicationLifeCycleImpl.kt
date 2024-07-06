@@ -8,14 +8,12 @@ class ApplicationLifeCycleImpl (private val initializers: Lazy<Set<ApplicationLi
     ApplicationLifeCycle {
 
     override fun isAppInForeGround() {
-        println("vikram::ApplicationLifeCycle:: App is in foreground")
         initializers.value.forEach {
             it.isAppInForeGround()
         }
     }
 
     override fun isAppInBackground() {
-        println("vikram::ApplicationLifeCycle:: App is in background")
         initializers.value.forEach {
             it.isAppInBackground()
         }

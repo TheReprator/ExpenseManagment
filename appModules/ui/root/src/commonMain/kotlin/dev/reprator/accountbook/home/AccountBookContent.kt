@@ -2,7 +2,10 @@ package dev.reprator.accountbook.home
 
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
@@ -17,6 +20,7 @@ import com.slack.circuit.retained.continuityRetainedStateRegistry
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.PopResult
 import com.slack.circuit.runtime.screen.Screen
+import dev.reprator.appFeatures.api.analytics.AppAnalytics
 import kotlinx.collections.immutable.ImmutableList
 import me.tatarka.inject.annotations.Inject
 import dev.reprator.appFeatures.api.logger.Logger
@@ -24,8 +28,10 @@ import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.theme.AccountBookTheme
 import dev.reprator.baseUi.ui.LocalWindowSizeClass
+import dev.reprator.baseUi.ui.rememberCoroutineScope
 import dev.reprator.baseUi.ui.shouldUseDarkColors
 import dev.reprator.baseUi.ui.shouldUseDynamicColors
+import dev.reprator.screens.AccountBookScreen
 import dev.reprator.screens.UrlScreen
 import kotlinx.coroutines.CoroutineScope
 
@@ -43,6 +49,7 @@ interface AccountBookContent {
 @Inject
 class DefaultAccountBookContent(
     private val circuit: Circuit,
+    private val analytics: AppAnalytics,
     private val rootViewModel: (CoroutineScope) -> RootViewModel,
     private val preferences: AccountbookPreferences,
     private val imageLoader: ImageLoader,
@@ -57,8 +64,6 @@ class DefaultAccountBookContent(
         onOpenUrl: (String) -> Boolean,
         modifier: Modifier,
     ) {
-        println("VikramSingh::App Start")
-
         val coroutineScope = rememberCoroutineScope()
         remember { rootViewModel(coroutineScope) }
 
@@ -66,6 +71,16 @@ class DefaultAccountBookContent(
 
         val accountBookNavigator: Navigator = remember(navigator) {
             AccountBookNavigator(navigator, backstack, uriHandler, logger)
+        }
+
+        // Launch an effect to track changes to the current back stack entry, and push them
+        // as a screen views to analytics
+        LaunchedEffect(backstack.topRecord) {
+            val topScreen = backstack.topRecord?.screen as? AccountBookScreen
+            analytics.trackScreenView(
+                name = topScreen?.name ?: "unknown screen",
+                arguments = topScreen?.arguments,
+            )
         }
 
         setSingletonImageLoaderFactory { imageLoader }

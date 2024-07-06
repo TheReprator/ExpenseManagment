@@ -37,6 +37,8 @@ internal fun Language(
     viewState: LanguageUiState,
     modifier: Modifier = Modifier,
 ) {
+    println( "VikramLanguagePresenter00:: loading: ${viewState.isLoading}, errorMessage: ${viewState.message}, languageData: ${viewState.data}" )
+
     Language(
         viewState = viewState,
         onReload = { viewState.eventSink(LanguageUiEvent.Reload) },

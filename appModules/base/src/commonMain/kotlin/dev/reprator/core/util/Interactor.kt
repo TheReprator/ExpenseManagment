@@ -14,9 +14,11 @@ abstract class Interactor<in P, R> {
     private val count = atomic(0)
     private val loadingState = MutableStateFlow(count.value)
 
-    val inProgress: Flow<Boolean> = loadingState
-        .map { it > 0 }
-        .distinctUntilChanged()
+    val inProgress: Flow<Boolean> by lazy {
+        loadingState
+            .map { it > 0 }
+            .distinctUntilChanged()
+    }
 
     private fun addLoader() {
         loadingState.value = count.incrementAndGet()
@@ -29,16 +31,16 @@ abstract class Interactor<in P, R> {
     suspend operator fun invoke(
         params: P,
         timeout: Duration = DefaultTimeout,
-    ): Result<R> = try {
-        addLoader()
-        delay(5000)
-        runCatching {
+    ): Result<R> {
+        return cancellableRunCatching {
+            addLoader()
+            delay(10000)
             withTimeout(timeout) {
                 doWork(params)
             }
+        }.also {
+            removeLoader()
         }
-    } finally {
-        removeLoader()
     }
 
     protected abstract suspend fun doWork(params: P): R
