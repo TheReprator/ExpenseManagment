@@ -9,7 +9,9 @@ import me.tatarka.inject.annotations.Provides
 
 expect interface ImageLoadingPlatformComponent
 
-interface ImageLoadingComponent : ImageLoadingPlatformComponent {
+expect interface ApiPlatformContextComponent
+
+interface ImageLoadingComponent : ImageLoadingPlatformComponent, ApiPlatformContextComponent {
 
     val imageLoader: ImageLoader
 
