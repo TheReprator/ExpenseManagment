@@ -3,7 +3,7 @@ package dev.reprator.accountbook.splash
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import dev.reprator.accountbook.splash.modals.ModalStateSplash
-import dev.reprator.baseUi.ui.UiMessage
+import dev.reprator.baseUi.behaviour.UiMessage
 
 data class SplashUiState(
     val data: ModalStateSplash,

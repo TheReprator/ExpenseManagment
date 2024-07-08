@@ -1,4 +1,4 @@
-package dev.reprator.baseUi.ui
+package dev.reprator.baseUi.behaviour
 
 import com.benasher44.uuid.uuid4
 import kotlinx.coroutines.flow.Flow

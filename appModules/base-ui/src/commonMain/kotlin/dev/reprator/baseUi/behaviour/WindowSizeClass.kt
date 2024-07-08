@@ -1,4 +1,4 @@
-package dev.reprator.baseUi.ui
+package dev.reprator.baseUi.behaviour
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.staticCompositionLocalOf

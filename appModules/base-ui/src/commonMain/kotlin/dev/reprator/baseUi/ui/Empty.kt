@@ -2,6 +2,8 @@ package dev.reprator.baseUi.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
@@ -24,8 +26,12 @@ fun EmptyContent(
   prompt: @Composable () -> Unit,
   modifier: Modifier = Modifier,
 ) {
-  Box(modifier = modifier) {
-    Column(modifier = Modifier.align(Alignment.Center)) {
+  Box(modifier = Modifier
+    .fillMaxSize()
+    .wrapContentSize(Alignment.Center)) {
+
+    Column {
+
       val density = LocalDensity.current
       val emojiHeaderGraphicTextStyle = remember(density) {
         TextStyle(

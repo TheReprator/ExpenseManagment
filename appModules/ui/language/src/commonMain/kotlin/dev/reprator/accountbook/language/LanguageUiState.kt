@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import dev.reprator.accountbook.language.modals.ModalStateLanguage
-import dev.reprator.baseUi.ui.UiMessage
+import dev.reprator.baseUi.behaviour.UiMessage
 
 @Immutable
 data class LanguageUiState(

@@ -46,7 +46,10 @@ kotlin {
 
             api(compose.material3)
             api(compose.animation)
+
             implementation(compose.components.resources)
+            api(projects.appModules.resources.strings)
+            api(libs.lyricist.library)
 
             api(libs.compose.material3.windowsizeclass)
 
@@ -63,9 +66,8 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-              implementation(libs.androidx.activity.compose)
-            }
-
+            implementation(libs.androidx.activity.compose)
+        }
     }
 }
 

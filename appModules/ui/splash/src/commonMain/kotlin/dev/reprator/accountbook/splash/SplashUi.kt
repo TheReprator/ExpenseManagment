@@ -26,7 +26,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.slack.circuit.runtime.CircuitContext
@@ -36,6 +35,7 @@ import me.tatarka.inject.annotations.Inject
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.overlay.LocalOverlayHost
 import com.slack.circuit.runtime.ui.ui
+import dev.reprator.baseUi.behaviour.LocalStrings
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.overlay.showInBottomSheet
 import dev.reprator.baseUi.ui.AppLoader
@@ -64,10 +65,10 @@ class SplashUiFactory : Ui.Factory {
     override fun create(screen: Screen, context: CircuitContext): Ui<*>? = when (screen) {
         is SplashScreen -> {
             ui<SplashUiState> { state, modifier ->
-                println("VikramSplashUI:: loading: ${state.isLoading}, errorMessage: ${state.message}, languageData: ${state.data}")
                 SplashUi(state, modifier)
             }
         }
+
         else -> null
     }
 }
@@ -77,8 +78,6 @@ internal fun SplashUi(
     viewState: SplashUiState,
     modifier: Modifier = Modifier,
 ) {
-    println("VikramSplashUI11:: loading: ${viewState.isLoading}, errorMessage: ${viewState.message}, languageData: ${viewState.data}")
-
     SplashUi(
         viewState = viewState,
         onReload = { viewState.eventSink(SplashUiEvent.Reload) },
@@ -97,64 +96,40 @@ internal fun SplashUi(
     onRemoveError: (id: Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    androidx.compose.material3.Surface(
+    Surface(
         modifier = modifier
             .testTag("accountbook_testTag_splash"),
     ) {
         if (viewState.isLoading) {
-            LanguageLoader()
-        } else if ((null != viewState.message) && (viewState.message.message.isNotBlank())) {
-            Error(viewState.message.message) {
-                onRemoveError(viewState.message.id)
-            }
-        }else if (viewState.data.languageList.isEmpty()  && viewState.data.imageList.isEmpty() && (!viewState.isLoading)) {
-            LanguageEmpty()
-        } else {
-            SplashUi(viewState = viewState, login = {}, dashBoard = {})
+            AppLoader()
+            return@Surface
         }
+
+        if ((null != viewState.message) && (viewState.message.message.isNotBlank())) {
+
+            val strings = LocalStrings.current
+
+            ErrorContent(buttonName = strings.accountNameUnknown, errorDescription = viewState.message.message, onButtonClick = {
+                onRemoveError(viewState.message.id)
+            })
+            return@Surface
+        }
+
+        if (viewState.data.languageList.isEmpty() && viewState.data.imageList.isEmpty() && (!viewState.isLoading)) {
+            EmptyContent(
+                title = { Text(text = "Empty Splash") },
+                prompt = { Text(text = "No Splash Fetched") },
+                graphic = { Text(text = "\uD83D\uDCFC") },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = 64.dp),
+            )
+            return@Surface
+        }
+
+        SplashUi(viewState = viewState, login = {}, dashBoard = {})
     }
 }
-
-@Composable
-private fun LanguageLoader() {
-    AppLoader()
-}
-
-@Composable
-private fun LanguageEmpty() {
-    EmptyContent(
-        title = { Text(text = "Empty Splash") },
-        prompt = { Text(text = "No Splash Fetched") },
-        graphic = { Text(text = "\uD83D\uDCFC") },
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 64.dp),
-    )
-}
-
-@Composable
-private fun Error(errorDescription: String, onButtonClick: () -> Unit) {
-    ErrorContent(buttonName = "Retry", errorDescription = errorDescription, onButtonClick = onButtonClick)
-}
-
-
-
-
-
-//@Composable
-//internal fun SplashUi(
-//    state: SplashUiState,
-//    modifier: Modifier = Modifier,
-//) {
-//    val eventSink = state.eventSink
-//
-//    SplashUi(
-//        viewState = state,
-//        login = { eventSink(SplashUiEvent.NavigateToLogin) },
-//        dashBoard = { eventSink(SplashUiEvent.NavigateToDashBoard) },
-//        modifier = modifier,
-//    )
-//}
 
 @Composable
 private fun SplashUi(
@@ -263,10 +238,9 @@ private fun SplashBottomView(pagerState: PagerState, modifier: Modifier = Modifi
 
     Surface(
         color = MaterialTheme.colorScheme.surface,
-
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
-        elevation = 8.dp
+        tonalElevation = 8.dp
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

@@ -9,9 +9,9 @@ import com.slack.circuit.runtime.screen.Screen
 import dev.reprator.accountbook.language.domain.usecase.LanguageUseCase
 import dev.reprator.accountbook.language.modals.ModalStateLanguage
 import dev.reprator.appFeatures.api.logger.Logger
-import dev.reprator.baseUi.ui.UiMessage
-import dev.reprator.baseUi.ui.UiMessageManager
-import dev.reprator.baseUi.ui.rememberCoroutineScope
+import dev.reprator.baseUi.behaviour.UiMessage
+import dev.reprator.baseUi.behaviour.UiMessageManager
+import dev.reprator.baseUi.behaviour.rememberCoroutineScope
 import dev.reprator.screens.LanguageScreen
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted

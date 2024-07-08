@@ -17,6 +17,7 @@ kotlin = "2.0.0"
 coroutines = "1.8.1"
 ktor = "2.3.12"
 
+lyricist = "1.7.0"
 kstore = "0.8.0"
 circuit = "0.22.2"
 kotlininject = "0.7.1"
@@ -120,6 +121,9 @@ kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0"
 kermit = "co.touchlab:kermit:2.0.4"
 
 uuid = "com.benasher44:uuid:0.8.4"
+
+lyricist-core = { module = "cafe.adriel.lyricist:lyricist-core", version.ref = "lyricist" }
+lyricist-library = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
 
 test-mockk = "io.mockk:mockk:1.13.10"
 test-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }

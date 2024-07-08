@@ -1,4 +1,4 @@
-package dev.reprator.baseUi.ui
+package dev.reprator.baseUi.behaviour
 
 import androidx.compose.runtime.Composable
 

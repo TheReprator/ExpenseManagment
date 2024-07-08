@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import dev.reprator.baseUi.ui.LocalWindowSizeClass
+import dev.reprator.baseUi.behaviour.LocalWindowSizeClass
 
 object Layout {
   val bodyMargin: Dp

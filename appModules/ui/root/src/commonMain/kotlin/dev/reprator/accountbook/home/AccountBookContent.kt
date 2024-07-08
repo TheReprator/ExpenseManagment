@@ -25,12 +25,13 @@ import kotlinx.collections.immutable.ImmutableList
 import me.tatarka.inject.annotations.Inject
 import dev.reprator.appFeatures.api.logger.Logger
 import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
+import dev.reprator.baseUi.behaviour.ProvideStrings
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.theme.AccountBookTheme
-import dev.reprator.baseUi.ui.LocalWindowSizeClass
-import dev.reprator.baseUi.ui.rememberCoroutineScope
-import dev.reprator.baseUi.ui.shouldUseDarkColors
-import dev.reprator.baseUi.ui.shouldUseDynamicColors
+import dev.reprator.baseUi.behaviour.LocalWindowSizeClass
+import dev.reprator.baseUi.behaviour.rememberCoroutineScope
+import dev.reprator.baseUi.behaviour.shouldUseDarkColors
+import dev.reprator.baseUi.behaviour.shouldUseDynamicColors
 import dev.reprator.screens.AccountBookScreen
 import dev.reprator.screens.UrlScreen
 import kotlinx.coroutines.CoroutineScope
@@ -85,21 +86,23 @@ class DefaultAccountBookContent(
 
         setSingletonImageLoaderFactory { imageLoader }
 
-        CompositionLocalProvider(
-            LocalNavigator provides accountBookNavigator,
-            LocalWindowSizeClass provides calculateWindowSizeClass(),
-            LocalRetainedStateRegistry provides continuityRetainedStateRegistry(),
-        ) {
-            CircuitCompositionLocals(circuit) {
-                AccountBookTheme(
-                    useDarkColors = preferences.shouldUseDarkColors(),
-                    useDynamicColors = preferences.shouldUseDynamicColors(),
+        ProvideStrings {
+            CompositionLocalProvider(
+                LocalNavigator provides accountBookNavigator,
+                LocalWindowSizeClass provides calculateWindowSizeClass(),
+                LocalRetainedStateRegistry provides continuityRetainedStateRegistry(),
                 ) {
-                    Home(
-                        backStack = backstack,
-                        navigator = accountBookNavigator,
-                        modifier = modifier,
-                    )
+                CircuitCompositionLocals(circuit) {
+                    AccountBookTheme(
+                        useDarkColors = preferences.shouldUseDarkColors(),
+                        useDynamicColors = preferences.shouldUseDynamicColors(),
+                        ) {
+                        Home(
+                            backStack = backstack,
+                            navigator = accountBookNavigator,
+                            modifier = modifier,
+                            )
+                    }
                 }
             }
         }

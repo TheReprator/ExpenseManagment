@@ -32,6 +32,7 @@ include(
     ":appModules:base",
     ":appModules:navigation",
     ":appModules:base-ui",
+    ":appModules:resources:strings",
     ":appModules:appFeatures:api",
     ":appModules:appFeatures:impl",
     ":appModules:ui:root",

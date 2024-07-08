@@ -15,11 +15,10 @@ import com.slack.circuit.runtime.screen.Screen
 import dev.reprator.accountbook.splash.domain.usecase.SplashUseCase
 import dev.reprator.accountbook.splash.modals.ModalStateSplash
 import dev.reprator.appFeatures.api.logger.Logger
-import dev.reprator.baseUi.ui.UiMessage
-import dev.reprator.baseUi.ui.UiMessageManager
-import dev.reprator.baseUi.ui.rememberCoroutineScope
+import dev.reprator.baseUi.behaviour.UiMessage
+import dev.reprator.baseUi.behaviour.UiMessageManager
+import dev.reprator.baseUi.behaviour.rememberCoroutineScope
 import dev.reprator.screens.SplashScreen
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
 import me.tatarka.inject.annotations.Inject
@@ -79,7 +78,7 @@ class AccountPresenter(
                 SplashUiEvent.Reload -> {
 
                     scope.launch {
-                        logger.value.e { "VikramSplashPresenter:: loading: $loading, errorMessage: $message, splashData: $splashData, LanguagePresenter: ${this@AccountPresenter}" }
+
                         val result = splashUseCase.value.invoke(Unit)
                         result.onFailure { e ->
                             logger.value.i(e)
@@ -87,13 +86,10 @@ class AccountPresenter(
                         }
 
                         splashData = result.getOrDefault(ModalStateSplash(emptyList(), emptyList()))
-
-                        logger.value.e { "VikramSplashPresenter2:: loading: $loading, errorMessage: $message, splashData: $splashData, LanguagePresenter: ${this@AccountPresenter}" }
                     }
                 }
 
                 SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
-                    println("Splash presenter error: navigate")
                 }
 
             }
@@ -101,7 +97,6 @@ class AccountPresenter(
 
         LaunchedEffect(Unit) {
             eventSink(SplashUiEvent.Reload)
-            logger.value.e { "VikramSplashPresenter3:: loading: $loading, errorMessage: $message, splashData: $splashData, LanguagePresenter: ${this@AccountPresenter}" }
         }
 
         return SplashUiState(
