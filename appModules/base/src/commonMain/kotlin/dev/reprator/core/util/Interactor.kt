@@ -1,8 +1,9 @@
-package dev.reprator.accountbook.core.util
+package dev.reprator.core.util
 
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -13,9 +14,11 @@ abstract class Interactor<in P, R> {
     private val count = atomic(0)
     private val loadingState = MutableStateFlow(count.value)
 
-    val inProgress: Flow<Boolean> = loadingState
-        .map { it > 0 }
-        .distinctUntilChanged()
+    val inProgress: Flow<Boolean> by lazy {
+        loadingState
+            .map { it > 0 }
+            .distinctUntilChanged()
+    }
 
     private fun addLoader() {
         loadingState.value = count.incrementAndGet()
@@ -28,21 +31,22 @@ abstract class Interactor<in P, R> {
     suspend operator fun invoke(
         params: P,
         timeout: Duration = DefaultTimeout,
-    ): Result<R> = try {
-        addLoader()
-        runCatching {
+    ): Result<R> {
+        return cancellableRunCatching {
+            addLoader()
+            delay(10000)
             withTimeout(timeout) {
                 doWork(params)
             }
+        }.also {
+            removeLoader()
         }
-    } finally {
-        removeLoader()
     }
 
     protected abstract suspend fun doWork(params: P): R
 
     companion object {
-        internal val DefaultTimeout = 5.minutes
+        internal val DefaultTimeout = 1.minutes
     }
 }
 

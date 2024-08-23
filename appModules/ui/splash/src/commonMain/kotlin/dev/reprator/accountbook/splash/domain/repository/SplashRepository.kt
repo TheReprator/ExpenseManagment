@@ -1,7 +1,7 @@
 package dev.reprator.accountbook.splash.domain.repository
 
-import dev.reprator.accountbook.splash.ModalSplashState
+import dev.reprator.accountbook.splash.modals.ModalStateSplash
 
 interface SplashRepository {
-    suspend fun splashRepository(): ModalSplashState
+    suspend fun splashRepository(): ModalStateSplash
 } 

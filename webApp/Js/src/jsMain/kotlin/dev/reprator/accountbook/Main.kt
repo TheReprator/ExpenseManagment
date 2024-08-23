@@ -1,5 +1,6 @@
 package dev.reprator.accountbook
 
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.CanvasBasedWindow
 import org.jetbrains.skiko.wasm.onWasmReady
@@ -27,6 +28,15 @@ fun main() = onWasmReady {
 
         val component = remember(applicationComponent) {
             JsWindowComponent.create(applicationComponent)
+        }
+
+        DisposableEffect(Unit) {
+            val listener = AppStateListener(applicationComponent.applicationLifeCycle)
+            listener.startListener()
+            applicationComponent.applicationLifeCycle.isAppInForeGround()
+            onDispose {
+                listener.removeCallback()
+            }
         }
 
         val backstack = rememberSaveableBackStack(listOf(SplashScreen))

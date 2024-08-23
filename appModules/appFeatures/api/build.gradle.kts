@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -73,7 +74,8 @@ kotlin {
         val desktopMain by getting
 
         commonMain.dependencies {
-            implementation(libs.kotlin.coroutines.core)
+            api(libs.ktor.client.core)
+            api(libs.kotlin.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.kotlinx.serialization)
         }

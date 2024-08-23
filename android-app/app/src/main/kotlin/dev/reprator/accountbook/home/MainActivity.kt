@@ -25,8 +25,8 @@ import dev.reprator.accountbook.inject.AndroidActivityComponent
 import dev.reprator.accountbook.inject.AndroidApplicationComponent
 import dev.reprator.accountbook.inject.create
 import dev.reprator.screens.SplashScreen
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AccountbookActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +39,9 @@ class MainActivity : AccountbookActivity() {
 
         lifecycle.coroutineScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                val prefs = withContext(applicationComponent.dispatchers.io) {
-                    applicationComponent.preferences.observeTheme()
-                }
-                prefs.collect(::enableEdgeToEdgeForTheme)
+                applicationComponent.preferences.observeTheme()
+                    .flowOn(applicationComponent.dispatchers.io)
+                    .collect(::enableEdgeToEdgeForTheme)
             }
         }
 

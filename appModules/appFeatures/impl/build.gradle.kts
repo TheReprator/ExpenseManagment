@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
@@ -15,8 +16,6 @@ android {
 
 kotlin {
 
-    applyDefaultHierarchyTemplate()
-
     androidTarget()
     jvm("desktop")
 
@@ -27,6 +26,17 @@ kotlin {
     //iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    applyDefaultHierarchyTemplate{
+        common {
+            group("mobileDesktop") {
+                withAndroidTarget()
+                withJvm()
+                withApple()
+            }
+        }
+    }
 
     targets.withType<KotlinNativeTarget>().configureEach {
         binaries.configureEach {
@@ -78,36 +88,34 @@ kotlin {
 
     sourceSets {
 
-        val commonMain by getting {
-            dependencies {
+        commonMain.dependencies {
                 implementation(projects.appModules.base)
                 implementation(projects.appModules.appFeatures.api)
 
-                implementation(libs.kotlin.coroutines.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.client.serialization.json)
+                implementation(libs.ktor.client.logging)
 
                 api(libs.kstore)
 
                 implementation(libs.kermit)
                 implementation(libs.kotlininject.runtime)
-            }
         }
 
-        val mobileDesktopMain by creating {
+        val mobileDesktopMain by getting {
             dependencies {
-                dependsOn(commonMain)
                 implementation(libs.kstore.file)
             }
         }
 
         val desktopMain by getting {
             dependencies {
-                dependsOn(mobileDesktopMain)
+                implementation(libs.ktor.client.java)
             }
         }
 
-        val androidMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
+        androidMain.dependencies {
                 implementation(libs.google.firebase.analytics)
                 implementation(libs.kotlininject.runtime)
 
@@ -118,20 +126,19 @@ kotlin {
                 implementation(libs.google.firebase.perf)
 
                 implementation(libs.androidx.core)
-            }
+                implementation(libs.ktor.client.android)
         }
 
-        val appleMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
+        appleMain.dependencies {
                 implementation(libs.crashkios.crashlytics)
-            }
+                implementation(libs.ktor.client.darwin)
         }
 
         jsMain.dependencies {
             implementation(kotlin("stdlib-js"))
             implementation(npm("firebase", "10.6.0"))
             implementation(libs.kstore.storage)
+            implementation(libs.ktor.client.js)
         }
     }
 }

@@ -16,22 +16,18 @@ class DesktopNetworkListenerImpl : NetworkListener {
 
             // If the socket is connected, the internet is available
             if (socket.isConnected) {
-                println("vikram::DesktopNetworkListenerImpl:: Internet is available")
                 onNetworkAvailable()
             } else {
-                println("vikram::DesktopNetworkListenerImpl:: Internet is not available")
                 onNetworkLost()
             }
 
             // Close the socket
             socket.close()
         } catch (e: IOException) {
-            println("vikram::DesktopNetworkListenerImpl:: Error checking internet connectivity: " + e.message)
             onNetworkLost()
         }
     }
 
     override fun unregisterListener() {
-        println("vikram::DesktopNetworkListenerImpl:: unregisterListener")
     }
 }

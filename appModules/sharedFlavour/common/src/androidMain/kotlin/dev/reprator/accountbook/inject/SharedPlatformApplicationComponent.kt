@@ -7,6 +7,7 @@ import dev.reprator.core.app.Flavor
 import dev.reprator.core.inject.ApplicationScope
 import dev.reprator.core.util.AppCoroutineDispatchers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import me.tatarka.inject.annotations.Provides
 
 actual interface SharedPlatformApplicationComponent {
@@ -31,6 +32,7 @@ actual interface SharedPlatformApplicationComponent {
         )
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @ApplicationScope
     @Provides
     fun provideCoroutineDispatchers(): AppCoroutineDispatchers = AppCoroutineDispatchers(

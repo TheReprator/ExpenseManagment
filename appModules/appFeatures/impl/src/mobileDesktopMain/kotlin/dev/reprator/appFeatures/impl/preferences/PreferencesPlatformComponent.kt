@@ -12,7 +12,6 @@ actual interface PreferencesPlatformComponent {
     @ApplicationScope
     @Provides
     fun provideSettings(applicationInfo: ApplicationInfo): Lazy<KStore<AccountBookSetting>> {
-        println("vikramPath")
         return lazy {
             storeOf(
                 file = "${applicationInfo.cachePath()}/settings.json".toPath(),

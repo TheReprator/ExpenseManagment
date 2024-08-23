@@ -85,12 +85,14 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
+                api(projects.appModules.resources)
                 api(projects.appModules.base)
                 api(projects.appModules.appFeatures.api)
                 api(projects.appModules.baseUi)
                 api(projects.appModules.appFeatures.impl)
                 api(projects.appModules.ui.root)
                 api(projects.appModules.ui.splash)
+                api(projects.appModules.ui.language)
                 api(projects.appModules.ui.settings)
                 api(projects.appModules.ui.developer.settings)
                 api(projects.appModules.ui.developer.log)

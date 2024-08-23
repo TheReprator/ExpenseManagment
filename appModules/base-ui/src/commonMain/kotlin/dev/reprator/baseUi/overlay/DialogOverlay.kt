@@ -18,6 +18,7 @@ class DialogOverlay<Model : Any, Result : Any>(
     private val onDismiss: () -> Result,
     private val content: @Composable (Model, OverlayNavigator<Result>) -> Unit,
 ) : Overlay<Result> {
+    
     @Composable
     override fun Content(navigator: OverlayNavigator<Result>) {
         val coroutineScope = rememberCoroutineScope()

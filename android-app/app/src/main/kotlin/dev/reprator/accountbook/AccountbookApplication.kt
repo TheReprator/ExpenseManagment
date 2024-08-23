@@ -10,6 +10,7 @@ import dev.reprator.accountbook.inject.AndroidApplicationComponent
 import dev.reprator.accountbook.inject.create
 
 class AccountbookApplication : Application() {
+
     val component: AndroidApplicationComponent by lazy {
         AndroidApplicationComponent.create(this)
     }
@@ -21,7 +22,8 @@ class AccountbookApplication : Application() {
 
         component.initializers.initialize()
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicaitonLifeCycleObserver(component.applicationLifeCycle))
+        ProcessLifecycleOwner.get().lifecycle
+            .addObserver(ApplicaitonLifeCycleObserver(component.applicationLifeCycle))
     }
 }
 

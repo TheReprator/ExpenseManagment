@@ -4,6 +4,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.slack.circuit.backstack.rememberSaveableBackStack
@@ -12,7 +13,7 @@ import dev.reprator.accountbook.inject.DesktopApplicationComponent
 import dev.reprator.accountbook.inject.WindowComponent
 import dev.reprator.accountbook.inject.create
 import dev.reprator.screens.SplashScreen
-import kotlinx.coroutines.delay
+import java.awt.Dimension
 
 fun main() = application {
     val applicationComponent = remember {
@@ -27,6 +28,9 @@ fun main() = application {
         title = "AccountBook",
         onCloseRequest = ::exitApplication,
     ) {
+        
+        window.minimumSize = Dimension(300, 400)
+
         val component = remember(applicationComponent) {
             WindowComponent.create(applicationComponent)
         }
@@ -34,14 +38,10 @@ fun main() = application {
         DisposableEffect(Unit) {
             val listener = WindowStateListener(applicationComponent.applicationLifeCycle)
             window.addWindowListener(listener)
+            applicationComponent.applicationLifeCycle.isAppInForeGround()
             onDispose {
                 window.removeWindowListener(listener)
             }
-        }
-
-        LaunchedEffect(Unit) {
-            delay(2000)
-            applicationComponent.applicationLifeCycle.isAppInForeGround()
         }
 
         val backstack = rememberSaveableBackStack(listOf(SplashScreen))

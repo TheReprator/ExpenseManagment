@@ -13,7 +13,7 @@ class TimberLogger(applicationInfo: ApplicationInfo) : Logger {
 
     init {
         if (applicationInfo.debugBuild || applicationInfo.flavor == Flavor.Qa) {
-            Timber.plant(TiviDebugTree())
+            Timber.plant(AccountBookDebugTree())
         }
 
         try {
@@ -56,7 +56,7 @@ class TimberLogger(applicationInfo: ApplicationInfo) : Logger {
  * Special version of [Timber.DebugTree] which is tailored for Timber being wrapped
  * within another class.
  */
-private class TiviDebugTree : Timber.DebugTree() {
+private class AccountBookDebugTree : Timber.DebugTree() {
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         super.log(priority, createClassTag(), message, t)
     }

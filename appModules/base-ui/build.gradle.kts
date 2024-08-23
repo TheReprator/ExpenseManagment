@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.jetbrains.compose.compiler)
@@ -6,8 +8,6 @@ plugins {
 }
 
 kotlin {
-
-    applyDefaultHierarchyTemplate()
 
     androidTarget()
     jvm("desktop")
@@ -20,6 +20,17 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    applyDefaultHierarchyTemplate {
+        common {
+            group("mobileDesktop") {
+                withAndroidTarget()
+                withJvm()
+                withApple()
+            }
+        }
+    }
+
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
@@ -28,52 +39,31 @@ kotlin {
 
     sourceSets {
 
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.appModules.base)
-                implementation(projects.appModules.appFeatures.api)
-                api(projects.appModules.navigation)
+        commonMain.dependencies {
+            implementation(projects.appModules.base)
+            implementation(projects.appModules.appFeatures.api)
+            api(projects.appModules.navigation)
+            api(projects.appModules.resources)
+            
+            api(compose.material3)
+            api(compose.animation)
 
-                api(compose.material3)
-                api(compose.animation)
-                implementation(compose.components.resources)
+            api(libs.compose.material3.windowsizeclass)
 
-                api(libs.compose.material3.windowsizeclass)
+            api(libs.circuit.foundation)
+            api(libs.circuit.overlay)
 
-                api(libs.circuit.foundation)
-                api(libs.circuit.overlay)
+            api(libs.coil.core)
+            api(libs.coil.network)
+            api(libs.coil.compose)
 
-//                api(libs.coil.core)
-//                api(libs.coil.network)
-//                api(libs.coil.compose)
-
-                implementation(libs.uuid)
-            }
+            implementation(libs.uuid)
         }
 
-        val mobileDesktopMain by creating {
-            dependencies {
-                dependsOn(commonMain)
-            }
-        }
+        val desktopMain by getting
 
-        val desktopMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
-            }
-        }
-
-        val appleMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
-            }
-        }
-        
-        val androidMain by getting {
-            dependencies {
-                dependsOn(mobileDesktopMain)
-                api(libs.androidx.activity.compose)
-            }
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
         }
     }
 }

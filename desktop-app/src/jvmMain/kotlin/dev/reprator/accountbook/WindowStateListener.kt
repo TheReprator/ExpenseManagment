@@ -4,7 +4,7 @@ import dev.reprator.appFeatures.api.utility.ApplicationLifeCycle
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
-class WindowStateListener (private val lifeCycle: ApplicationLifeCycle)  : WindowAdapter() {
+class WindowStateListener (private val lifeCycle: ApplicationLifeCycle): WindowAdapter() {
 
     override fun windowActivated(e: WindowEvent?) {
         super.windowActivated(e)

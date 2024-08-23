@@ -44,19 +44,14 @@ class InternetCheckerImpl(
 
     override fun isAppInForeGround() {
         job = scope.launch {
-            networkStatus.collect {
-                println("vikram::InternetCheckerImpl:: Collect, ${networkStatus.value}, $it")
-            }
+            networkStatus.collect()
         }
-        println("vikram::InternetCheckerImpl:: App is in foreground, ${networkStatus.value}")
     }
 
     override fun isAppInBackground() {
         if(::job.isInitialized) {
-            println("vikram::InternetCheckerImpl:: App is in background, job cancel")
             job.cancel()
         }
-        println("vikram::InternetCheckerImpl:: App is in background, ${networkStatus.value}")
     }
 
 }

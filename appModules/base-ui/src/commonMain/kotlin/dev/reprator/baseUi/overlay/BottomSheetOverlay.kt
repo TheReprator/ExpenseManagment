@@ -33,11 +33,14 @@ class BottomSheetOverlay<Model : Any, Result : Any>(
     private val dragHandle: @Composable (() -> Unit)? = { BottomSheetDefaults.DragHandle() },
     private val content: @Composable (Model, OverlayNavigator<Result>) -> Unit,
 ) : Overlay<Result> {
+
     @Composable
     override fun Content(navigator: OverlayNavigator<Result>) {
+
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
 
         val coroutineScope = rememberCoroutineScope()
+        
         BackHandler(enabled = sheetState.isVisible) {
             coroutineScope
                 .launch { sheetState.hide() }
@@ -83,6 +86,7 @@ suspend fun OverlayHost.showInBottomSheet(
     hostNavigator: Navigator? = null,
     dragHandle: @Composable (() -> Unit)? = { BottomSheetDefaults.DragHandle() },
 ): Unit = show(
+
     BottomSheetOverlay(
         model = Unit,
         tonalElevation = tonalElevation,
@@ -91,6 +95,7 @@ suspend fun OverlayHost.showInBottomSheet(
         skipPartiallyExpanded = skipPartiallyExpanded,
         onDismiss = {},
     ) { _, navigator ->
+
         CircuitContent(
             screen = screen,
             onNavEvent = { event ->
@@ -100,5 +105,6 @@ suspend fun OverlayHost.showInBottomSheet(
                 }
             },
         )
-    },
+
+    }
 )

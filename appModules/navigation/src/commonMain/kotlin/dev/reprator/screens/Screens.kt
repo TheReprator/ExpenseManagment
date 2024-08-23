@@ -15,6 +15,11 @@ object DevSettingsScreen : AccountBookScreen(name = "DevelopmentSettings()")
 object DevLogScreen : AccountBookScreen(name = "DevelopmentLog()")
 
 @Parcelize
+data class LanguageScreen(val id: Long) : AccountBookScreen(name = "LanguageScreen()") {
+  override val arguments get() = mapOf("id" to id)
+}
+
+@Parcelize
 data class UrlScreen(val url: String) : AccountBookScreen(name = "UrlScreen()") {
     override val arguments get() = mapOf("url" to url)
 }

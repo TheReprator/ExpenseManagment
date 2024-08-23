@@ -11,7 +11,7 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
-import dev.reprator.baseUi.ui.LocalWindowSizeClass
+import dev.reprator.baseUi.behaviour.LocalWindowSizeClass
 
 @Composable
 internal fun Home(

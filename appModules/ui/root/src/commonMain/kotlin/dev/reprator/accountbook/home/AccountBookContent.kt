@@ -2,8 +2,16 @@ package dev.reprator.accountbook.home
 
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
+import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
+import coil3.compose.setSingletonImageLoaderFactory
 import com.slack.circuit.backstack.SaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -12,15 +20,18 @@ import com.slack.circuit.retained.continuityRetainedStateRegistry
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.PopResult
 import com.slack.circuit.runtime.screen.Screen
+import dev.reprator.appFeatures.api.analytics.AppAnalytics
 import kotlinx.collections.immutable.ImmutableList
 import me.tatarka.inject.annotations.Inject
 import dev.reprator.appFeatures.api.logger.Logger
 import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.theme.AccountBookTheme
-import dev.reprator.baseUi.ui.LocalWindowSizeClass
-import dev.reprator.baseUi.ui.shouldUseDarkColors
-import dev.reprator.baseUi.ui.shouldUseDynamicColors
+import dev.reprator.baseUi.behaviour.LocalWindowSizeClass
+import dev.reprator.baseUi.behaviour.rememberCoroutineScope
+import dev.reprator.baseUi.behaviour.shouldUseDarkColors
+import dev.reprator.baseUi.behaviour.shouldUseDynamicColors
+import dev.reprator.screens.AccountBookScreen
 import dev.reprator.screens.UrlScreen
 import kotlinx.coroutines.CoroutineScope
 
@@ -38,12 +49,14 @@ interface AccountBookContent {
 @Inject
 class DefaultAccountBookContent(
     private val circuit: Circuit,
+    private val analytics: AppAnalytics,
     private val rootViewModel: (CoroutineScope) -> RootViewModel,
     private val preferences: AccountbookPreferences,
+    private val imageLoader: ImageLoader,
     private val logger: Logger,
 ) : AccountBookContent {
 
-    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalCoilApi::class)
     @Composable
     override fun Content(
         backstack: SaveableBackStack,
@@ -51,56 +64,71 @@ class DefaultAccountBookContent(
         onOpenUrl: (String) -> Boolean,
         modifier: Modifier,
     ) {
-        println("VikramSingh::App Start")
-
         val coroutineScope = rememberCoroutineScope()
         remember { rootViewModel(coroutineScope) }
 
+        val uriHandler = LocalUriHandler.current
+
         val accountBookNavigator: Navigator = remember(navigator) {
-            AccountBookNavigator(navigator, backstack, onOpenUrl, logger)
+            AccountBookNavigator(navigator, backstack, uriHandler, logger)
         }
 
-       // setSingletonImageLoaderFactory { imageLoader }
+        // Launch an effect to track changes to the current back stack entry, and push them
+        // as a screen views to analytics
+        LaunchedEffect(backstack.topRecord) {
+            val topScreen = backstack.topRecord?.screen as? AccountBookScreen
+            analytics.trackScreenView(
+                name = topScreen?.name ?: "unknown screen",
+                arguments = topScreen?.arguments,
+            )
+        }
 
-        CompositionLocalProvider(
-            LocalNavigator provides accountBookNavigator,
-            LocalWindowSizeClass provides calculateWindowSizeClass(),
-            LocalRetainedStateRegistry provides continuityRetainedStateRegistry(),
-        ) {
-            CircuitCompositionLocals(circuit) {
-                AccountBookTheme(
-                    useDarkColors = preferences.shouldUseDarkColors(),
-                    useDynamicColors = preferences.shouldUseDynamicColors(),
+        setSingletonImageLoaderFactory { imageLoader }
+
+            CompositionLocalProvider(
+                LocalNavigator provides accountBookNavigator,
+                LocalWindowSizeClass provides calculateWindowSizeClass(),
+                LocalRetainedStateRegistry provides continuityRetainedStateRegistry(),
                 ) {
-                    Home(
-                        backStack = backstack,
-                        navigator = accountBookNavigator,
-                        modifier = modifier,
-                    )
+                CircuitCompositionLocals(circuit) {
+                    AccountBookTheme(
+                        useDarkColors = preferences.shouldUseDarkColors(),
+                        useDynamicColors = preferences.shouldUseDynamicColors(),
+                        ) {
+                        Home(
+                            backStack = backstack,
+                            navigator = accountBookNavigator,
+                            modifier = modifier,
+                            )
+                    }
                 }
             }
-        }
+
     }
 }
 
 private class AccountBookNavigator(
     private val navigator: Navigator,
     private val backStack: SaveableBackStack,
-    private val onOpenUrl: (String) -> Boolean,
+    private val uriHandler: UriHandler,
     private val logger: Logger,
 ) : Navigator {
 
     override fun goTo(screen: Screen) : Boolean {
-        logger.d { "goTo. Screen: $screen. Current stack: ${backStack.toList()}" }
+        logger.e { "goTo. Screen: $screen. Current stack: ${backStack.toList()}" }
 
         return when (screen) {
-            is UrlScreen -> onOpenUrl(screen.url)
+            is UrlScreen -> {
+                //onOpenUrl(screen.url)
+                uriHandler.openUri(screen.url)
+                false
+            }
             else -> navigator.goTo(screen)
         }
     }
 
     override fun pop(result: PopResult?): Screen? {
-        logger.d { "pop. Current stack: ${backStack.toList()}" }
+        logger.e { "pop. Current stack: ${backStack.toList()}" }
         return navigator.pop(result)
     }
 

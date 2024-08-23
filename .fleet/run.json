@@ -10,7 +10,7 @@
                 "PHONE_EMAIL_API_KEY": "dQzSARrkyBgkLpNKLnswaqnktfC2EvrB7IwiPCLbIUUKJtIj",
                 "PHONE_EMAIL_USER_ID": "Reprator",
                 "JWT_SECRET": "RepratorJWTSecret"
-            },
+            }
         },
         {
             "name": "Test",

@@ -1,15 +1,23 @@
 package dev.reprator.accountbook.splash
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.slack.circuit.retained.rememberRetained
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import dev.reprator.accountbook.splash.domain.usecase.SplashUseCase
-import dev.reprator.appFeatures.api.utility.InternetChecker
-import dev.reprator.core.util.onException
-import dev.reprator.screens.SettingsScreen
+import dev.reprator.accountbook.splash.modals.ModalStateSplash
+import dev.reprator.appFeatures.api.logger.Logger
+import dev.reprator.baseUi.behaviour.UiMessage
+import dev.reprator.baseUi.behaviour.UiMessageManager
+import dev.reprator.baseUi.behaviour.rememberCoroutineScope
 import dev.reprator.screens.SplashScreen
 import kotlinx.coroutines.launch
 import me.tatarka.inject.annotations.Assisted
@@ -20,7 +28,11 @@ class SplashUiPresenterFactory(
     private val presenterFactory: (Navigator) -> AccountPresenter,
 ) : Presenter.Factory {
 
-    override fun create(screen: Screen, navigator: Navigator, context: CircuitContext): Presenter<*>? {
+    override fun create(
+        screen: Screen,
+        navigator: Navigator,
+        context: CircuitContext
+    ): Presenter<*>? {
         return when (screen) {
             is SplashScreen -> presenterFactory(navigator)
             else -> null
@@ -31,45 +43,67 @@ class SplashUiPresenterFactory(
 @Inject
 class AccountPresenter(
     @Assisted private val navigator: Navigator,
-    private val splashUseCase: SplashUseCase,
-    private val internetChecker: InternetChecker
+    private val splashUseCase: Lazy<SplashUseCase>,
+    private val logger: Lazy<Logger>
 ) : Presenter<SplashUiState> {
 
     @Composable
     override fun present(): SplashUiState {
 
-        var splashData by rememberRetained { mutableStateOf(ModalSplashState(emptyList(), emptyList())) }
-        val isLoading by splashUseCase.inProgress.collectAsState(false)
-
         val scope = rememberCoroutineScope()
+        val uiMessageManager = remember { UiMessageManager() }
+
+        var splashData by rememberRetained {
+            mutableStateOf(
+                ModalStateSplash(
+                    emptyList(),
+                    emptyList()
+                )
+            )
+        }
+
+        val loading by splashUseCase.value.inProgress.collectAsState(true)
+        val message by uiMessageManager.message.collectAsState(null)
+
+        fun eventSink(event: SplashUiEvent) {
+
+            when (event) {
+
+                is SplashUiEvent.ClearMessage -> {
+                    scope.launch {
+                        uiMessageManager.clearMessage(event.id)
+                    }
+                }
+
+                SplashUiEvent.Reload -> {
+
+                    scope.launch {
+
+                        val result = splashUseCase.value.invoke(Unit)
+                        result.onFailure { e ->
+                            logger.value.i(e)
+                            uiMessageManager.emitMessage(UiMessage(e))
+                        }
+
+                        splashData = result.getOrDefault(ModalStateSplash(emptyList(), emptyList()))
+                    }
+                }
+
+                SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
+                }
+
+            }
+        }
 
         LaunchedEffect(Unit) {
-            val result = splashUseCase.invoke(Unit)
-
-            if (internetChecker.networkStatus.value)
-                splashData = result.getOrDefault(ModalSplashState(emptyList(), emptyList()))
-
-            result.onException { e ->
-                println("Splash presenter error: ${e.message}")
-            }
+            eventSink(SplashUiEvent.Reload)
         }
 
         return SplashUiState(
             data = splashData,
-        ) { event ->
-            when (event) {
-                SplashUiEvent.Reload -> {
-                    print("Splash presenter action: reload")
-                }
-
-                SplashUiEvent.NavigateToDashBoard, SplashUiEvent.NavigateToLogin -> scope.launch {
-                    println("Splash presenter error: navigate")
-                }
-
-                SplashUiEvent.NavigateLToSettings -> {
-                    navigator.goTo(SettingsScreen)
-                }
-            }
-        }
+            isLoading =loading,
+            message = message,
+            eventSink = ::eventSink
+        )
     }
 }

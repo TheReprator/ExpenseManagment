@@ -32,10 +32,12 @@ include(
     ":appModules:base",
     ":appModules:navigation",
     ":appModules:base-ui",
+    ":appModules:resources",
     ":appModules:appFeatures:api",
     ":appModules:appFeatures:impl",
     ":appModules:ui:root",
     ":appModules:ui:splash",
+    ":appModules:ui:language",
     ":appModules:ui:settings",
     ":appModules:ui:developer:log",
     ":appModules:ui:developer:settings",
@@ -48,8 +50,8 @@ include(
 )
 
 
-//include(
-//    ":server", ":server:modals", ":server:lib:commonFeatureImpl", ":server:lib:base",
-//    ":server:lib:base-ktor", ":server:lib:testModule", ":server:api:language", ":server:api:splash",
-//    ":server:api:country", ":server:api:userIdentity"
-//)
+include(
+    ":server", ":server:modals", ":server:lib:commonFeatureImpl", ":server:lib:base",
+    ":server:lib:base-ktor", ":server:lib:testModule", ":server:api:language", ":server:api:splash",
+    ":server:api:country", ":server:api:userIdentity"
+)

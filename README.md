@@ -1,21 +1,53 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop, Server.
-
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
-
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
-* `/server` is for the Ktor server application.
-
-* `/shared` is for the code that will be shared between all targets in the project.
-  The most important subfolder is `commonMain`. If preferred, you can add code to the platform-specific folders here too.
+This is a Kotlin Multiplatform project targeting Android, iOS, Desktop, Web, Server
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+# AccountManagment (work-in-progress 👷🔧️👷‍♀️⛏)
+
+AccountManagment is a **work-in-progress** and clone of Cashbook
+
+## The Features that will be in this app:
+
+- [x] Initial setup for Android, IOS, Desktop, Web
+- [x] Internet check, App lifecycle in foreground, background event
+- [ ] Login and Sign up with Oidc
+- [ ] many more
+
+## Development setup
+
+Fleet(My preference)
+
+Android Studio
+
+Intellij
+
+## Credits:
+
+Chris Banes(Tivi: https://github.com/chrisbanes/tivi)
+
+Isuru Rajapakse(NYTimes-KMP: https://github.com/xxfast/NYTimes-KMP)
+
+## Contributions
+
+If you've found an error in this sample, please file an issue.
+
+Patches are encouraged and may be submitted by forking this project and
+submitting a pull request. Since this project is still in its very early stages,
+if your change is substantial, please raise an issue first to discuss it.
+
+## License
+
+```
+Copyright 2024 Reprator
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+        https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

@@ -39,6 +39,8 @@ kotlin {
                 implementation(projects.appModules.baseUi)
                 implementation(projects.appModules.navigation)
 
+                implementation(libs.kotlininject.runtime)
+
                 implementation(libs.circuit.foundation)
                 implementation(libs.circuit.retained)
                 implementation(libs.circuitx.gestureNavigation)
@@ -46,7 +48,8 @@ kotlin {
 
                 implementation(compose.foundation)
                 implementation(compose.materialIconsExtended)
-                implementation(compose.components.resources)
+
+                implementation(compose.components.uiToolingPreview)
             }
         }
     }
