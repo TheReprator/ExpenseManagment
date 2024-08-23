@@ -43,13 +43,10 @@ kotlin {
             implementation(projects.appModules.base)
             implementation(projects.appModules.appFeatures.api)
             api(projects.appModules.navigation)
-
+            api(projects.appModules.resources)
+            
             api(compose.material3)
             api(compose.animation)
-
-            implementation(compose.components.resources)
-            api(projects.appModules.resources.strings)
-            api(libs.lyricist.library)
 
             api(libs.compose.material3.windowsizeclass)
 

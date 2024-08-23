@@ -4,6 +4,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import dev.reprator.accountbook.common.ui.resources.DmSansFontFamily
 
 val AccountBookTypography: Typography
     @Composable get() {

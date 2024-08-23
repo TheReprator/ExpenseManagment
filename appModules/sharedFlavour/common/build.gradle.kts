@@ -85,6 +85,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
+                api(projects.appModules.resources)
                 api(projects.appModules.base)
                 api(projects.appModules.appFeatures.api)
                 api(projects.appModules.baseUi)

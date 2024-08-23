@@ -25,7 +25,6 @@ import kotlinx.collections.immutable.ImmutableList
 import me.tatarka.inject.annotations.Inject
 import dev.reprator.appFeatures.api.logger.Logger
 import dev.reprator.appFeatures.api.preferences.AccountbookPreferences
-import dev.reprator.baseUi.behaviour.ProvideStrings
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.theme.AccountBookTheme
 import dev.reprator.baseUi.behaviour.LocalWindowSizeClass
@@ -86,7 +85,6 @@ class DefaultAccountBookContent(
 
         setSingletonImageLoaderFactory { imageLoader }
 
-        ProvideStrings {
             CompositionLocalProvider(
                 LocalNavigator provides accountBookNavigator,
                 LocalWindowSizeClass provides calculateWindowSizeClass(),
@@ -105,7 +103,7 @@ class DefaultAccountBookContent(
                     }
                 }
             }
-        }
+
     }
 }
 

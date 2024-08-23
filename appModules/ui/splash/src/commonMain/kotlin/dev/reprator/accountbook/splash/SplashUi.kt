@@ -1,7 +1,5 @@
 package dev.reprator.accountbook.splash
 
-import accountbook_kmp.appmodules.ui.splash.generated.resources.Res
-import accountbook_kmp.appmodules.ui.splash.generated.resources.logo
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -48,7 +46,6 @@ import androidx.compose.ui.unit.dp
 import com.slack.circuit.overlay.ContentWithOverlays
 import com.slack.circuit.overlay.LocalOverlayHost
 import com.slack.circuit.runtime.ui.ui
-import dev.reprator.baseUi.behaviour.LocalStrings
 import dev.reprator.baseUi.overlay.LocalNavigator
 import dev.reprator.baseUi.overlay.showInBottomSheet
 import dev.reprator.baseUi.ui.AppLoader
@@ -58,7 +55,11 @@ import dev.reprator.screens.LanguageScreen
 import dev.reprator.screens.SplashScreen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import dev.reprator.accountbook.common.ui.resources.Res
+import dev.reprator.accountbook.common.ui.resources.account_name_unknown
+import dev.reprator.accountbook.common.ui.resources.logo
 
 @Inject
 class SplashUiFactory : Ui.Factory {
@@ -107,9 +108,7 @@ internal fun SplashUi(
 
         if ((null != viewState.message) && (viewState.message.message.isNotBlank())) {
 
-            val strings = LocalStrings.current
-
-            ErrorContent(buttonName = strings.accountNameUnknown, errorDescription = viewState.message.message, onButtonClick = {
+            ErrorContent(buttonName = stringResource(Res.string.account_name_unknown), errorDescription = viewState.message.message, onButtonClick = {
                 onRemoveError(viewState.message.id)
             })
             return@Surface
