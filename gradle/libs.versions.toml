@@ -23,7 +23,7 @@ circuit = "0.25.0"
 kotlininject = "0.7.1"
 logback = "1.5.12"
 oidc = "0.9.2"
-exposedVersion = "0.53.0"
+exposedVersion = "0.56.0"
 coil = "3.0.3"
 
 koin = "4.0.0-RC1"
