@@ -102,7 +102,7 @@ exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 exposed-jodatime = { module = "org.jetbrains.exposed:exposed-jodatime", version.ref = "exposedVersion" }
 exposed-h2Db = "com.h2database:h2:2.3.232"
 exposed-hikariCp = "com.zaxxer:HikariCP:6.2.1"
-exposed-postgres = "org.postgresql:postgresql:42.7.3"
+exposed-postgres = "org.postgresql:postgresql:42.7.4"
 
 kotlininject-compiler = { module = "me.tatarka.inject:kotlin-inject-compiler-ksp", version.ref = "kotlininject" }
 kotlininject-runtime = { module = "me.tatarka.inject:kotlin-inject-runtime", version.ref = "kotlininject" }
