@@ -19,7 +19,7 @@ jobs:
         shell: bash
         run: echo "ORG_GRADLE_PROJECT_ACCOUNTBOOK_VERSIONCODE=$(( (GITHUB_RUN_NUMBER * 2) + 10000 ))" >> $GITHUB_ENV
 
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: set up JDK
         uses: actions/setup-java@v4
@@ -27,7 +27,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
         with:
           cache-disabled: true
 
@@ -69,7 +69,7 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v3
@@ -80,7 +80,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
         with:
           cache-disabled: true
 
@@ -115,7 +115,7 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -133,7 +133,7 @@ jobs:
 
       - run: brew install swiftlint
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
         with:
           cache-disabled: true
 
@@ -171,7 +171,7 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -183,7 +183,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
         with:
           cache-disabled: true
 

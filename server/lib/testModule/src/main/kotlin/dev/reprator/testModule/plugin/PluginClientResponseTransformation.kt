@@ -7,6 +7,7 @@ import dev.reprator.testModule.AppReflectionTypes
 import io.ktor.client.plugins.api.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.util.reflect.*
 import org.koin.core.Koin
 import java.lang.reflect.Type
 
@@ -14,14 +15,15 @@ fun pluginClientResponseTransformation(koin: Koin): ClientPlugin<Unit> {
 
     return createClientPlugin("PluginClientResponseTransformation") {
 
-        transformResponseBody { response, _, requestedType ->
+        transformResponseBody { response, _, typeInfo ->
 
             val mapper = koin.get<ObjectMapper>()
             val reflectionType = koin.get<AppReflectionTypes>()
 
             fun <T> responseParent(): suspend (Class<T>) -> T? = {
                 try {
-                    val envelopeType: Type = reflectionType.newParameterizedType(it, requestedType.reifiedType)
+
+                    val envelopeType: Type = reflectionType.newParameterizedType(it, typeInfo.reifiedType)
                     val javaType: JavaType = mapper.constructType(envelopeType)
                     mapper.readValue(response.bodyAsText(), javaType)
                 } catch (e: IllegalArgumentException) {

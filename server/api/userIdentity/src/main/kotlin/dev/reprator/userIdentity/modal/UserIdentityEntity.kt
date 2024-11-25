@@ -107,7 +107,7 @@ fun String.validateForNonEmpty() {
 }
 
 fun Int.validateForNonEmpty(): Int {
-    if(-1 >= this) {
+    if(0 >= this) {
         throw IllegalUserIdentityException()
     }
 

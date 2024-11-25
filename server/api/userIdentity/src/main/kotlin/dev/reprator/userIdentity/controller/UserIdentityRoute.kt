@@ -8,7 +8,6 @@ import dev.reprator.userIdentity.modal.UserIdentityOtpEntity
 import dev.reprator.userIdentity.modal.UserIdentityRegisterEntity
 import dev.reprator.userIdentity.modal.validateForNonEmpty
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
