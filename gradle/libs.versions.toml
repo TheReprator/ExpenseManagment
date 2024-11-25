@@ -7,7 +7,7 @@ android-targetSdk = "35"
 
 androidxactivity = "1.9.1"
 androidx-tooling = "1.6.8"
-androidx-uiTest = "1.6.8"
+androidx-uiTest = "1.7.5"
 
 lifecycle = "2.8.3"
 compose-plugin = "1.6.11"
