@@ -1,9 +1,9 @@
 package dev.reprator.accountbook
 
-import io.ktor.server.plugins.callloging.*
 import org.slf4j.event.*
 import io.ktor.server.request.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.calllogging.*
 
 fun Application.configureServerMonitoring() {
 

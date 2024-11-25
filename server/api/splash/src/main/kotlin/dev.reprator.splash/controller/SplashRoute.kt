@@ -17,24 +17,29 @@ const val ENDPOINT_SPLASH = "/splash"
 
 fun Routing.routeSplash() {
 
-    val splashDirectory by lazy { setUpSplashFolder(koinGet<String>(named(UPLOAD_FOLDER_SPLASH))) }
+    val splashDirectory by lazy {
+        val uploadPath : String by application.inject(qualifier = named(UPLOAD_FOLDER_SPLASH))
+        setUpSplashFolder(uploadPath)
+    }
 
-    val languageFacade by inject<LanguageFacade>()
+    val languageFacade by application.inject<LanguageFacade>()
 
     route(ENDPOINT_SPLASH) {
         get {
 
-            val fileAsyncResult = async {
+            val fileAsyncResult = call.async {
                 splashDirectory.listFiles()?.map {
                     it.canonicalPath
                 }.orEmpty()
             }
 
-            val languageAsyncResult = async {
+            val languageAsyncResult = call.async {
                 languageFacade.getAllLanguage().toList()
             }
 
-            val splashModal = SplashModal(fileAsyncResult.await(), languageAsyncResult.await())
+            val res = fileAsyncResult.await()
+            val lan = languageAsyncResult.await()
+            val splashModal = SplashModal(res, lan)
             respondWithResult(HttpStatusCode.OK, splashModal)
         }
 

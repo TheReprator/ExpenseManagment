@@ -15,7 +15,7 @@ private const val INPUT_LANGUAGE_ID = "languageId"
 
 fun Routing.routeLanguage() {
 
-    val controller by inject<LanguageController>()
+    val controller by application.inject<LanguageController>()
 
     route(ENDPOINT_LANGUAGE) {
         get {

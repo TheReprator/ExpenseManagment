@@ -22,8 +22,8 @@ ktor {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_22
+    targetCompatibility = JavaVersion.VERSION_22
 }
 
 dependencies {
@@ -59,7 +59,7 @@ tasks {
 
     withType<KotlinCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_22)
             freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         }
     }
