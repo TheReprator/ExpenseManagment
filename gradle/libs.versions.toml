@@ -147,7 +147,7 @@ jetbrains-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", versi
 
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-buildConfig = "com.github.gmazzo.buildconfig:5.3.5"
+buildConfig = "com.github.gmazzo.buildconfig:5.5.1"
 gms-googleServices = "com.google.gms.google-services:4.4.2"
 firebase-crashlytics = "com.google.firebase.crashlytics:3.0.2"
 
