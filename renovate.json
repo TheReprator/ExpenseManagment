@@ -1,7 +1,7 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:base"
+        "config:recommended"
     ],
     "packageRules": [
         {
@@ -16,20 +16,26 @@
         {
             "groupName": "Firebase",
             "groupSlug": "firebase",
-            "matchPackagePrefixes": [
-                "com.google.firebase"
+            "matchPackageNames": [
+                "com.google.firebase{/,}**"
             ]
         },
         {
             "description": "Automatically merge minor and patch-level updates",
-            "matchUpdateTypes": ["minor", "patch", "digest"],
+            "matchUpdateTypes": [
+                "minor",
+                "patch",
+                "digest"
+            ],
             "automerge": true,
             "automergeType": "pr",
             "platformAutomerge": true
         },
         {
             "description": "Disable updates to SNAPSHOTS",
-            "matchDatasources": ["maven"],
+            "matchDatasources": [
+                "maven"
+            ],
             "allowedVersions": "!/SNAPSHOT$/"
         }
     ]
