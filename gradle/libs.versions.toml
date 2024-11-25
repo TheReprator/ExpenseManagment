@@ -16,7 +16,7 @@ ksp = "2.0.21-1.0.28"
 
 kotlin = "2.0.20"
 coroutines = "1.8.1"
-ktor = "2.3.12"
+ktor = "2.3.13"
 
 kstore = "0.8.0"
 circuit = "0.25.0"
