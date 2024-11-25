@@ -6,7 +6,7 @@ android-minSdk = "21"
 android-targetSdk = "35"
 
 androidxactivity = "1.9.1"
-androidx-tooling = "1.6.8"
+androidx-tooling = "1.7.5"
 androidx-uiTest = "1.6.8"
 
 lifecycle = "2.8.3"
