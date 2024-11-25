@@ -18,7 +18,7 @@ kotlin = "2.0.20"
 coroutines = "1.8.1"
 ktor = "2.3.13"
 
-kstore = "0.8.0"
+kstore = "0.9.1"
 circuit = "0.25.0"
 kotlininject = "0.7.1"
 logback = "1.5.12"
