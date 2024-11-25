@@ -10,7 +10,7 @@ androidx-tooling = "1.7.5"
 androidxactivity = "1.9.3"
 androidx-uiTest = "1.7.5"
 
-lifecycle = "2.8.4"
+lifecycle = "2.8.7"
 compose-plugin = "1.7.1"
 
 ksp = "2.0.21-1.0.28"
