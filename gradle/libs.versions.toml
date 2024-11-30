@@ -116,7 +116,7 @@ circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = 
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 koin-logger = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
 
-kotlinx-atomicfu = "org.jetbrains.kotlinx:atomicfu:0.26.0"
+kotlinx-atomicfu = "org.jetbrains.kotlinx:atomicfu:0.26.1"
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.1"
 kermit = "co.touchlab:kermit:2.0.5"
 
