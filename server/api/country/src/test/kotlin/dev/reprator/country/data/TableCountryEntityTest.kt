@@ -4,7 +4,6 @@ import dev.reprator.base.action.AppDatabaseFactory
 import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
 import dev.reprator.country.modal.CountryEntityDTO
 import dev.reprator.modals.country.CountryModal
-import dev.reprator.testModule.KtorServerExtension
 import dev.reprator.testModule.di.SchemaDefinition
 import dev.reprator.testModule.di.appTestDBModule
 import org.jetbrains.exposed.exceptions.ExposedSQLException
@@ -15,7 +14,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -25,7 +23,6 @@ import org.koin.test.inject
 import org.koin.test.junit5.KoinTestExtension
 import java.util.stream.Stream
 
-@ExtendWith(KtorServerExtension::class)
 internal class TableCountryEntityTest : KoinTest {
 
     companion object {

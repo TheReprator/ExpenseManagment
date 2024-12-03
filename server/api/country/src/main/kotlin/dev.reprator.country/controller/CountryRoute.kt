@@ -5,9 +5,7 @@ import dev.reprator.country.domain.IllegalCountryException
 import dev.reprator.country.modal.CountryEntityDTO
 import dev.reprator.country.modal.CountryEntityDTO.Companion.mapToModal
 import dev.reprator.country.modal.validateCountryIsoCode
-import dev.reprator.modals.country.CountryEntity
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
@@ -17,7 +15,7 @@ private const val INPUT_COUNTRY_ID = "countryId"
 
 fun Routing.routeCountry() {
 
-    val countryFacade by inject<CountryController>()
+    val countryFacade by application.inject<CountryController>()
 
     route(ENDPOINT_COUNTRY) {
         get {

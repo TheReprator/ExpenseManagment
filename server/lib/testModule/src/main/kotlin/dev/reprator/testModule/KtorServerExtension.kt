@@ -21,13 +21,14 @@ class KtorServerExtension : BeforeEachCallback, AfterEachCallback {
     }
 
     override fun beforeEach(context: ExtensionContext?) {
+        val appConfig = ApplicationConfig("application-test.conf")
         val env = applicationEnvironment {
-            config = ApplicationConfig("application-test.conf")
+            config = appConfig
         }
         TEST_SERVER = embeddedServer(Netty, env, configure = {
             connector {
                 host = API_BASE_URL.INTERNAL_APP.value
-                port = 8081//appConfig.property("ktor.deployment.port").getString().toInt()
+                port = appConfig.property("ktor.deployment.port").getString().toInt()
             }
         }).start(false)
     }

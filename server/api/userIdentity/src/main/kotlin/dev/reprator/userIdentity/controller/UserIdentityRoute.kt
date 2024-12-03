@@ -27,7 +27,7 @@ const val PARAMETER_ACCESS_TOKEN = "accessToken"
 
 fun Routing.routeUserIdentity() {
 
-    val controller by inject<UserIdentityController>()
+    val controller by application.inject<UserIdentityController>()
 
     route(ENDPOINT_ACCOUNT) {
 
