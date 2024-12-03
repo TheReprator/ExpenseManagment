@@ -24,13 +24,13 @@ fun Routing.routeSplash() {
     route(ENDPOINT_SPLASH) {
         get {
 
-            val fileAsyncResult = async {
+            val fileAsyncResult = call.async {
                 splashDirectory.listFiles()?.map {
                     it.canonicalPath
                 }.orEmpty()
             }
 
-            val languageAsyncResult = async {
+            val languageAsyncResult = call.async {
                 languageFacade.getAllLanguage().toList()
             }
 

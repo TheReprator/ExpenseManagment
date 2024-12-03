@@ -7,9 +7,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.config.ApplicationConfig
-import io.ktor.server.engine.applicationEngineEnvironment
-import io.ktor.server.engine.connector
-import io.ktor.server.engine.embeddedServer
+import io.ktor.server.engine.*
 import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
 import io.ktor.util.*
@@ -19,20 +17,19 @@ import org.koin.core.Koin
 class KtorServerExtension : BeforeEachCallback, AfterEachCallback {
 
     companion object {
-        var TEST_SERVER: NettyApplicationEngine ?= null
+        var TEST_SERVER: EmbeddedServer<NettyApplicationEngine, NettyApplicationEngine.Configuration> ?= null
     }
 
     override fun beforeEach(context: ExtensionContext?) {
-        val env = applicationEngineEnvironment {
+        val env = applicationEnvironment {
             config = ApplicationConfig("application-test.conf")
-            // Public API
+        }
+        TEST_SERVER = embeddedServer(Netty, env, configure = {
             connector {
                 host = API_BASE_URL.INTERNAL_APP.value
-                port = config.property("ktor.deployment.port").getString().toInt()
+                port = 8081//appConfig.property("ktor.deployment.port").getString().toInt()
             }
-        }
-
-        TEST_SERVER = embeddedServer(Netty, env).start(false)
+        }).start(false)
     }
 
     override fun afterEach(context: ExtensionContext?) {
