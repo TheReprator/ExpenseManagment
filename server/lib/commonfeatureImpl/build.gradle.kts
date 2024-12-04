@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("jvm") version libs.versions.kotlin
+    alias(libs.plugins.ksp)
 }
 
 java {
@@ -31,6 +32,8 @@ dependencies {
     implementation(libs.ktor.server.status.page)
     implementation(libs.ktor.server.content.negotiation)
 
+    ksp(libs.koin.ksp.compiler)
+    
     implementation(libs.logback)
 }
 

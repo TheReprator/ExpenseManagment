@@ -12,6 +12,7 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
 import io.ktor.util.*
+import org.koin.core.annotation.Single
 
 
 internal const val VERIFY_SMS = "/sms-verify"
@@ -22,6 +23,7 @@ interface SMScodeGenerator {
     suspend fun sendOtpToMobileNumber(countryCode: Int, phoneNumber: String, messageCode: Int): Boolean
 }
 
+@Single
 class SMScodeGeneratorImpl(private val client: HttpClient, private val attributes: Attributes, private val appLogger: AppLogger) : SMScodeGenerator {
 
 

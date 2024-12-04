@@ -1,8 +1,10 @@
 package dev.reprator.commonFeatureImpl.imp
 
 import dev.reprator.base.action.AppLogger
+import org.koin.core.annotation.Single
 import java.util.regex.Pattern
 
+@Single
 class AppLoggerImpl : AppLogger {
 
     companion object {

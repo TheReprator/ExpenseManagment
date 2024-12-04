@@ -5,7 +5,6 @@ import dev.reprator.language.modal.LanguageEntity.DTO.Companion.mapToModal
 import dev.reprator.language.modal.validateLanguageId
 import dev.reprator.language.modal.validateLanguageName
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
@@ -15,7 +14,7 @@ private const val INPUT_LANGUAGE_ID = "languageId"
 
 fun Routing.routeLanguage() {
 
-    val controller by application.inject<LanguageController>()
+    val controller by inject<LanguageController>()
 
     route(ENDPOINT_LANGUAGE) {
         get {

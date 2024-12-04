@@ -8,7 +8,6 @@ import dev.reprator.userIdentity.modal.UserIdentityOtpEntity
 import dev.reprator.userIdentity.modal.UserIdentityRegisterEntity
 import dev.reprator.userIdentity.modal.validateForNonEmpty
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
@@ -27,7 +26,7 @@ const val PARAMETER_ACCESS_TOKEN = "accessToken"
 
 fun Routing.routeUserIdentity() {
 
-    val controller by application.inject<UserIdentityController>()
+    val controller by inject<UserIdentityController>()
 
     route(ENDPOINT_ACCOUNT) {
 

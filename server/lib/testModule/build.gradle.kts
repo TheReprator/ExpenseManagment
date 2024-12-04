@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("jvm") version libs.versions.kotlin
+    alias(libs.plugins.ksp)
 }
 
 java {
@@ -30,6 +31,9 @@ dependencies {
 
     api(libs.ktor.client.mock)
     api(libs.test.coroutine)
+    
+    api(libs.koin.annotations)
+    ksp(libs.koin.ksp.compiler)
 }
 
 tasks {

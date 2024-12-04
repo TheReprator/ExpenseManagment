@@ -15,7 +15,7 @@ private const val INPUT_COUNTRY_ID = "countryId"
 
 fun Routing.routeCountry() {
 
-    val countryFacade by application.inject<CountryController>()
+    val countryFacade by inject<CountryController>()
 
     route(ENDPOINT_COUNTRY) {
         get {

@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("jvm") version libs.versions.kotlin
+    alias(libs.plugins.ksp)
 }
 
 java {
@@ -17,6 +18,8 @@ dependencies {
     implementation(projects.server.api.language)
 
     implementation(libs.koin.ktor)
+
+    ksp(libs.koin.ksp.compiler)
 
     testImplementation(libs.test.mockk)
     testImplementation(projects.server.lib.testModule)

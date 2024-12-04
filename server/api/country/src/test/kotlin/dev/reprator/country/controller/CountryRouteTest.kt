@@ -3,9 +3,7 @@ package dev.reprator.country.controller
 import dev.reprator.base.action.AppDatabaseFactory
 import dev.reprator.base.usecase.AppResult
 import dev.reprator.base.usecase.FailDTOResponse
-import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
-import dev.reprator.commonFeatureImpl.di.koinAppCommonModule
-import dev.reprator.commonFeatureImpl.di.koinAppNetworkClientModule
+import dev.reprator.commonFeatureImpl.di.commonFeatureCollectionModule
 import dev.reprator.country.data.CountryRepository
 import dev.reprator.country.data.TableCountry
 import dev.reprator.country.domain.CountryNotFoundException
@@ -14,24 +12,30 @@ import dev.reprator.country.module
 import dev.reprator.country.setUpKoinCountry
 import dev.reprator.modals.country.CountryModal
 import dev.reprator.testModule.KtorServerExtension
-import dev.reprator.testModule.di.SchemaDefinition
-import dev.reprator.testModule.di.appTestCoreModule
-import dev.reprator.testModule.di.appTestDBModule
+import dev.reprator.testModule.di.AppDBModule
+import dev.reprator.testModule.di.AppTestCoreModule
+import dev.reprator.testModule.di.commonFeatureTestCollectionModule
+import dev.reprator.testModule.di.testAppCommonDBModule
 import dev.reprator.testModule.hitApiWithClient
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.server.application.*
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.test.KoinTest
+import org.koin.core.module.Module
+import org.koin.dsl.bind
 import org.koin.test.inject
+import org.koin.test.junit5.AutoCloseKoinTest
 import org.koin.test.junit5.KoinTestExtension
+import org.koin.ksp.generated.*
+import org.koin.ksp.generated.module
 
 @ExtendWith(KtorServerExtension::class)
-internal class CountryRouteTest : KoinTest {
+internal class CountryRouteTest : AutoCloseKoinTest() {
 
     companion object {
         private val INPUT_COUNTRY = CountryEntityDTO("India",91,"IN")
@@ -40,10 +44,15 @@ internal class CountryRouteTest : KoinTest {
     private val databaseFactory by inject<AppDatabaseFactory>()
     private val countryRepository by inject<CountryRepository>()
 
-    @JvmField
-    @RegisterExtension
-    val koinTestExtension = KoinTestExtension.create {
+    private fun configureDI(): Module {
+        val providedDependency = org.koin.dsl.module(createdAtStart = true) {
+            single { KtorServerExtension.TEST_SERVER!!.environment } bind ApplicationEnvironment::class
+        }
+        return providedDependency
+    }
 
+    /*
+    val koinTestExtension = KoinTestExtension.create {
         setUpKoinCountry()
         modules(
             koinAppNetworkClientModule,
@@ -54,8 +63,21 @@ internal class CountryRouteTest : KoinTest {
             },
             koinAppCommonDBModule,
         )
-
         KtorServerExtension.TEST_SERVER!!.application.module()
+    }
+    * */
+
+    @JvmField
+    @RegisterExtension
+    val koinTestExtension = KoinTestExtension.create {
+
+        modules(configureDI())
+
+        commonFeatureCollectionModule()
+        commonFeatureTestCollectionModule()
+        KtorServerExtension.TEST_SERVER!!.application.module()
+
+        setUpKoinCountry()
     }
 
     @BeforeEach

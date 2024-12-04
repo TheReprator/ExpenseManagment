@@ -8,8 +8,10 @@ import dev.reprator.userIdentity.data.TableUserIdentity
 import dev.reprator.userIdentity.modal.UserIdentityFullModal
 import dev.reprator.userIdentity.modal.UserIdentityRegisterModal
 import org.jetbrains.exposed.sql.ResultRow
+import org.koin.core.annotation.Factory
 
 
+@Factory
 class UserIdentityResponseRegisterMapper : AppMarkerMapper {
 
     suspend fun mapToRegisterModal(from: ResultRow): UserIdentityRegisterModal {

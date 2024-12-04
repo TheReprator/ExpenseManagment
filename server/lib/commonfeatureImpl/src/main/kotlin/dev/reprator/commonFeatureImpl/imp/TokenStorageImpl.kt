@@ -1,7 +1,9 @@
 package dev.reprator.commonFeatureImpl.imp
 
 import dev.reprator.base.action.TokenStorage
+import org.koin.core.annotation.Single
 
+@Single
 class TokenStorageImpl : TokenStorage {
 
     override var accessToken: String= ""

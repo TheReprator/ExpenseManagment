@@ -2,14 +2,18 @@ package dev.reprator.language.data
 
 import dev.reprator.base.mapper.AppMapper
 import dev.reprator.base_ktor.util.dbConfiguration.dbQuery
+import dev.reprator.language.KOIN_NAMED_MAPPER_LANGUAGE
 import dev.reprator.language.domain.IllegalLanguageException
 import dev.reprator.language.domain.LanguageNotFoundException
 import dev.reprator.language.modal.LanguageModal
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.koin.core.annotation.Named
+import org.koin.core.annotation.Single
 
-class LanguageRepositoryImpl(private val mapper: AppMapper<ResultRow, LanguageModal>) : LanguageRepository {
+@Single
+class LanguageRepositoryImpl(@Named(KOIN_NAMED_MAPPER_LANGUAGE) private val mapper: AppMapper<ResultRow, LanguageModal>) : LanguageRepository {
 
     private suspend fun resultRowToLanguage(row: ResultRow): LanguageModal = mapper.map(row)
 

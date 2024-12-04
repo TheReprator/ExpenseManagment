@@ -6,7 +6,9 @@ import dev.reprator.base.action.AppDatabaseFactory
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.DatabaseConfig
 import org.jetbrains.exposed.sql.ExperimentalKeywordApi
+import org.koin.core.annotation.Single
 
+@Single
 class DefaultDatabaseFactory(dbConfig: HikariConfig, private val callBack: (HikariDataSource, Database) -> Unit) :
     AppDatabaseFactory {
 

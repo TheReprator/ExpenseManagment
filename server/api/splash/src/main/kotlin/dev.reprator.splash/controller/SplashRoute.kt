@@ -11,18 +11,17 @@ import org.koin.core.qualifier.named
 import org.koin.ktor.ext.inject
 import java.io.File
 import java.io.IOException
-import org.koin.ktor.ext.get as koinGet
 
 const val ENDPOINT_SPLASH = "/splash"
 
 fun Routing.routeSplash() {
 
     val splashDirectory by lazy {
-        val uploadPath : String by application.inject(qualifier = named(UPLOAD_FOLDER_SPLASH))
+        val uploadPath : String by inject(qualifier = named(UPLOAD_FOLDER_SPLASH))
         setUpSplashFolder(uploadPath)
     }
 
-    val languageFacade by application.inject<LanguageFacade>()
+    val languageFacade by inject<LanguageFacade>()
 
     route(ENDPOINT_SPLASH) {
         get {

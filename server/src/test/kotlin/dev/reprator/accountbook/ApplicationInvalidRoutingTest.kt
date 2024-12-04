@@ -2,7 +2,7 @@ package dev.reprator.accountbook
 
 import dev.reprator.base.usecase.AppResult
 import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
-import dev.reprator.commonFeatureImpl.di.koinAppCommonModule
+import dev.reprator.commonFeatureImpl.di.koinAppCommonModule1
 import dev.reprator.commonFeatureImpl.di.koinAppNetworkClientModule
 import dev.reprator.splash.modal.SplashModal
 import dev.reprator.testModule.KtorServerExtension
@@ -27,7 +27,7 @@ internal class ApplicationInvalidRoutingTest : KoinTest {
     val koinTestExtension = KoinTestExtension.create {
         modules(
             listOf(
-                appTestCoreModule, koinAppCommonModule(TEST_SERVER!!.environment.config),
+                appTestCoreModule, koinAppCommonModule1(TEST_SERVER!!.environment.config),
                 appTestDBModule{ _, _ ->
 
                 }, koinAppCommonDBModule, koinAppNetworkClientModule

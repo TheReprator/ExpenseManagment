@@ -1,7 +1,7 @@
 package dev.reprator.userIdentity.socialVerifier
 
 import dev.reprator.base.action.AppLogger
-import dev.reprator.commonFeatureImpl.di.koinAppCommonModule
+import dev.reprator.commonFeatureImpl.di.koinAppCommonModule1
 import dev.reprator.commonFeatureImpl.di.koinAppNetworkClientModule
 import dev.reprator.testModule.KtorServerExtension
 import dev.reprator.testModule.di.appTestCoreModule
@@ -28,7 +28,7 @@ internal class SMScodeGeneratorImplTest : KoinTest {
     val koinTestExtension = KoinTestExtension.create {
         modules(
             koinAppNetworkClientModule,
-            koinAppCommonModule(KtorServerExtension.TEST_SERVER!!.environment.config),
+            koinAppCommonModule1(KtorServerExtension.TEST_SERVER!!.environment.config),
             appTestCoreModule
         )
 

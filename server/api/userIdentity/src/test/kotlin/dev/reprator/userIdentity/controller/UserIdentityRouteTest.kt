@@ -6,7 +6,7 @@ import dev.reprator.base.beans.LENGTH_OTP
 import dev.reprator.base.usecase.AppResult
 import dev.reprator.commonFeatureImpl.di.JWT_SERVICE
 import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
-import dev.reprator.commonFeatureImpl.di.koinAppCommonModule
+import dev.reprator.commonFeatureImpl.di.koinAppCommonModule1
 import dev.reprator.commonFeatureImpl.di.koinAppNetworkClientModule
 import dev.reprator.country.controller.CountryController
 import dev.reprator.country.data.TableCountry
@@ -41,13 +41,13 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import org.koin.test.KoinTest
 import org.koin.test.inject
+import org.koin.test.junit5.AutoCloseKoinTest
 import org.koin.test.junit5.KoinTestExtension
 import java.util.concurrent.TimeUnit
 
 @ExtendWith(KtorServerExtension::class)
-internal class UserIdentityRouteTest : KoinTest {
+internal class UserIdentityRouteTest : AutoCloseKoinTest() {
 
     companion object {
         private val INPUT_COUNTRY = CountryEntityDTO("India", 91, "IN")
@@ -70,7 +70,7 @@ internal class UserIdentityRouteTest : KoinTest {
 
         modules(
             koinAppNetworkClientModule,
-            koinAppCommonModule(KtorServerExtension.TEST_SERVER!!.environment.config),
+            koinAppCommonModule1(KtorServerExtension.TEST_SERVER!!.environment.config),
             appTestCoreModule,
             appTestDBModule { hikariDataSource, _ ->
                 SchemaDefinition.createSchema(hikariDataSource)

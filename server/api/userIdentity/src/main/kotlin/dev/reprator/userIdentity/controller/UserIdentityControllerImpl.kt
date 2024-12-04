@@ -4,7 +4,9 @@ import dev.reprator.modals.user.UserIdentityId
 import dev.reprator.modals.user.UserIdentityOTPModal
 import dev.reprator.userIdentity.domain.UserIdentityFacade
 import dev.reprator.userIdentity.modal.*
+import org.koin.core.annotation.Single
 
+@Single
 class UserIdentityControllerImpl(private val userIdentityFacade: UserIdentityFacade) : UserIdentityController {
 
     override suspend fun addNewUserIdentity(userInfo: UserIdentityRegisterEntity): UserIdentityRegisterModal {

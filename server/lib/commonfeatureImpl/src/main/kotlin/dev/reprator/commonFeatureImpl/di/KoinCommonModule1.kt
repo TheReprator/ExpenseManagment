@@ -36,7 +36,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import dev.reprator.base_ktor.util.propertyConfig
 
-private const val MILLISECONDS = 1000L
+const val MILLISECONDS = 1000L
 const val KEY_SERVICE_SHUTDOWN = "shutDownUrl"
 const val APP_PLUGIN_CUSTOM_LIST = "appCustomPlugin"
 const val APP_RUNNING_PORT_ADDRESS = "appRunningAddress"
@@ -44,8 +44,9 @@ const val APP_RUNNING_PORT_ADDRESS = "appRunningAddress"
 const val JWT_SERVICE = "appJwtRealm"
 const val APP_JWT_TOKEN_ACCESS = "appJwtAccess"
 const val APP_JWT_TOKEN_REFRESH = "appJwtRefresh"
+/*
 
-fun koinAppCommonModule(config: ApplicationConfig) = module {
+fun koinAppCommonModule1(config: ApplicationConfig) = module {
 
     single<AppLogger> { AppLoggerImpl() }
 
@@ -193,4 +194,4 @@ val koinAppNetworkClientModule = module {
             pluginClientResponseValidator(getKoin(), this)
         }
     }
-}
+}*/

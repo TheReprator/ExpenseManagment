@@ -19,13 +19,10 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
 
+/*
 val appTestCoreModule = module {
     single<Int>(named(APP_RUNNING_PORT_ADDRESS)) {
         ApplicationConfig("application-test.conf").property("ktor.deployment.port").getString().toInt()
-    }
-
-    single <AppReflectionTypes> {
-        AppReflectionTypes()
     }
 
     single<List<ClientPlugin<Unit>>>(named(APP_PLUGIN_CUSTOM_LIST)) {
@@ -61,6 +58,7 @@ fun appTestDBModule(callBack: (HikariDataSource, Database) -> Unit)  = module {
 
     single<(HikariDataSource, Database) -> Unit> { callBack }
 }
+*/
 
 object SchemaDefinition {
 

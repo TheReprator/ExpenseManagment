@@ -5,10 +5,15 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
+    alias(libs.plugins.ksp)
 }
 
 group = "dev.reprator.accountbook"
 version = "0.0.1"
+
+ksp {
+    arg("KOIN_CONFIG_CHECK","true")
+}
 
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
@@ -44,6 +49,8 @@ dependencies {
     implementation(libs.koin.logger)
     implementation(libs.logback)
 
+    ksp(libs.koin.ksp.compiler)
+    
     // testing
     testImplementation(projects.server.lib.testModule)
     // testImplementation(libs.test.ktor.server)

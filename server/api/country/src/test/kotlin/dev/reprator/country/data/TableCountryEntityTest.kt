@@ -1,11 +1,12 @@
 package dev.reprator.country.data
 
 import dev.reprator.base.action.AppDatabaseFactory
-import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
+import dev.reprator.commonFeatureImpl.di.commonFeatureCollectionModule
 import dev.reprator.country.modal.CountryEntityDTO
 import dev.reprator.modals.country.CountryModal
-import dev.reprator.testModule.di.SchemaDefinition
-import dev.reprator.testModule.di.appTestDBModule
+import dev.reprator.testModule.di.AppDBModule
+import dev.reprator.testModule.di.testAppCommonDBModule
+import io.ktor.server.application.*
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteAll
@@ -18,12 +19,15 @@ import org.junit.jupiter.api.extension.RegisterExtension
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import org.koin.test.KoinTest
+import org.koin.dsl.module
+import org.koin.ksp.generated.*
+import org.koin.ksp.generated.module
 import org.koin.test.inject
+import org.koin.test.junit5.AutoCloseKoinTest
 import org.koin.test.junit5.KoinTestExtension
 import java.util.stream.Stream
 
-internal class TableCountryEntityTest : KoinTest {
+internal class TableCountryEntityTest : AutoCloseKoinTest() {
 
     companion object {
 
@@ -77,12 +81,7 @@ internal class TableCountryEntityTest : KoinTest {
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
-        modules(
-            appTestDBModule { hikariDataSource, _ ->
-                SchemaDefinition.createSchema(hikariDataSource)
-            },
-            koinAppCommonDBModule,
-        )
+        modules(AppDBModule().module, testAppCommonDBModule)
     }
 
     @BeforeEach

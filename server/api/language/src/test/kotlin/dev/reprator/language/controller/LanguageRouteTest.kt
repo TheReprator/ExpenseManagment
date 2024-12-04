@@ -4,7 +4,7 @@ import dev.reprator.base.action.AppDatabaseFactory
 import dev.reprator.base.usecase.AppResult
 import dev.reprator.base.usecase.FailDTOResponse
 import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
-import dev.reprator.commonFeatureImpl.di.koinAppCommonModule
+import dev.reprator.commonFeatureImpl.di.koinAppCommonModule1
 import dev.reprator.commonFeatureImpl.di.koinAppNetworkClientModule
 import dev.reprator.language.data.LanguageRepository
 import dev.reprator.language.data.TableLanguage
@@ -26,12 +26,12 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.test.KoinTest
 import org.koin.test.inject
+import org.koin.test.junit5.AutoCloseKoinTest
 import org.koin.test.junit5.KoinTestExtension
 
 @ExtendWith(KtorServerExtension::class)
-internal class LanguageRouteTest : KoinTest {
+internal class LanguageRouteTest : AutoCloseKoinTest() {
 
     companion object {
         const val LANGUAGE_ENGLISH = "English"
@@ -49,7 +49,7 @@ internal class LanguageRouteTest : KoinTest {
 
         modules(
             koinAppNetworkClientModule,
-            koinAppCommonModule(KtorServerExtension.TEST_SERVER!!.environment.config),
+            koinAppCommonModule1(KtorServerExtension.TEST_SERVER!!.environment.config),
             appTestCoreModule,
             appTestDBModule { hikariDataSource, _ ->
                 SchemaDefinition.createSchema(hikariDataSource)

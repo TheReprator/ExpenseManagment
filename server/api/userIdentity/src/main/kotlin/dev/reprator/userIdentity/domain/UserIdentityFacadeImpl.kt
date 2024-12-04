@@ -8,8 +8,10 @@ import dev.reprator.userIdentity.data.UserIdentityRepository
 import dev.reprator.userIdentity.modal.*
 import dev.reprator.userIdentity.socialVerifier.SMScodeGenerator
 import org.joda.time.DateTime
+import org.koin.core.annotation.Single
 import kotlin.random.Random
 
+@Single
 class UserIdentityFacadeImpl(
     private val repository: UserIdentityRepository,
     private val smsUseCase: SMScodeGenerator,

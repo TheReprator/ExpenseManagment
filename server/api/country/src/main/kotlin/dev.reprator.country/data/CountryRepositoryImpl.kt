@@ -2,13 +2,17 @@ package dev.reprator.country.data
 
 import dev.reprator.base.mapper.AppMapper
 import dev.reprator.base_ktor.util.dbConfiguration.dbQuery
+import dev.reprator.country.KOIN_NAMED_MAPPER
 import dev.reprator.country.domain.CountryNotFoundException
 import dev.reprator.country.domain.IllegalCountryException
 import dev.reprator.modals.country.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
+import org.koin.core.annotation.Named
+import org.koin.core.annotation.Single
 
-class CountryRepositoryImpl(private val mapper: AppMapper<TableCountryEntity, CountryModal>) : CountryRepository {
+@Single
+class CountryRepositoryImpl(@Named(KOIN_NAMED_MAPPER) private val mapper: AppMapper<TableCountryEntity, CountryModal>) : CountryRepository {
 
     private suspend fun resultRowToCountry(row: TableCountryEntity): CountryModal = mapper.map(row)
 

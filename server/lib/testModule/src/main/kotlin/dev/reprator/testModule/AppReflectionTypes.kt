@@ -1,5 +1,6 @@
 package dev.reprator.testModule
 
+import org.koin.core.annotation.Single
 import java.lang.reflect.GenericArrayType
 import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
@@ -8,6 +9,7 @@ import java.lang.reflect.TypeVariable
 import java.lang.reflect.WildcardType
 import java.util.Arrays
 
+@Single
 class AppReflectionTypes {
 
     private val EMPTY_TYPE_ARRAY = arrayOf<Type>()

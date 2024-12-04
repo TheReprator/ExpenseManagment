@@ -5,7 +5,9 @@ import dev.reprator.language.modal.LanguageEntity
 import dev.reprator.language.modal.LanguageId
 import dev.reprator.language.modal.LanguageModal
 import dev.reprator.language.modal.LanguageName
+import org.koin.core.annotation.Single
 
+@Single
 class LanguageFacadeImpl(private val repository: LanguageRepository): LanguageFacade {
 
     override suspend fun getAllLanguage(): Iterable<LanguageModal> {

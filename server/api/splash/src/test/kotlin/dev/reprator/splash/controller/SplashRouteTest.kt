@@ -3,7 +3,7 @@ package dev.reprator.splash.controller
 import dev.reprator.base.beans.UPLOAD_FOLDER_SPLASH
 import dev.reprator.base.usecase.AppResult
 import dev.reprator.commonFeatureImpl.di.koinAppCommonDBModule
-import dev.reprator.commonFeatureImpl.di.koinAppCommonModule
+import dev.reprator.commonFeatureImpl.di.koinAppCommonModule1
 import dev.reprator.commonFeatureImpl.di.koinAppNetworkClientModule
 import dev.reprator.language.domain.LanguageFacade
 import dev.reprator.language.modal.LanguageModal
@@ -23,14 +23,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.koin.test.KoinTest
+import org.koin.test.junit5.AutoCloseKoinTest
 import org.koin.test.junit5.KoinTestExtension
 import org.koin.test.junit5.mock.MockProviderExtension
 import org.koin.test.mock.declareMock
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(KtorServerExtension::class)
-internal class SplashController : KoinTest {
+internal class SplashController : AutoCloseKoinTest() {
 
     @JvmField
     @RegisterExtension
@@ -49,7 +49,7 @@ internal class SplashController : KoinTest {
 
         modules(
             koinAppNetworkClientModule,
-            koinAppCommonModule(KtorServerExtension.TEST_SERVER!!.environment.config),
+            koinAppCommonModule1(KtorServerExtension.TEST_SERVER!!.environment.config),
             appTestCoreModule,
             appTestDBModule { hikariDataSource, _ ->
                 SchemaDefinition.createSchema(hikariDataSource)

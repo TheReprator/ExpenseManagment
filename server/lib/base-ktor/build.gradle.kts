@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("jvm") version libs.versions.kotlin
+    alias(libs.plugins.ksp)
 }
 
 java {
@@ -20,6 +21,8 @@ dependencies {
 
     api(libs.ktor.client.core)
     api(libs.ktor.server.serialization.jackson)
+
+    api(libs.koin.annotations)
 }
 
 tasks {

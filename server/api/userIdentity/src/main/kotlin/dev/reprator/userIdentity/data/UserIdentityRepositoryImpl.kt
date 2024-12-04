@@ -12,7 +12,9 @@ import dev.reprator.userIdentity.domain.InvalidTokenException
 import dev.reprator.userIdentity.modal.*
 import org.jetbrains.exposed.sql.*
 import org.joda.time.DateTime
+import org.koin.core.annotation.Single
 
+@Single
 class UserIdentityRepositoryImpl(
     private val mapper: UserIdentityResponseRegisterMapper,
     private val appLogger: AppLogger
