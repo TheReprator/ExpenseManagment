@@ -31,7 +31,7 @@ junit5 = "5.11.3"
 
 [libraries]
 androidx-browser = { group = "androidx.browser", name = "browser", version = "1.8.0" }
-androidx-core = { group = "androidx.core", name = "core-ktx", version = "1.15.0" }
+androidx-core = { group = "androidx.core", name = "core-ktx", version = "1.16.0" }
 androidx-activity-activity = { module = "androidx.activity:activity", version.ref = "androidxactivity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxactivity" }
 androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
