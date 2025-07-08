@@ -20,7 +20,7 @@ ktor = "3.0.1"
 
 kstore = "1.0.0"
 circuit = "0.25.0"
-kotlininject = "0.7.2"
+kotlininject = "0.8.0"
 logback = "1.5.12"
 oidc = "0.9.2"
 exposedVersion = "0.56.0"
