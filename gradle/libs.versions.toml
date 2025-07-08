@@ -117,7 +117,7 @@ koin-ktor = { module = "io.insert-koin:koin-ktor3", version.ref = "koin" }
 koin-logger = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
 
 kotlinx-atomicfu = "org.jetbrains.kotlinx:atomicfu:0.26.1"
-kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.1"
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat"
 kermit = "co.touchlab:kermit:2.0.5"
 
 uuid = "com.benasher44:uuid:0.8.4"
