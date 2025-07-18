@@ -122,7 +122,7 @@ kermit = "co.touchlab:kermit:2.0.6"
 
 uuid = "com.benasher44:uuid:0.8.4"
 
-test-mockk = "io.mockk:mockk:1.14.4"
+test-mockk = "io.mockk:mockk:1.14.5"
 test-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 test-junit5-suite = "org.junit.platform:junit-platform-suite:1.13.3"
