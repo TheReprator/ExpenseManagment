@@ -149,7 +149,7 @@ android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 buildConfig = "com.github.gmazzo.buildconfig:5.6.7"
 gms-googleServices = "com.google.gms.google-services:4.4.3"
-firebase-crashlytics = "com.google.firebase.crashlytics:3.0.4"
+firebase-crashlytics = "com.google.firebase.crashlytics:3.0.5"
 
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
