@@ -27,7 +27,7 @@ exposedVersion = "0.61.0"
 coil = "3.3.0"
 
 koin = "4.1.0"
-junit5 = "5.13.3"
+junit5 = "5.13.4"
 
 [libraries]
 androidx-browser = { group = "androidx.browser", name = "browser", version = "1.8.0" }
@@ -125,7 +125,7 @@ uuid = "com.benasher44:uuid:0.8.4"
 test-mockk = "io.mockk:mockk:1.14.5"
 test-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
-test-junit5-suite = "org.junit.platform:junit-platform-suite:1.13.3"
+test-junit5-suite = "org.junit.platform:junit-platform-suite:1.13.4"
 test-junit5 = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5" }
 test-junit5-runtime = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
 
